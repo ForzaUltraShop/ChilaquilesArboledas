@@ -21,7 +21,7 @@ namespace ChilaquilesArboledas.Forms
         [WebMethod()]
         public static ResponseListDTO<CategoriesDTO> CategoriesGetList()
         {
-
+            return null;
         }
     }
 }
