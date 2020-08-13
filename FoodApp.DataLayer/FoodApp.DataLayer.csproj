@@ -50,10 +50,6 @@
     <Compile Include="DishesDataLayer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FoodApp.DataLayer.Interface\FoodApp.DataLayer.Interface.csproj">
-      <Project>{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}</Project>
-      <Name>FoodApp.DataLayer.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FoodApp.Models\FoodApp.DataModels.csproj">
       <Project>{F1E6031D-A341-43F5-9E73-861F7DE6489B}</Project>
       <Name>FoodApp.DataModels</Name>

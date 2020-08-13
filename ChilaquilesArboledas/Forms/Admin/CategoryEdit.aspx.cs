@@ -1,17 +1,16 @@
 ﻿namespace ChilaquilesArboledas.Forms.Admin
 {
-    using FoodApp.BusinnessLayer.Interface;
+    using FoodApp.BusinessLayer;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using System;
     using System.IO;
     using System.Linq;
-    using System.Security.Permissions;
     using System.Web.UI;
 
     public partial class CategoryEdit : Page
     {
-        public ICategoriesLogic categoriesLogic { get; set; }
+        public readonly CategoriesLogic categoriesLogic = new CategoriesLogic();
         
         private string ActionType
         {

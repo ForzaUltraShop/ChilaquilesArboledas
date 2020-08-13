@@ -1,15 +1,15 @@
 ﻿namespace ChilaquilesArboledas.Forms.Admin
 {
-    using FoodApp.BusinnessLayer.Interface;
     using System;
     using System.Web.UI;
     using FoodApp.DataModels.Shared;
     using FoodApp.DataModels;
     using FoodApp.Models;
+    using FoodApp.BusinessLayer;
 
     public partial class Dishes : Page
     {
-        public IDishesLogic dishesLogic { get; set; }
+        private readonly DishesLogic dishesLogic = new DishesLogic();
 
         protected void Page_Load(object sender, EventArgs e)
         {

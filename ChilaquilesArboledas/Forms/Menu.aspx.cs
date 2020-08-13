@@ -10,6 +10,9 @@ namespace ChilaquilesArboledas.Forms
     using FoodApp.DataModels.Shared;
     using FoodApp.DataModels;
     using System.Web.Services;
+    using FoodApp.BusinessLayer;
+    using Newtonsoft.Json;
+    using System.Web.Script.Services;
 
     public partial class Menu : System.Web.UI.Page
     {
@@ -18,10 +21,26 @@ namespace ChilaquilesArboledas.Forms
 
         }
 
+        [ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
         [WebMethod()]
         public static ResponseListDTO<CategoriesDTO> CategoriesGetList()
         {
-            return null;
+            var categoryLogic = new CategoriesLogic();
+            var categoriesResponse = new ResponseListDTO<CategoriesDTO>();
+            try
+            {
+                var filter = new RequestDTO<CategoriesDTO>
+                {
+                    Item = new CategoriesDTO(),
+                    WordFilter = string.Empty
+                };
+                categoriesResponse = categoryLogic.CategoriesGetFilteredList(filter);
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+            return categoriesResponse;
         }
     }
 }

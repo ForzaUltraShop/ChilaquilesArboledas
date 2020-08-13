@@ -8,31 +8,47 @@ function loadCategoryItems()
 {
     $.ajax({
         type: "POST",
-        url: "../Menu.aspx/CategoriesGetList",
+        url: "../Forms/Menu.aspx/CategoriesGetList",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
             let data = response.d;
             if (data != undefined) {
-                console.log('registerData', data);
                 if (data.Success) {
-                    $('#txtRegisterName').val('');
-                    $('#txtRegisterPhone').val('');
-                    $('#txtRegisterEmail').val('');
-                    $('#txtRegisterPassword').val('');
-                    $('#txtRegisterPostalCode').val('');
-                    $('#txtRegisterAddress').val('');
-                    alert("Tu registro esta completo, ya puedes iniciar sesión");
+                    var list = data.Result.filter(item => item.IsActive);
+
+                    $('#divContent').empty();
+                    $.each(list, function (i, item) {
+
+                        let imgSource = "../assets/images/" + list[i].CategoryImagePath;
+
+                        let categoryRow = "<div class='card'>";
+                        categoryRow += "<div class='row '>";
+                        categoryRow += "<div class='col-md-3'>";
+                        categoryRow += "<div>";
+                        categoryRow += "<img class='d-block' src='" + imgSource +"' height='200px' width='250px' />";
+                        categoryRow += "</div>";
+                        categoryRow += "</div>";
+                        categoryRow += "<div class='col-md-9 px-3'>";
+                        categoryRow += "<div class='card-block px-6'>";
+                        categoryRow += "<h4 class='card-title'>" + list[i].CategoryName + "</h4>";
+                        categoryRow += "<p class='card-text'>" + list[i].CategoryDescription + "</p>";
+                        categoryRow += "<br>";
+                        categoryRow += "<a href='#' class='mt-auto btn btn-success'>Armálos como más te gusté</a>";
+                        categoryRow += "</div>";
+                        categoryRow += "</div>";
+                        categoryRow += "</div>";
+                        categoryRow += "</div>";
+                        $('#divContent').append(categoryRow);
+                    });
                 }
                 else {
-                    $('#spnRegisterError').text("No fue posible realizar tu registro, por favor intenta más tarde");
-                    $('#spnRegisterError').show();
+                    alert("No fue posible cargar el listado de categorias");
                 }
             }
         },
         failure: function (xhr, textStatus, errorThrown) {
-            $('#spnRegisterError').text("Ocurrió un error al realizar tu registro, por favor intenta más tarde");
-            $('#spnRegisterError').show();
+            console.log("Ocurrió un error al cargar el listado de categorias");
         }
     });
 };

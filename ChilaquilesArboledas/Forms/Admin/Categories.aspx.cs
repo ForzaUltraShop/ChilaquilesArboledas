@@ -1,6 +1,6 @@
 ﻿namespace ChilaquilesArboledas.Forms.Admin
 {
-    using FoodApp.BusinnessLayer.Interface;
+    using FoodApp.BusinessLayer;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using System;
@@ -10,7 +10,7 @@
 
     public partial class Categories : Page
     {
-        public ICategoriesLogic categoriesLogic { get; set; }
+        private readonly CategoriesLogic categoriesLogic = new CategoriesLogic();
 
         /// <summary>
         /// Carga los datos iniciales de la pantalla

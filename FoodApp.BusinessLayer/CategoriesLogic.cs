@@ -1,20 +1,14 @@
 ﻿namespace FoodApp.BusinessLayer
 {
-    using FoodApp.BusinnessLayer.Interface;
-    using FoodApp.DataLayer.Interface;
+    using FoodApp.DataLayer;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using System;
     using System.Linq;
 
-    public class CategoriesLogic : ICategoriesLogic
+    public class CategoriesLogic
     {
-        private readonly ICategoriesDataLayer categoriesDataLayer;
-
-        public CategoriesLogic(ICategoriesDataLayer categoriesDataLayer)
-        {
-            this.categoriesDataLayer = categoriesDataLayer;
-        }
+        private readonly CategoriesDataLayer categoriesDataLayer = new CategoriesDataLayer();
 
         public ResponseDTO<CategoriesDTO> CategoriesExecute(RequestDTO<CategoriesDTO> filter)
         {

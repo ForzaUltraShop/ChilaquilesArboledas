@@ -46,12 +46,6 @@
     <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <HintPath>..\packages\AjaxControlToolkit.20.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.5.0.0\lib\net461\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="Autofac.Integration.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.Web.5.0.0\lib\net461\Autofac.Integration.Web.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
     </Reference>
@@ -113,6 +107,7 @@
     <Content Include="Forms\Admin\Dishes.aspx" />
     <Content Include="Forms\Admin\DishesEdit.aspx" />
     <Content Include="Forms\Controls\Login.ascx" />
+    <Content Include="Forms\Dishes.aspx" />
     <Content Include="Forms\Login.aspx" />
     <Content Include="Forms\Menu.aspx" />
     <Content Include="Global.asax" />
@@ -153,6 +148,13 @@
     </Compile>
     <Compile Include="Forms\Controls\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Dishes.aspx.cs">
+      <DependentUpon>Dishes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Dishes.aspx.designer.cs">
+      <DependentUpon>Dishes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -195,14 +197,6 @@
     <ProjectReference Include="..\FoodApp.BusinessLayer\FoodApp.BusinessLayer.csproj">
       <Project>{0fca0ec7-bc56-4b69-8a9e-9473edfe4f03}</Project>
       <Name>FoodApp.BusinessLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodApp.BusinnessLayer.Interface\FoodApp.BusinnessLayer.Interface.csproj">
-      <Project>{9ac71094-1561-4c1c-b9d9-b06dbbffe16e}</Project>
-      <Name>FoodApp.BusinnessLayer.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodApp.DataLayer.Interface\FoodApp.DataLayer.Interface.csproj">
-      <Project>{6b9d1911-6b28-4eab-8ce9-b5814aa60f7f}</Project>
-      <Name>FoodApp.DataLayer.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\FoodApp.DataLayer\FoodApp.DataLayer.csproj">
       <Project>{15e7a105-f88e-4c3f-b174-f72246d5fe71}</Project>

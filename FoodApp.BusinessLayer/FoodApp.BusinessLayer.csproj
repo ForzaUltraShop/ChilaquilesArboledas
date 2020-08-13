@@ -60,14 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FoodApp.BusinnessLayer.Interface\FoodApp.BusinnessLayer.Interface.csproj">
-      <Project>{9ac71094-1561-4c1c-b9d9-b06dbbffe16e}</Project>
-      <Name>FoodApp.BusinnessLayer.Interface</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FoodApp.DataLayer.Interface\FoodApp.DataLayer.Interface.csproj">
-      <Project>{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}</Project>
-      <Name>FoodApp.DataLayer.Interface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FoodApp.DataLayer\FoodApp.DataLayer.csproj">
       <Project>{15E7A105-F88E-4C3F-B174-F72246D5FE71}</Project>
       <Name>FoodApp.DataLayer</Name>

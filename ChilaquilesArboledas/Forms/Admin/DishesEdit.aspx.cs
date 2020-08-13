@@ -1,7 +1,6 @@
-﻿
-namespace ChilaquilesArboledas.Forms.Admin
+﻿namespace ChilaquilesArboledas.Forms.Admin
 {
-    using FoodApp.BusinnessLayer.Interface;
+    using FoodApp.BusinessLayer;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
     using System;
@@ -13,8 +12,7 @@ namespace ChilaquilesArboledas.Forms.Admin
 
     public partial class DishesEdit : Page
     {
-
-        public IDishesLogic dishesLogic { get; set; }
+        private readonly DishesLogic dishesLogic = new DishesLogic();
 
         private string ActionType
         {

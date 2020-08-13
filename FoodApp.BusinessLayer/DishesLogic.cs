@@ -1,29 +1,18 @@
 ﻿namespace FoodApp.BusinessLayer
 {
-    using FoodApp.BusinnessLayer.Interface;
-    using FoodApp.DataLayer.Interface;
+    using FoodApp.DataLayer;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class DishesLogic : IDishesLogic
+    public class DishesLogic
     {
         /// <summary>
         /// Interface de acceso a datos
         /// </summary>
-        private readonly IDishesDataLayer dishesDataLayer;
-
-        public DishesLogic()
-        {
-
-        }
-
-        public DishesLogic(IDishesDataLayer dishesDataLayer)
-        {
-            this.dishesDataLayer = dishesDataLayer;
-        }
+        private readonly DishesDataLayer dishesDataLayer;
 
         public ResponseDTO<DishesDTO> DishesExecute(RequestDTO<DishesDTO> filter)
         {

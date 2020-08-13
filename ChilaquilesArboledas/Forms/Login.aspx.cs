@@ -1,18 +1,15 @@
-﻿using FoodApp.BusinessLayer;
-using FoodApp.BusinnessLayer.Interface;
-using FoodApp.DataLayer.Interface;
-using FoodApp.DataModels.Shared;
-using FoodApp.Models;
-using System;
-using System.Data.SqlTypes;
-using System.Web.Services;
-using System.Web.UI;
-
-namespace ChilaquilesArboledas.Forms
+﻿namespace ChilaquilesArboledas.Forms
 {
+    using FoodApp.BusinessLayer;
+    using FoodApp.DataModels.Shared;
+    using FoodApp.Models;
+    using System;
+    using System.Web.Services;
+    using System.Web.UI;
+
     public partial class Login : Page
     {
-        public ICustomerLogic customerLogic { get; set; }
+        private readonly CustomersLogic customerLogic = new CustomersLogic();
 
         protected void Page_Load(object sender, EventArgs e)
         {

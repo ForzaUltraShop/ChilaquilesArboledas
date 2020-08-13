@@ -1,37 +1,25 @@
-﻿using FoodApp.BusinnessLayer.Interface;
-using FoodApp.DataLayer;
-using FoodApp.DataLayer.Interface;
-using FoodApp.DataModels.Shared;
-using FoodApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FoodApp.BusinessLayer
+﻿namespace FoodApp.BusinessLayer
 {
-    public class CustomersLogic : ICustomerLogic
+    using FoodApp.DataLayer;
+    using FoodApp.DataModels.Shared;
+    using FoodApp.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Remoting;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public class CustomersLogic
     {
-        private readonly ICustomerDataLayer customerDataLayer;
-
-        public CustomersLogic()
-        {
-
-        }
-
-        public CustomersLogic(ICustomerDataLayer customerDataLayer)
-        {
-            this.customerDataLayer = customerDataLayer;
-        }
+        private readonly CustomerDataLayer customerDataLayer = new CustomerDataLayer();
 
         public ResponseDTO<CustomersDTO> CustomerExecute(RequestDTO<CustomersDTO> customer)
         {
             var customerResponse = new ResponseDTO<CustomersDTO>();
             try
             {
-                customerResponse.Success = new CustomerDataLayer().CustomerExecute(customer.Item);
+                customerResponse.Success = customerDataLayer.CustomerExecute(customer.Item);
             }
             catch (Exception exception)
             {

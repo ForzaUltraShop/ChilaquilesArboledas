@@ -1,27 +1,20 @@
 ﻿namespace ChilaquilesArboledas
 {
-    using Autofac;
-    using Autofac.Integration.Web;
-    using FoodApp.BusinessLayer;
-    using FoodApp.BusinnessLayer.Interface;
-    using FoodApp.DataLayer;
-    using FoodApp.DataLayer.Interface;
-    using FoodApp.DataLayer.Properties;
     using Microsoft.AspNet.FriendlyUrls;
     using System;
     using System.Web;
     using System.Web.Routing;
 
-    public class Global : HttpApplication, IContainerProviderAccessor
+    public class Global : HttpApplication //,IContainerProviderAccessor
     {
         // Provider that holds the application container.
-        static IContainerProvider _containerProvider;
+        //static IContainerProvider _containerProvider;
 
         //Instance property that will be used by Autofac HttpModules to resolve and inject dependencies. 
-        public IContainerProvider ContainerProvider
-        {
-            get { return _containerProvider; }
-        }
+        //public IContainerProvider ContainerProvider
+        //{
+        //    get { return _containerProvider; }
+        //}
 
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -32,21 +25,21 @@
         protected void Application_Start(object sender, EventArgs e)
         {
             // Build up your application container and register your dependencies.
-            var builder = new ContainerBuilder();
+            //var builder = new ContainerBuilder();
 
             //Logic
-            builder.RegisterType<CategoriesLogic>().As<ICategoriesLogic>();
-            builder.RegisterType<DishesLogic>().As<IDishesLogic>();
-            builder.RegisterType<CustomersLogic>().As<ICustomerLogic>();
+            //builder.RegisterType<CategoriesLogic>().As<ICategoriesLogic>();
+            //builder.RegisterType<DishesLogic>().As<IDishesLogic>();
+            //builder.RegisterType<CustomersLogic>().As<ICustomerLogic>();
 
             //DataLayer
-            builder.RegisterType<CategoriesDataLayer>().As<ICategoriesDataLayer>();
-            builder.RegisterType<DishesDataLayer>().As<IDishesDataLayer>();
-            builder.RegisterType<CustomerDataLayer>().As<ICustomerDataLayer>();
+            //builder.RegisterType<CategoriesDataLayer>().As<ICategoriesDataLayer>();
+            //builder.RegisterType<DishesDataLayer>().As<IDishesDataLayer>();
+            //builder.RegisterType<CustomerDataLayer>().As<ICustomerDataLayer>();
 
             // Once you're done registering things, set the container
             // provider up with your registrations.
-            _containerProvider = new ContainerProvider(builder.Build());
+            //_containerProvider = new ContainerProvider(builder.Build());
 
             // Standard web forms startup.
             RegisterRoutes(RouteTable.Routes);

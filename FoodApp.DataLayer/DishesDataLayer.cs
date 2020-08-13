@@ -1,14 +1,13 @@
-﻿namespace FoodApp.DataLayer.Properties
+﻿namespace FoodApp.DataLayer
 {
     using FoodApp.DataLayer.Extensions;
-    using FoodApp.DataLayer.Interface;
     using FoodApp.Models;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
 
-    public class DishesDataLayer : IDishesDataLayer
+    public class DishesDataLayer
     {
         public List<DishComplementsDTO> DishComplementsGetFilteredList(long dishIdentifier, int dishSectionIdentifier)
         {

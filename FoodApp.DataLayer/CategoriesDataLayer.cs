@@ -2,14 +2,13 @@
 namespace FoodApp.DataLayer
 {
     using FoodApp.DataLayer.Extensions;
-    using FoodApp.DataLayer.Interface;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
 
-    public class CategoriesDataLayer : ICategoriesDataLayer
+    public class CategoriesDataLayer
     {
         public List<CategoriesDTO> CategoriesGetFilteredList(RequestDTO<CategoriesDTO> categoriesFilter)
         {
@@ -62,7 +61,6 @@ namespace FoodApp.DataLayer
                 isUpdated = command.ExecuteQuery();
             }
             return isUpdated;
-
         }
     }
 }
