@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30128.74
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChilaquilesArboledas", "ChilaquilesArboledas\ChilaquilesArboledas.csproj", "{8A74BE99-04BB-444E-900F-FDA5FC714E77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp.BusinessLayer", "FoodApp.BusinessLayer\FoodApp.BusinessLayer.csproj", "{0FCA0EC7-BC56-4B69-8A9E-9473EDFE4F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp.BusinnessLayer.Interface", "FoodApp.BusinnessLayer.Interface\FoodApp.BusinnessLayer.Interface.csproj", "{9AC71094-1561-4C1C-B9D9-B06DBBFFE16E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp.DataModels", "FoodApp.Models\FoodApp.DataModels.csproj", "{F1E6031D-A341-43F5-9E73-861F7DE6489B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp.DataLayer", "FoodApp.DataLayer\FoodApp.DataLayer.csproj", "{15E7A105-F88E-4C3F-B174-F72246D5FE71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodApp.DataLayer.Interface", "FoodApp.DataLayer.Interface\FoodApp.DataLayer.Interface.csproj", "{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A74BE99-04BB-444E-900F-FDA5FC714E77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A74BE99-04BB-444E-900F-FDA5FC714E77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A74BE99-04BB-444E-900F-FDA5FC714E77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A74BE99-04BB-444E-900F-FDA5FC714E77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FCA0EC7-BC56-4B69-8A9E-9473EDFE4F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FCA0EC7-BC56-4B69-8A9E-9473EDFE4F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FCA0EC7-BC56-4B69-8A9E-9473EDFE4F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FCA0EC7-BC56-4B69-8A9E-9473EDFE4F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AC71094-1561-4C1C-B9D9-B06DBBFFE16E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AC71094-1561-4C1C-B9D9-B06DBBFFE16E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AC71094-1561-4C1C-B9D9-B06DBBFFE16E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AC71094-1561-4C1C-B9D9-B06DBBFFE16E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E6031D-A341-43F5-9E73-861F7DE6489B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E6031D-A341-43F5-9E73-861F7DE6489B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E6031D-A341-43F5-9E73-861F7DE6489B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E6031D-A341-43F5-9E73-861F7DE6489B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E7A105-F88E-4C3F-B174-F72246D5FE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E7A105-F88E-4C3F-B174-F72246D5FE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E7A105-F88E-4C3F-B174-F72246D5FE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E7A105-F88E-4C3F-B174-F72246D5FE71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B9D1911-6B28-4EAB-8CE9-B5814AA60F7F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83CD9CBE-06C8-46FC-A37B-DF08E45EDFCE}
+	EndGlobalSection
+EndGlobal

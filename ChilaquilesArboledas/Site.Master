@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="ChilaquilesArboledas.Site" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <title>Chilaquiles Arboledas</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/js/menu-page.js"></script>
+        <style>
+        body { 
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url("../assets/images/wood-background_3.jpg")
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #555;
+            overflow: auto;
+        }
+
+        .navbar a {
+            float: left;
+            padding: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #000;
+        }
+
+        .active {
+            background-color: #4CAF50;
+        }
+
+        .card-horizontal {
+            display: flex;
+            flex: 1 1 auto;
+        }
+
+        .card-title{
+            color: green;
+            font-weight: bolder;
+        }
+
+        .card-footer{
+            background-color: #6CBB3C;
+        }
+
+        .card-footer .text-muted{
+            color: white !important;
+            font-weight: bolder;
+        }
+
+        @media screen and (max-width: 500px) {
+            .navbar a {
+                float: none;
+                display: block;
+            }
+        }
+
+        #topButton {
+            display: inline-block;
+            background-color: #6CBB3C;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border-radius: 4px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            transition: background-color .3s, opacity .5s, visibility .5s;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        #topButton::after {
+            content: "\f077";
+            font-family: FontAwesome;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+        }
+
+        #topButton:hover {
+            cursor: pointer;
+            background-color: #333;
+        }
+
+        #topButton:active {
+            background-color: #555;
+        }
+
+        .imgChilaquiles{
+            cursor: pointer;
+        }
+
+        /* #topButton.show {
+            opacity: 1;
+            visibility: visible;
+        } */
+    </style>
+
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <br />
+        <div class="container">
+            <div class="navbar">
+                <a class="active" href="#"><i class="fa fa-fw fa-cutlery"></i>&nbsp;Nuestro Menú</a>
+                <a href="#"><i class="fa fa-fw fa-user"></i>&nbsp;Iniciar Sesión</a>
+            </div>
+            <div class="container-fluid">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

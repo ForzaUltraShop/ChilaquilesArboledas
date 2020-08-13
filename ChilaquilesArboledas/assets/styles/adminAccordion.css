@@ -1,0 +1,21 @@
+﻿.headerCssClass {
+    background-color: #808080;
+    color: white;
+    border: 1px solid silver;
+    padding: 4px;
+    cursor:pointer;
+}
+
+.contentCssClass {
+    background-color: white;
+    border: 1px solid silver;
+    padding: 4px;
+}
+
+.headerSelectedCss {
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #28a745;
+    padding: 4px;
+}
