@@ -33,12 +33,17 @@ function loadCategoryItems()
                         categoryRow += "<div class='card-block px-6'>";
                         categoryRow += "<h4 class='card-title'>" + list[i].CategoryName + "</h4>";
                         categoryRow += "<p class='card-text'>" + list[i].CategoryDescription + "</p>";
-                        categoryRow += "<br>";
-                        categoryRow += "<a href='#' class='mt-auto btn btn-success'>Armálos como más te gusté</a>";
+                        //categoryRow += "<br>";
+                        //categoryRow += "<a href='#' class='mt-auto btn btn-success'>Armálos como más te gusté</a>";
                         categoryRow += "</div>";
                         categoryRow += "</div>";
                         categoryRow += "</div>";
                         categoryRow += "</div>";
+
+                        $('.card').off('click').on('click', function () {
+                            alert('click');
+                        });
+
                         $('#divContent').append(categoryRow);
                     });
                 }

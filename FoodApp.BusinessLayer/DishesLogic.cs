@@ -12,7 +12,7 @@
         /// <summary>
         /// Interface de acceso a datos
         /// </summary>
-        private readonly DishesDataLayer dishesDataLayer;
+        private readonly DishesDataLayer dishesDataLayer = new DishesDataLayer();
 
         public ResponseDTO<DishesDTO> DishesExecute(RequestDTO<DishesDTO> filter)
         {

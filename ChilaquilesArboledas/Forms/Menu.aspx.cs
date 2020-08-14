@@ -21,7 +21,7 @@ namespace ChilaquilesArboledas.Forms
 
         }
 
-        [ScriptMethod(ResponseFormat = System.Web.Script.Services.ResponseFormat.Json)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         [WebMethod()]
         public static ResponseListDTO<CategoriesDTO> CategoriesGetList()
         {
