@@ -114,7 +114,7 @@
                         </div>
                     </Content>
                 </ajaxToolkit:AccordionPane>
-                <ajax:AccordionPane runat="server" ID="DishesPanel3">
+                <ajaxToolkit:AccordionPane runat="server" ID="DishesPanel3">
                     <Header>Items por sección</Header>
                     <Content>
                         <br />
@@ -175,7 +175,7 @@
                                             <asp:LinkButton runat="server" ID="lnkEditComplement" ToolTip="Editar" CommandName="Edit" CommandArgument='<%# DataBinder.Eval(Container, "RowIndex") %>' CssClass="btn btn-outline-secondary">
 				                                <i class='fa fa-edit'></i> 
                                             </asp:LinkButton>
-                                            <asp:LinkButton runat="server" ID="lnkDeleteComplement" ToolTip="Eliminar" CommandName="SectionDelete" CommandArgument='<%# DataBinder.Eval(Container, "RowIndex") %>' CssClass="btn btn-outline-secondary">
+                                            <asp:LinkButton runat="server" ID="lnkDeleteComplement" ToolTip="Eliminar" CommandName="ComplementDelete" CommandArgument='<%# DataBinder.Eval(Container, "RowIndex") %>' CssClass="btn btn-outline-secondary">
 				                                <i class='fa fa-trash'></i> 
                                             </asp:LinkButton>
                                         </ItemTemplate>
@@ -208,7 +208,7 @@
                             <asp:Button runat="server" ID="btnAddNewComplement" Text="+ Agregar nuevo item" CssClass="btn btn-success" OnClick="btnAddNewComplement_Click" />
                         </div>
                     </Content>
-                </ajax:AccordionPane>
+                </ajaxToolkit:AccordionPane>
             </Panes>
         </ajax:Accordion>
         <br />
@@ -220,4 +220,40 @@
         <br />
         <br />
     </div>
+
+    <%--Modal de confirmacion de baja--%>
+    <asp:HiddenField runat="server" ID="hdfDeleteIdentifier" Value="0" />
+    <asp:HiddenField runat="server" ID="hdfDeleteSender" Value="0" />
+    <asp:Panel runat="server" ID="pnlConfirmDelete" CssClass="ventanaModal">
+        <div class="popup_Container">
+            <div id="PopupHeader" class="popup_TitleBar">
+                <div class="border-bottom">
+                    <div>
+                        <asp:Label runat="server" ID="lblDeleteModalTitle"></asp:Label>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div>
+                <asp:Label runat="server" ID="lblDeleteMessageConfirmation" Text=""></asp:Label>
+            </div>
+            <br />
+            <br />
+            <div class="modal-button-aligment">
+                <asp:Button runat="server" ID="btnCancelDelete" Text="Cancelar" CssClass="btn btn-danger" />
+                <asp:Button runat="server" ID="btnConfirmDelete" Text="Si, eliminar" CssClass="btn btn-success" OnClick="btnConfirmDelete_Click" />
+            </div>
+        </div>
+    </asp:Panel>
+    <ajax:ModalPopupExtender runat="server"
+        Id="mpeConfirmDelete"
+        BackgroundCssClass="fondoModal"
+        TargetControlID="btnModalPopup"
+        PopupControlID="pnlConfirmDelete">
+    </ajax:ModalPopupExtender>
+    <div style="display:none">
+        <asp:Button runat="server" ID="btnModalPopup" ClientIDMode="Static" />
+    </div>
+
 </asp:Content>

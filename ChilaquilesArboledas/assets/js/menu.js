@@ -22,7 +22,7 @@ function loadCategoryItems()
 
                         let imgSource = "../assets/images/" + list[i].CategoryImagePath;
 
-                        let categoryRow = "<div class='card'>";
+                        let categoryRow = "<div class='card' data-category='" + list[i].CategoryIdentifier + "'>";
                         categoryRow += "<div class='row '>";
                         categoryRow += "<div class='col-md-3'>";
                         categoryRow += "<div>";
@@ -40,11 +40,14 @@ function loadCategoryItems()
                         categoryRow += "</div>";
                         categoryRow += "</div>";
 
+                        $('#divContent').append(categoryRow);
+
                         $('.card').off('click').on('click', function () {
-                            alert('click');
+                            let categoryId = $(this).data('category');
+                            console.log('categoryId', categoryId);
+                            window.location.replace('../Forms/Especiales?CategoryId=' + categoryId);
                         });
 
-                        $('#divContent').append(categoryRow);
                     });
                 }
                 else {

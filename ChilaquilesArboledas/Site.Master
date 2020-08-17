@@ -5,7 +5,7 @@
 <head runat="server">
     <title>Chilaquiles Arboledas</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -115,6 +115,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <script type="text/javascript" src='<%=ResolveUrl(string.Format("~/assets/js/common.js?{0}", DateTime.Now.Ticks)) %>'></script>
     <form id="form1" runat="server">
         <br />
         <div class="container">

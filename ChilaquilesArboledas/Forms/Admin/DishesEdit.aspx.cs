@@ -12,6 +12,12 @@
 
     public partial class DishesEdit : Page
     {
+        private enum DeleteSender
+        {
+            Sections = 0,
+            Complements = 1
+        };
+
         private readonly DishesLogic dishesLogic = new DishesLogic();
 
         private string ActionType
@@ -120,12 +126,12 @@
         }
 
         protected void grwSections_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            switch(e.CommandName)
+        {            
+            switch (e.CommandName)
             {
                 case "Insert":
-                    var txtInsertSectionName = ((GridView)sender).FooterRow.FindControl("txtInsertSectionName") as TextBox;
                     long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+                    var txtInsertSectionName = ((GridView)sender).FooterRow.FindControl("txtInsertSectionName") as TextBox;
                     if(txtInsertSectionName != null && !string.IsNullOrEmpty(txtInsertSectionName.Text) && dishIdentifier > default(long))
                     {
                         bool isCreated = dishesLogic.DishSectionExecute(new RequestDTO<DishesDTO>
@@ -152,6 +158,11 @@
                         grwSections.ShowFooter = default(bool);
                         loadSectionGrid();
                     }
+                    break;
+                case "SectionDelete":
+                    var row = ((GridView)sender).Rows[Convert.ToInt32(e.CommandArgument)];
+                    var sectionIdentifier = grwSections.DataKeys[row.RowIndex].Value.ToString();
+                    showDeleteModal(sectionIdentifier, DeleteSender.Sections);
                     break;
             }
         }
@@ -206,12 +217,22 @@
 
         protected void btnAddNewComplement_Click(object sender, EventArgs e)
         {
-
+            grwComplements.ShowFooter = true;
+            loadDishComplementsGrid();
         }
 
         protected void grwComplements_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
+            switch (e.CommandName)
+            {
+                case "Insert":
+                    break;
+                case "ComplementDelete":
+                    var row = ((GridView)sender).Rows[Convert.ToInt32(e.CommandArgument)];
+                    var complementIdentifier = grwComplements.DataKeys[row.RowIndex].Value.ToString();
+                    showDeleteModal(complementIdentifier, DeleteSender.Complements);
+                    break;
+            }
         }
 
         protected void grwComplements_RowEditing(object sender, GridViewEditEventArgs e)
@@ -234,5 +255,110 @@
             loadDishComplementsGrid();
         }
 
+        private void showDeleteModal(string deleteIdentifier, DeleteSender sender)
+        {
+            hdfDeleteIdentifier.Value = deleteIdentifier;
+            hdfDeleteSender.Value = ((int)sender).ToString();
+
+            switch (sender)
+            {
+                case DeleteSender.Sections:
+                    lblDeleteModalTitle.Text = "Eliminar Sección";
+                    lblDeleteMessageConfirmation.Text = "¿Estás seguro de eliminar esta sección (también sus items se eliminaran)?";
+                    break;
+                case DeleteSender.Complements:
+                    lblDeleteModalTitle.Text = "Eliminar Item";
+                    lblDeleteMessageConfirmation.Text = "¿Estás seguro de eliminar este item?";
+                    break;
+            }
+            mpeConfirmDelete.Show();
+        }
+
+        protected void btnConfirmDelete_Click(object sender, EventArgs e)
+        {
+            DeleteSender deleteSender = (DeleteSender)Convert.ToInt32(hdfDeleteSender.Value);
+            switch (deleteSender)
+            {
+                case DeleteSender.Sections:
+                    deleteSection();
+                    break;
+                case DeleteSender.Complements:
+                    deleteComplement();
+                    break;
+            }
+        }
+
+        private void deleteComplement()
+        {
+            long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+            int.TryParse(ddlDishSection.SelectedValue, out int dishSectionIdentifier);
+
+            var dishItem = new DishesDTO
+            {
+                DishIdentifier = dishIdentifier,
+                DishSectionsList = new List<DishSectionsDTO>
+                {
+                    new DishSectionsDTO
+                    {
+                        DishSectionId = Convert.ToInt32(dishSectionIdentifier),
+                        DishComplementsList = new List<DishComplementsDTO>
+                        {
+                            new DishComplementsDTO
+                            {
+                                DishComplementId = long.Parse(hdfDeleteIdentifier.Value)
+                            }
+                        }
+                    }
+                }
+            };
+
+            var filter = new RequestDTO<DishesDTO>
+            {
+                Item = dishItem,
+                OperationType = OperationType.Delete
+            };
+
+            ResponseDTO<DishComplementsDTO> dishComplementsResponse = dishesLogic.DishComplementsExecute(filter);
+            if (dishComplementsResponse.Success)
+            {
+                loadDishComplementsGrid();
+            }
+            else
+            {
+                //TODO: Alert
+            }
+        }
+
+        private void deleteSection()
+        {
+            long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+            var dishItem = new DishesDTO
+            {
+                DishIdentifier = dishIdentifier,
+                DishSectionsList = new List<DishSectionsDTO>
+                {
+                    new DishSectionsDTO
+                    {
+                        DishSectionId = Convert.ToInt32(hdfDeleteIdentifier.Value)
+                    }
+                }
+            };
+
+            var filter = new RequestDTO<DishesDTO>
+            {
+                Item = dishItem,
+                OperationType = OperationType.Delete
+            };
+
+            ResponseDTO<DishSectionsDTO> deleteSectionResponse = dishesLogic.DishSectionExecute(filter);
+            if (deleteSectionResponse.Success)
+            {
+                loadSectionGrid();
+            }
+            else
+            {
+                //TODO: Alert
+            }
+        }
     }
 }

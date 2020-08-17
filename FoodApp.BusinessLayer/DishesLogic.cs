@@ -124,6 +124,9 @@
                     case OperationType.Create:
                         dishSectionResponse.Success = dishesDataLayer.DishSectionCreate(filter.Item);
                             break;
+                    case OperationType.Delete:
+                        dishSectionResponse.Success = dishesDataLayer.DishSectionDelete(filter.Item.DishSectionsList.FirstOrDefault().DishSectionId, filter.Item.DishIdentifier);
+                        break;
                 }
             }
             catch (Exception exception)
@@ -146,6 +149,36 @@
                 throw;
             }
             return dishComplementsResponse;
+        }
+
+        public ResponseDTO<DishComplementsDTO> DishComplementsExecute(RequestDTO<DishesDTO> filter)
+        {
+            var response = new ResponseDTO<DishComplementsDTO>();
+            try
+            {
+                var dishComplementItem = filter.Item.DishSectionsList.FirstOrDefault().DishComplementsList.FirstOrDefault();
+                switch (filter.OperationType)
+                {
+                    case OperationType.Create:
+                        response.Success = dishesDataLayer.DishComplementsInsert(filter.Item);
+                        break;
+                    case OperationType.Update:
+                        response.Success = dishesDataLayer.DishComplementsUpdate(filter.Item.DishSectionsList.FirstOrDefault().DishSectionId,
+                                                                                 filter.Item.DishIdentifier,
+                                                                                 dishComplementItem);
+                        break;
+                    case OperationType.Delete:
+                        response.Success = dishesDataLayer.DishComplementsDelete(filter.Item.DishIdentifier,
+                                                                                 filter.Item.DishSectionsList.FirstOrDefault().DishSectionId,
+                                                                                 dishComplementItem.DishComplementId);
+                        break;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+            return response;
         }
     }
 }
