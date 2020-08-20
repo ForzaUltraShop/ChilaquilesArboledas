@@ -226,6 +226,47 @@
             switch (e.CommandName)
             {
                 case "Insert":
+                    long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+                    int.TryParse(ddlDishSection.SelectedValue, out int dishSectionIdentifier);
+
+                    var txtComplementName = ((GridView)sender).FooterRow.FindControl("txtInsertComplementNameName") as TextBox;
+                    var chkIncludedInOrder = ((GridView)sender).FooterRow.FindControl("chkInsertIncludedInOrder") as CheckBox;
+                    var txtComplementPrice = ((GridView)sender).FooterRow.FindControl("txtInsertAditionalCost") as TextBox;
+                    decimal complementPrice = string.IsNullOrEmpty(txtComplementPrice.Text.Trim()) ? decimal.Zero : Convert.ToDecimal(txtComplementPrice.Text.Trim());
+
+                    var insertResponse = dishesLogic.DishComplementsExecute(new RequestDTO<DishesDTO>
+                    {
+                        Item = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier,
+                            DishSectionsList = new List<DishSectionsDTO>
+                            {
+                                new DishSectionsDTO
+                                {
+                                    DishSectionId = dishSectionIdentifier,
+                                    DishComplementsList = new List<DishComplementsDTO>
+                                    {
+                                        new DishComplementsDTO
+                                        {
+                                            DishComplementName = txtComplementName.Text.Trim(),
+                                            IsIncludedInOrder = chkIncludedInOrder.Checked,
+                                            AditionalCost = complementPrice
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        OperationType = OperationType.Create
+                    });
+
+                    if (!insertResponse.Success)
+                    {
+                        //TODO: Alert
+                    }
+
+                    grwComplements.ShowFooter = default(bool);
+                    loadDishComplementsGrid();
+                    
                     break;
                 case "ComplementDelete":
                     var row = ((GridView)sender).Rows[Convert.ToInt32(e.CommandArgument)];
@@ -237,17 +278,63 @@
 
         protected void grwComplements_RowEditing(object sender, GridViewEditEventArgs e)
         {
-
+            grwComplements.EditIndex = e.NewEditIndex;
+            loadDishComplementsGrid();
         }
 
         protected void grwComplements_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            int.TryParse(grwComplements.DataKeys[e.RowIndex]["DishComplementId"].ToString(), out int dishComplementIdentifier);
+            long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+            int.TryParse(ddlDishSection.SelectedValue, out int dishSectionIdentifier);
 
+            if (dishComplementIdentifier > default(int) && dishIdentifier > default(long) && dishSectionIdentifier > default(int)) 
+            {
+                var txtComplementName = grwComplements.Rows[e.RowIndex].FindControl("txtEditComplementName") as TextBox;
+                var chkIsIncludeInOrder = grwComplements.Rows[e.RowIndex].FindControl("chkEditIncludedInOrder") as CheckBox;
+                var txtComplementPrice = grwComplements.Rows[e.RowIndex].FindControl("txtEditAditionalCost") as TextBox;
+                decimal complementPrice = string.IsNullOrEmpty(txtComplementName.Text.Trim()) ? decimal.Zero : Convert.ToDecimal(txtComplementPrice.Text.Trim());
+
+                var updateResponse = dishesLogic.DishComplementsExecute(new RequestDTO<DishesDTO>
+                {
+                    Item = new DishesDTO
+                    {
+                        DishIdentifier = dishIdentifier,
+                        DishSectionsList = new List<DishSectionsDTO>
+                        {
+                            new DishSectionsDTO
+                            {
+                                DishSectionId = dishSectionIdentifier,
+                                DishComplementsList = new List<DishComplementsDTO>
+                                {
+                                    new DishComplementsDTO
+                                    {
+                                        DishComplementId = dishComplementIdentifier,
+                                        DishComplementName = txtComplementName.Text.Trim(),
+                                        IsIncludedInOrder = chkIsIncludeInOrder.Checked,
+                                        AditionalCost = complementPrice
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    OperationType = OperationType.Update
+                });
+
+                if (!updateResponse.Success)
+                {
+                    //TODO: Alert
+                }
+
+                grwComplements.EditIndex = -1;
+                loadDishComplementsGrid();
+            }
         }
 
         protected void grwComplements_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-
+            grwComplements.EditIndex = -1;
+            loadSectionGrid();
         }
 
         protected void ddlDishSection_SelectedIndexChanged(object sender, EventArgs e)

@@ -150,13 +150,13 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="¿Está incluido en la orden?">
                                         <ItemTemplate>
-                                            <asp:CheckBox ID="chkIncludedInOrder" runat="server"></asp:CheckBox>
+                                            <asp:CheckBox ID="chkIncludedInOrder" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsIncludedInOrder")) %>' Enabled="false"></asp:CheckBox>
                                         </ItemTemplate>
                                         <EditItemTemplate>
-                                            <asp:CheckBox ID="chkEditIncludedInOrder" runat="server"></asp:CheckBox>
+                                            <asp:CheckBox ID="chkEditIncludedInOrder" runat="server" Checked='<%# Convert.ToBoolean(Eval("IsIncludedInOrder")) %>'></asp:CheckBox>
                                         </EditItemTemplate>
                                         <FooterTemplate>
-                                            <asp:CheckBox ID="chkInsertIncludedInOrder" runat="server"></asp:CheckBox>
+                                            <asp:CheckBox ID="chkInsertIncludedInOrder" runat="server" Checked="true"></asp:CheckBox>
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Cargo extra">
