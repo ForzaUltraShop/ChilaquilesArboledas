@@ -38,6 +38,7 @@
                 DishSectionId = reader.Get<int>("DishSectionId"),
                 DishSectionName = reader.Get<string>("DishSectionName"),
                 DishOrder = reader.Get <int>("DishOrder"),
+                AllowMultipleOptions = reader.Get<bool>("AllowMultipleOption"),
                 IsActive = reader.Get<bool>("IsActive")
             };
         }

@@ -59,7 +59,7 @@
                         <br />
                         <div style="padding-left:30%">
                             <asp:GridView ID="grwSections" runat="server"
-                                Width="50%"
+                                Width="70%"
                                 CssClass="table table-striped table-bordered table-hover"
                                 AutoGenerateColumns="False"
                                 DataKeyNames="DishSectionId"
@@ -78,6 +78,17 @@
                                         </EditItemTemplate>
                                         <FooterTemplate>
                                             <asp:TextBox ID="txtInsertSectionName" runat="server" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                                        </FooterTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="¿Permite opción múltiple?">
+                                        <ItemTemplate>
+                                            <asp:CheckBox runat="server" ID="chkAllowMultiple" Checked='<%# Convert.ToBoolean(Eval("AllowMultipleOptions")) %>' Enabled="false" />
+                                        </ItemTemplate>
+                                        <EditItemTemplate>
+                                            <asp:CheckBox runat="server" ID="chkEditAllowMultiple" Checked='<%# Convert.ToBoolean(Eval("AllowMultipleOptions")) %>' />
+                                        </EditItemTemplate>
+                                        <FooterTemplate>
+                                            <asp:CheckBox runat="server" ID="chkInsertAllowMultiple" />
                                         </FooterTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderStyle-Width="160px">

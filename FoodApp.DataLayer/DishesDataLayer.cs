@@ -74,6 +74,7 @@
             {
                 command.Parameters.Add("@DishSectionId", SqlDbType.Int).Value = dishSections.DishSectionId;
                 command.Parameters.Add("@DishSectionName", SqlDbType.VarChar).Value = dishSections.DishSectionName;
+                command.Parameters.Add("@AllowMultipleOptions", SqlDbType.Bit).Value = dishSections.AllowMultipleOptions;
                 isUpdated = command.ExecuteQuery();
             }
             return isUpdated;
@@ -86,6 +87,7 @@
             {
                 command.Parameters.Add("@DishId", SqlDbType.BigInt).Value = item.DishIdentifier;
                 command.Parameters.Add("@DishSectionName", SqlDbType.VarChar).Value = item.DishSectionsList.FirstOrDefault().DishSectionName;
+                command.Parameters.Add("@AllowMultipleOptions", SqlDbType.Bit).Value = item.DishSectionsList.FirstOrDefault().AllowMultipleOptions;
                 isSectionCreated = command.ExecuteQuery();
             }
             return isSectionCreated;

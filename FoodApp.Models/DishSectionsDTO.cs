@@ -10,6 +10,8 @@ namespace FoodApp.Models
 
         public int DishOrder { get; set; }
 
+        public bool AllowMultipleOptions { get; set; }
+
         public bool IsActive { get; set; }
 
         public List<DishComplementsDTO> DishComplementsList { get; set; }

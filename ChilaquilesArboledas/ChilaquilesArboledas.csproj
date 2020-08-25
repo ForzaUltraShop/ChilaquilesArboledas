@@ -100,6 +100,7 @@
     <Content Include="assets\images\wood-background_3.jpg" />
     <Content Include="assets\js\categoryEdit.js" />
     <Content Include="assets\js\common.js" />
+    <Content Include="assets\js\dishConfig.js" />
     <Content Include="assets\js\especiales.js" />
     <Content Include="assets\js\menu.js" />
     <Content Include="assets\styles\adminAccordion.css" />
@@ -109,9 +110,11 @@
     <Content Include="Forms\Admin\Dishes.aspx" />
     <Content Include="Forms\Admin\DishesEdit.aspx" />
     <Content Include="Forms\Controls\Login.ascx" />
+    <Content Include="Forms\DishConfig.aspx" />
     <Content Include="Forms\Especiales.aspx" />
     <Content Include="Forms\Login.aspx" />
     <Content Include="Forms\Menu.aspx" />
+    <Content Include="Forms\Test.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -151,6 +154,13 @@
     <Compile Include="Forms\Controls\Login.ascx.designer.cs">
       <DependentUpon>Login.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DishConfig.aspx.cs">
+      <DependentUpon>DishConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\DishConfig.aspx.designer.cs">
+      <DependentUpon>DishConfig.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Especiales.aspx.cs">
       <DependentUpon>Especiales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -171,6 +181,13 @@
     </Compile>
     <Compile Include="Forms\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

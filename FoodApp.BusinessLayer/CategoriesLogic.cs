@@ -3,8 +3,12 @@
     using FoodApp.DataLayer;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
+    using FoodApp.Models;
     using System;
+    using System.CodeDom;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Xml.Linq;
 
     public class CategoriesLogic
     {
@@ -82,6 +86,81 @@
                 throw;
             }
             return response;
+        }
+
+        /// <summary>
+        /// Obtiene datos de la categoria relacionada con el identificador del platillo
+        /// </summary>
+        /// <param name="dishIdentifier"></param>
+        /// <returns></returns>
+        public ResponseDTO<CategoriesDTO> CategoryByDishIdentifierGetItem(long dishIdentifier)
+        {
+            var dishCategoryResponse = new ResponseDTO<CategoriesDTO>();
+            try
+            {
+                CategoriesDTO category = categoriesDataLayer.CategoryByDishIdentifierGetItem(dishIdentifier);
+                DishesDTO dishItem = new DishesDTO();
+                
+                if(category.CategoryIdentifier > default(long))
+                {
+                    dishItem = new DishesLogic().DishesGetItem(new RequestDTO<DishesDTO>
+                    {
+                        Item = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier
+                        }
+                    }).Result;
+
+                    var dishSectionsList = new DishesLogic().DishSectionsByDishGetList(dishIdentifier);
+                    if (dishSectionsList.Success)
+                    {
+                        for (int i = 0; i < dishSectionsList.Result.Count; i++)
+                        {
+                            var dishSectionComplements = new DishesLogic().DishComplementsGetFilteredList(new RequestDTO<DishesDTO>
+                            {
+                                Item = new DishesDTO
+                                {
+                                    DishIdentifier = dishIdentifier,
+                                    DishSectionsList = new List<DishSectionsDTO>
+                                    {
+                                        new DishSectionsDTO
+                                        {
+                                            DishSectionId = dishSectionsList.Result[i].DishSectionId
+                                        }
+                                    }
+                                }
+                            });
+
+                            if (dishSectionComplements.Success)
+                            {
+                                //Agrego los complementos a cada una de la secciones
+                                dishSectionsList.Result[i].DishComplementsList = new List<DishComplementsDTO>();
+                                dishSectionsList.Result[i].DishComplementsList.AddRange(dishSectionComplements.Result);
+                            }
+                        }
+
+                        //Agrego las secciones al item del platillo
+                        dishItem.DishSectionsList = new List<DishSectionsDTO>();
+                        dishItem.DishSectionsList.AddRange(dishSectionsList.Result);
+                    }
+
+                    //Agrego el platillo a la categoria
+                    category.DishesList = new List<DishesDTO>();
+                    category.DishesList.Add(dishItem);
+
+                    dishCategoryResponse.Result = category;
+                    if(category.CategoryIdentifier > default(long) && 
+                        (category.DishesList != null & category.DishesList.Any()) && 
+                        (category.DishesList.FirstOrDefault().DishSectionsList != null && category.DishesList.FirstOrDefault().DishSectionsList.Any())) {
+                        dishCategoryResponse.Success = true;
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+            return dishCategoryResponse;
         }
     }
 }

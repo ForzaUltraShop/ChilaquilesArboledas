@@ -46,7 +46,7 @@ function loadDishesByCategoryId(categoryId)
                         $('.card').off('click').on('click', function () {
                             let dishId = $(this).data('dish');
                             console.log('categoryId', dishId);
-                            //window.location.replace('../Forms/Especiales?CategoryId=' + dishId);
+                            window.location.replace('../Forms/DishConfig?DishId=' + dishId);
                         });
 
                     });

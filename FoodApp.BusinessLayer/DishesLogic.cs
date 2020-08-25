@@ -1,6 +1,7 @@
 ﻿namespace FoodApp.BusinessLayer
 {
     using FoodApp.DataLayer;
+    using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
     using System;

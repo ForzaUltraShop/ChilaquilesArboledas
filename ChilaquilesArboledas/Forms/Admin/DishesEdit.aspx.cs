@@ -132,7 +132,9 @@
                 case "Insert":
                     long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
                     var txtInsertSectionName = ((GridView)sender).FooterRow.FindControl("txtInsertSectionName") as TextBox;
-                    if(txtInsertSectionName != null && !string.IsNullOrEmpty(txtInsertSectionName.Text) && dishIdentifier > default(long))
+                    var chkAllowMultipleOptions = ((GridView)sender).FooterRow.FindControl("chkInsertAllowMultiple") as CheckBox;
+
+                    if (txtInsertSectionName != null && !string.IsNullOrEmpty(txtInsertSectionName.Text) && dishIdentifier > default(long))
                     {
                         bool isCreated = dishesLogic.DishSectionExecute(new RequestDTO<DishesDTO>
                         {
@@ -143,7 +145,8 @@
                                 {
                                     new DishSectionsDTO
                                     {
-                                        DishSectionName = txtInsertSectionName.Text.Trim()
+                                        DishSectionName = txtInsertSectionName.Text.Trim(),
+                                        AllowMultipleOptions = chkAllowMultipleOptions.Checked
                                     }
                                 }
                             },
@@ -178,6 +181,7 @@
             int.TryParse(grwSections.DataKeys[e.RowIndex]["DishSectionId"].ToString(), out int sectionIdentifier);
             if(grwSections.Rows[e.RowIndex].FindControl("txtSectionName") is TextBox txtSectionName && sectionIdentifier > default(int))
             {
+                var chkAllowMultipleOptions = grwSections.Rows[e.RowIndex].FindControl("chkEditAllowMultiple") as CheckBox;
                 bool isUpdated = dishesLogic.DishSectionExecute(new RequestDTO<DishesDTO>
                 {
                     Item = new DishesDTO
@@ -187,7 +191,8 @@
                             new DishSectionsDTO
                             {
                                 DishSectionId = sectionIdentifier,
-                                DishSectionName = txtSectionName.Text.Trim()
+                                DishSectionName = txtSectionName.Text.Trim(),
+                                AllowMultipleOptions = chkAllowMultipleOptions.Checked
                             }
                         }
                     },

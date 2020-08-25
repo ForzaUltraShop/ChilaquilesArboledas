@@ -4,9 +4,11 @@ namespace FoodApp.DataLayer
     using FoodApp.DataLayer.Extensions;
     using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
 
     public class CategoriesDataLayer
     {
@@ -61,6 +63,17 @@ namespace FoodApp.DataLayer
                 isUpdated = command.ExecuteQuery();
             }
             return isUpdated;
+        }
+
+        public CategoriesDTO CategoryByDishIdentifierGetItem(long dishIdentifier)
+        {
+            var category = new CategoriesDTO();
+            using(SqlCommand command = new SqlCommand("Usp_CategoryByDishId_GETI"))
+            {
+                command.Parameters.Add("@DishId", SqlDbType.BigInt).Value = dishIdentifier;
+                category = command.Select(reader => reader.ToCategory()).FirstOrDefault();
+            }
+            return category;
         }
     }
 }
