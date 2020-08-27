@@ -1,4 +1,42 @@
-﻿function loadControlsByDishId(dishIdentifier)
+﻿
+let complementsArray = [];
+
+$('#btnPlus').click(function (e)
+{
+    let quantity = parseFloat($('#spnQuantity').text());
+    let dishPrice = parseFloat($('#hdfNewDishPrice').val());
+
+    let newQuantity = quantity + 1;
+    $('#spnQuantity').text(newQuantity);
+
+    let newDishPrice = dishPrice * newQuantity
+    $('#spnPrice').text(castToCurrency(newDishPrice));
+});
+
+$('#btnMinus').click(function (e)
+{
+    let quantity = parseFloat($('#spnQuantity').text());
+    let dishPrice = parseFloat($('#hdfNewDishPrice').val());
+
+    if (quantity > 1)
+    {
+        let newQuantity = quantity - 1;
+        $('#spnQuantity').text(newQuantity);
+
+        let newDishPrice = dishPrice * newQuantity
+        $('#spnPrice').text(castToCurrency(newDishPrice));
+    }
+});
+
+function removeFromComplementsArray(value)
+{
+    const index = complementsArray.indexOf(value);
+    if (index > -1) {
+        complementsArray.splice(index, 1);
+    }
+}
+
+function loadControlsByDishId(dishIdentifier)
 {
     let filter = {
         'dishIdentifier': parseInt(dishIdentifier)
@@ -22,20 +60,24 @@
                     let category = categoryResponse.Result;
                     let headerImageUrl = "../assets/images/" + category.CategoryImagePath;
 
+                    //Cargo el hidden con el valor original del platillo
+                    $('#hdfNewDishPrice').val(category.DishesList[0].DishPrice);
+
                     let bodyContent = "<br/>";
                     bodyContent += "<div class='row'>";
-                    bodyContent += " <div class='col-4'>";
+                    bodyContent += " <div class='col-4' style='text-align:center;'>";
                     bodyContent += "     <img src='" + headerImageUrl + "' alt='' width='90px' height='90px' />";
                     bodyContent += " </div>"
                     bodyContent += " <div class='col-8'>";
-                    bodyContent += "     <h3 class='align-middle'>" + category.CategoryName + "</h3>";
+                    bodyContent += "     <h3 class='align-left'>" + category.CategoryName + "</h3>";
+                    bodyContent += "     <span id='spnPrice'>" + castToCurrency(category.DishesList[0].DishPrice) + "</span>";
                     bodyContent += " </div>";
                     bodyContent += "</div>";
                     bodyContent += "<br />";
-
+                    
                     for (var i = 0; i < category.DishesList[0].DishSectionsList.length; i++)
                     {
-                        bodyContent += "<div class='row' style='background-color:silver'>"
+                        bodyContent += "<div class='row' style='background-color:silver; padding-top: 5px;padding-bottom: 5px;'>"
                         bodyContent += "    <strong>" + category.DishesList[0].DishSectionsList[i].DishSectionName + "</strong>";
                         bodyContent += "</div>";
 
@@ -47,18 +89,18 @@
 
                                 let aditionalCost = complementsList[j].AditionalCost;
 
-                                bodyContent += "<div class='row' style='background-color: white'>";
+                                bodyContent += "<div class='row' style='background-color: white; padding-top: 5px;padding-bottom: 5px;'>";
                                 bodyContent += "	<table width='100%'>";
                                 bodyContent += "		<tr>";
-                                bodyContent += "			<td width='50%'>";
+                                bodyContent += "			<td width='50%' style='padding-left: 5px'>";
 
                                 if (sectionAllowMultipleOptions)
                                 {
-                                    bodyContent += "<input type='checkbox' class='chkOption' />&nbsp;" + complementsList[j].DishComplementName;
+                                    bodyContent += "<input type='checkbox' class='chkOption' value='" + aditionalCost + "' data-complement='" + complementsList[j].DishComplementId + "' />&nbsp;" + complementsList[j].DishComplementName;
                                 }
                                 else
                                 {
-                                    bodyContent += "<input type='radio' class='rbtOption' name='rbtSeccion" + category.DishesList[0].DishSectionsList[i].DishSectionId + "' />&nbsp;" + complementsList[j].DishComplementName;
+                                    bodyContent += "<input type='radio' class='rbtOption' value='" + aditionalCost + "' data-complement='" + complementsList[j].DishComplementId + "'  name='rbtSeccion" + category.DishesList[0].DishSectionsList[i].DishSectionId + "' />&nbsp;" + complementsList[j].DishComplementName;
                                 }
 
                                 bodyContent += "				<br />";
@@ -82,10 +124,33 @@
                         }
                     }
 
-                    console.log(bodyContent);
-
                     //Agrego el armado del cuerpo al div principal
                     $('#divContent').append(bodyContent);
+
+                    $('.chkOption').off('change').on('change', function ()
+                    {
+                        let checkbox = $(this);
+                        let aditionalCost = checkbox.val();
+                        let dishPrice = $('#spnPrice').text().replace('$','');
+                        let newDishPrice = 0;
+                        let complementIdentifier = checkbox.data('complement');
+
+                        if (checkbox.is(':checked'))
+                        {
+                            newDishPrice = parseFloat(dishPrice) + parseFloat(aditionalCost);
+                            $('#hdfNewDishPrice').val(newDishPrice);
+                            $('#spnPrice').text(castToCurrency(newDishPrice));
+                            complementsArray.push(complementIdentifier);
+                        }
+                        else
+                        {
+                            newDishPrice = parseFloat(dishPrice) - parseFloat(aditionalCost);
+                            $('#hdfNewDishPrice').val(newDishPrice);
+                            $('#spnPrice').text(castToCurrency(newDishPrice));
+                            removeFromComplementsArray(complementIdentifier);
+                        }
+                        console.log('complementsArray', complementsArray);
+                    });
 
                 }
                 else {
