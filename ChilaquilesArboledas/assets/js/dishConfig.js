@@ -9,8 +9,8 @@ $('#btnPlus').click(function (e)
     let newQuantity = quantity + 1;
     $('#spnQuantity').text(newQuantity);
 
-    let newDishPrice = dishPrice * newQuantity
-    $('#spnPrice').text(castToCurrency(newDishPrice));
+    //let newDishPrice = dishPrice * newQuantity
+    //$('#spnPrice').text(castToCurrency(newDishPrice));
 });
 
 $('#btnMinus').click(function (e)
@@ -23,9 +23,28 @@ $('#btnMinus').click(function (e)
         let newQuantity = quantity - 1;
         $('#spnQuantity').text(newQuantity);
 
-        let newDishPrice = dishPrice * newQuantity
-        $('#spnPrice').text(castToCurrency(newDishPrice));
+        //let newDishPrice = dishPrice * newQuantity
+        //$('#spnPrice').text(castToCurrency(newDishPrice));
     }
+});
+
+$('#btnAddToCart').click(function(e) {
+
+    let quantity = parseInt($('#spnQuantity').text());
+    let dishIdentifier = parseInt($('#hdfDishIdentifier').val());
+
+    $.ajax({
+        type: "POST",
+        url: "../Forms/DishConfig.aspx/CreateOrder",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ "dishIdentifier": dishIdentifier, "complementsList": complementsArray, "quantity": quantity }),
+        dataType: "json",
+        success: function (response) {
+        },
+        failure: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
 });
 
 function removeFromComplementsArray(value)
@@ -77,7 +96,7 @@ function loadControlsByDishId(dishIdentifier)
                     
                     for (var i = 0; i < category.DishesList[0].DishSectionsList.length; i++)
                     {
-                        bodyContent += "<div class='row' style='background-color:silver; padding-top: 5px;padding-bottom: 5px;'>"
+                        bodyContent += "<div class='row' style='background-color:silver; padding-top: 5px; padding-bottom: 5px; padding-left:5px'>"
                         bodyContent += "    <strong>" + category.DishesList[0].DishSectionsList[i].DishSectionName + "</strong>";
                         bodyContent += "</div>";
 
@@ -134,17 +153,18 @@ function loadControlsByDishId(dishIdentifier)
                         let dishPrice = $('#spnPrice').text().replace('$','');
                         let newDishPrice = 0;
                         let complementIdentifier = checkbox.data('complement');
+                        let quantity = parseFloat($('#spnQuantity').text());
 
                         if (checkbox.is(':checked'))
                         {
-                            newDishPrice = parseFloat(dishPrice) + parseFloat(aditionalCost);
+                            newDishPrice = (parseFloat(dishPrice) + parseFloat(aditionalCost));
                             $('#hdfNewDishPrice').val(newDishPrice);
                             $('#spnPrice').text(castToCurrency(newDishPrice));
                             complementsArray.push(complementIdentifier);
                         }
                         else
                         {
-                            newDishPrice = parseFloat(dishPrice) - parseFloat(aditionalCost);
+                            newDishPrice = (parseFloat(dishPrice) - parseFloat(aditionalCost));
                             $('#hdfNewDishPrice').val(newDishPrice);
                             $('#spnPrice').text(castToCurrency(newDishPrice));
                             removeFromComplementsArray(complementIdentifier);

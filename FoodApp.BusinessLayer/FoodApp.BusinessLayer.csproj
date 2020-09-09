@@ -54,6 +54,7 @@
     <Compile Include="CategoriesLogic.cs" />
     <Compile Include="CustomersLogic.cs" />
     <Compile Include="DishesLogic.cs" />
+    <Compile Include="OrdersLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

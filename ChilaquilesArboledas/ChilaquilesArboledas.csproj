@@ -86,13 +86,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\images\27PILAR.jpg" />
+    <Content Include="assets\images\blackWood.jpg" />
+    <Content Include="assets\images\cafeFONDO.png" />
     <Content Include="assets\images\cafeOlla.jpg" />
+    <Content Include="assets\images\chilaquilesEspeciales.jpg" />
+    <Content Include="assets\images\ChilaquilesFondo.jpg" />
+    <Content Include="assets\images\chilaquilesTradicionales.jpg" />
+    <Content Include="assets\images\chilaquilesTradicionales.svg" />
     <Content Include="assets\images\collage.jpg" />
     <Content Include="assets\images\descuentos.jpg" />
     <Content Include="assets\images\descuentos.png" />
     <Content Include="assets\images\eventos.jpg" />
     <Content Include="assets\images\logp.jpg" />
+    <Content Include="assets\images\molletes1.jpg" />
+    <Content Include="assets\images\molletes2.jpg" />
     <Content Include="assets\images\platoChilaquiles.jpg" />
+    <Content Include="assets\images\torta1.jpg" />
     <Content Include="assets\images\tortaChilaquiles.jpg" />
     <Content Include="assets\images\tortaChilaquiles2.jpg" />
     <Content Include="assets\images\wood-background.jpg" />
@@ -109,6 +119,7 @@
     <Content Include="Forms\Admin\CategoryEdit.aspx" />
     <Content Include="Forms\Admin\Dishes.aspx" />
     <Content Include="Forms\Admin\DishesEdit.aspx" />
+    <Content Include="Forms\CartCheckOut.aspx" />
     <Content Include="Forms\Controls\Login.ascx" />
     <Content Include="Forms\DishConfig.aspx" />
     <Content Include="Forms\Especiales.aspx" />
@@ -119,6 +130,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Admin\Categories.aspx.cs">
       <DependentUpon>Categories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -146,6 +164,13 @@
     </Compile>
     <Compile Include="Forms\Admin\DishesEdit.aspx.designer.cs">
       <DependentUpon>DishesEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CartCheckOut.aspx.cs">
+      <DependentUpon>CartCheckOut.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\CartCheckOut.aspx.designer.cs">
+      <DependentUpon>CartCheckOut.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\Controls\Login.ascx.cs">
       <DependentUpon>Login.ascx</DependentUpon>
@@ -202,6 +227,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\fonts\Parisienne-Regular.ttf" />
+    <Content Include="Admin.Master" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">

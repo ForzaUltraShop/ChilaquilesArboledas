@@ -46,6 +46,7 @@
     <Compile Include="CustomerDataLayer.cs" />
     <Compile Include="Extensions\DataBaseExtensions.cs" />
     <Compile Include="Extensions\MapExtensions.cs" />
+    <Compile Include="OrdersDataLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DishesDataLayer.cs" />
   </ItemGroup>

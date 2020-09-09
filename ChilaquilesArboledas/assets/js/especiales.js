@@ -35,7 +35,7 @@ function loadDishesByCategoryId(categoryId)
                         dishRow += "<p class='card-text'>" + list[i].DishDescription + "</p>";
                         //dishRow += "<br/>";
                         //categoryRow += "<a href='#' class='mt-auto btn btn-success'>Armálos como más te gusté</a>";
-                        dishRow += "<p>Desde: " + castToCurrency(list[i].DishPrice) + "</p>"; 
+                        dishRow += "<p class='card-price'>Desde: " + castToCurrency(list[i].DishPrice) + "</p>"; 
                         dishRow += "</div>";
                         dishRow += "</div>";
                         dishRow += "</div>";

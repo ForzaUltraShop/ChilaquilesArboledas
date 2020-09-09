@@ -3,6 +3,7 @@
     using FoodApp.BusinessLayer;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
+    using FoodApp.Models.Catalogs;
     using System;
     using System.Web.Services;
     using System.Web.UI;
@@ -51,7 +52,15 @@
                 {
                     Session["CustomerId"] = customerResponse.Result.CustomerIdentifier;
                     Session["CustomerName"] = customerResponse.Result.CustomerName;
-                    Response.Redirect("~/Forms/Menu.aspx");
+                    
+                    if (customerResponse.Result.CustomerRole == (int)CustomerRole.Customer)
+                    {
+                        Response.Redirect("~/Forms/Menu.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Forms/Admin/Categories.aspx");
+                    }
                 }
                 else
                 {

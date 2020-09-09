@@ -16,5 +16,7 @@
 
         public string CustomerAddress { get; set; }
 
+        public int CustomerRole { get; set; }
+
     }
 }

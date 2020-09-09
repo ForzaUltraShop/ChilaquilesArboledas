@@ -1,13 +1,16 @@
-﻿using FoodApp.BusinessLayer;
-using FoodApp.DataModels;
-using FoodApp.DataModels.Shared;
-using System;
-using System.Web.Script.Services;
-using System.Web.Services;
-using System.Web.UI;
-
-namespace ChilaquilesArboledas.Forms
+﻿namespace ChilaquilesArboledas.Forms
 {
+    using FoodApp.BusinessLayer;
+    using FoodApp.DataModels;
+    using FoodApp.DataModels.Shared;
+    using FoodApp.Models;
+    using System;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Script.Services;
+    using System.Web.Services;
+    using System.Web.UI;
+
     public partial class DishConfig : Page
     {
         protected void Page_Load(object sender, EventArgs e)
@@ -28,8 +31,49 @@ namespace ChilaquilesArboledas.Forms
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static ResponseDTO<CategoriesDTO> LoadControlsByDishId(long dishIdentifier)
         {
-            var response = new CategoriesLogic().CategoryByDishIdentifierGetItem(dishIdentifier);
-            return response;
+            return new CategoriesLogic().CategoryByDishIdentifierGetItem(dishIdentifier);
+        }
+
+        [WebMethod(EnableSession = true)]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static ResponseDTO<OrderDTO> CreateOrder(long dishIdentifier, int[] complementsList, int quantity)
+        {
+            var orderResponse = new ResponseDTO<OrderDTO>();
+            if(HttpContext.Current.Session["CustomerId"] != null && dishIdentifier > default(long) && complementsList.Length > default(int) && quantity > default(int))
+            {
+                int.TryParse(HttpContext.Current.Session["CustomerId"].ToString(), out int customerIdentifier);
+
+                var orderRequest = new RequestDTO<OrderDTO>
+                {
+                    Item = new OrderDTO
+                    {
+                        Customer = new CustomersDTO
+                        {
+                            CustomerIdentifier = customerIdentifier
+                        },
+                        Dish = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier
+                        },
+                        OrderDetailList = new List<OrderDetailDTO>(),
+                        ItemsCount = quantity,
+                    },
+                    OperationType = OperationType.Create
+                };
+
+                foreach(var complementIdentifier in complementsList)
+                {
+                    orderRequest.Item.OrderDetailList.Add(new OrderDetailDTO
+                    {
+                        DishComplementIdentifier = complementIdentifier
+                    });
+                }
+
+                var orderLogic = new OrdersLogic();
+                orderResponse = orderLogic.OrderExecute(orderRequest);
+            }
+            
+            return orderResponse;
         }
     }
 }

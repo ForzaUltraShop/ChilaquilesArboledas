@@ -27,6 +27,8 @@
                     case OperationType.Delete:
                         response.Success = dishesDataLayer.DishesDelete(filter.Item.DishIdentifier);
                         break;
+                    case OperationType.Update:
+                        break;
                 }
             }
             catch (Exception exception)

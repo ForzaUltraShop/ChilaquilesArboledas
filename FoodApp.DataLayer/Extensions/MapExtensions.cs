@@ -66,7 +66,8 @@
                 CustomerEmail = reader.Get<string>("CustomerEmail"),
                 CustomerPassword = reader.Get<string>("CustomerPassword"),
                 CustomerPostalCode = reader.Get<string>("CustomerPostalCode"),
-                CustomerAddress = reader.Get<string>("CustomerAddress")
+                CustomerAddress = reader.Get<string>("CustomerAddress"),
+                CustomerRole = reader.Get<int>("RoleId")
             };
         }
     }

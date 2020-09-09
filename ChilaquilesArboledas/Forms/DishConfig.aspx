@@ -12,7 +12,7 @@
     <div id="divContent" class="container" style="background-color: white">
     </div>
     <div class="container" style="background-color: white">
-        <div class='row' style='background-color: silver'>
+        <div class='row' style='background-color: silver; padding-top:5px; padding-bottom:5px;'>
             <strong>Instrucciones adicionales</strong>
         </div>
         <div class='row' style="padding-top:5px; padding-bottom:5px;">
@@ -37,10 +37,19 @@
                             <i class="fa fa-plus"></i>
                         </button>
                     </span>
+                    <br />
+                    
                 </div>
             </div>
             <br />
             <br />
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <input id="btnAddToCart" type="button" class="btn btn-warning btn-lg btn-block" value="Agregar al carrito" />
+                <br />
+                <br />
+            </div>
         </div>
     </div>
     <br />

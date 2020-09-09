@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DishesEdit.aspx.cs" Inherits="ChilaquilesArboledas.Forms.Admin.DishesEdit" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin.Master" AutoEventWireup="true" CodeBehind="DishesEdit.aspx.cs" Inherits="ChilaquilesArboledas.Forms.Admin.DishesEdit" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajax" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">

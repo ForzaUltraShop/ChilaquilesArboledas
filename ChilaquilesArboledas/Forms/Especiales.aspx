@@ -35,10 +35,6 @@
           .d-block {
             width: 100% !important;
           }
-
-          body{
-              background-color:gold;
-          }
         }
 
     </style>
