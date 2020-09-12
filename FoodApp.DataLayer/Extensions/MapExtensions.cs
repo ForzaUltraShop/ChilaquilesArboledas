@@ -2,7 +2,10 @@
 {
     using FoodApp.DataModels;
     using FoodApp.Models;
+    using System;
+    using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
 
     public static class MapExtensions
     {
@@ -69,6 +72,40 @@
                 CustomerAddress = reader.Get<string>("CustomerAddress"),
                 CustomerRole = reader.Get<int>("RoleId")
             };
+        }
+
+        public static OrderDTO ToOrder(this IDataReader reader)
+        {
+            return new OrderDTO
+            {
+                OrderIdentifier = reader.Get<long>("OrderIdentifier"),
+                ItemsCount = reader.Get<int>("ItemsCount"),
+                ItemsTotalAmount = reader.Get<int>("ItemsTotalAmount"),
+                Customer = reader.ToCustomer(),
+                OrderDetailList = reader.Select(r => r.ToOrderDetail()).ToList()
+            };
+        }
+
+        public static OrderDetailDTO ToOrderDetail(this IDataReader reader)
+        {
+            return new OrderDetailDTO
+            {
+                Dish = reader.ToDishes(),
+                OrderDetailIdentifier = reader.Get<long>("OrderDetailId"),
+                DishComplementIdentifier = reader.Get<long>("DishComplementId"),
+                DishComplementName = reader.Get<string>("DishComplementName"),
+                AditionalCost = reader.Get<decimal>("AditionalCost"),
+                Quantity = reader.Get<int>("Quantity"),
+                TotalAmount = reader.Get<decimal>("TotalAmount")
+            };
+        }
+
+        private static IEnumerable<T> Select<T>(this IDataReader reader, Func<IDataReader, T> projection)
+        {
+            while (reader.Read())
+            {
+                yield return projection(reader);
+            }
         }
     }
 }

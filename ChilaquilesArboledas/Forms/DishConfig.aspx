@@ -12,7 +12,7 @@
     <div id="divContent" class="container" style="background-color: white">
     </div>
     <div class="container" style="background-color: white">
-        <div class='row' style='background-color: silver; padding-top:5px; padding-bottom:5px;'>
+        <%--<div class='row' style='background-color: silver; padding-top:5px; padding-bottom:5px;'>
             <strong>Instrucciones adicionales</strong>
         </div>
         <div class='row' style="padding-top:5px; padding-bottom:5px;">
@@ -20,7 +20,9 @@
                 <textarea rows='3' style='width: 100%; resize: none; text-transform: capitalize;' class='form-control'></textarea>
                 <br />
             </div>
-        </div>
+        </div>--%>
+        <br />
+        <br />
         <div class="row" style="background-color: white;">
             <div class="col-lg-12 col-centered">
                 <div class="input-group">
@@ -56,6 +58,6 @@
     <br />
     <asp:HiddenField runat="server" ID="hdfDishIdentifier" ClientIDMode="Static" />
     <asp:HiddenField runat="server" ID="hdfNewDishPrice" ClientIDMode="Static" />
-    <%--<script type="text/javascript" src='<%=ResolveUrl(string.Format("~/assets/js/dishConfig.js?{0}", DateTime.Now.Ticks)) %>'></script>--%>
-    <script type="text/javascript" src='<%=ResolveUrl("~/assets/js/dishConfig.js") %>'></script>
+    <script type="text/javascript" src='<%=ResolveUrl(string.Format("~/assets/js/dishConfig.js?{0}", DateTime.Now.Ticks)) %>'></script>
+    <%--<script type="text/javascript" src='<%=ResolveUrl("~/assets/js/dishConfig.js") %>'></script>--%>
 </asp:Content>

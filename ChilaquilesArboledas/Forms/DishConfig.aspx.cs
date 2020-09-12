@@ -26,7 +26,6 @@
             }
         }
 
-
         [WebMethod()]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public static ResponseDTO<CategoriesDTO> LoadControlsByDishId(long dishIdentifier)
@@ -51,10 +50,6 @@
                         {
                             CustomerIdentifier = customerIdentifier
                         },
-                        Dish = new DishesDTO
-                        {
-                            DishIdentifier = dishIdentifier
-                        },
                         OrderDetailList = new List<OrderDetailDTO>(),
                         ItemsCount = quantity,
                     },
@@ -65,12 +60,22 @@
                 {
                     orderRequest.Item.OrderDetailList.Add(new OrderDetailDTO
                     {
+                        Dish = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier
+                        },
                         DishComplementIdentifier = complementIdentifier
                     });
                 }
 
                 var orderLogic = new OrdersLogic();
                 orderResponse = orderLogic.OrderExecute(orderRequest);
+
+                //Agrego la orden que se genero a session
+                if (orderResponse.Success)
+                {
+                    HttpContext.Current.Session["OrderId"] = orderResponse.Result.OrderIdentifier;
+                }
             }
             
             return orderResponse;

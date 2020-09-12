@@ -28,7 +28,9 @@ $('#btnMinus').click(function (e)
     }
 });
 
-$('#btnAddToCart').click(function(e) {
+$('#btnAddToCart').click(function (e) {
+
+    fillComplementsArray();
 
     let quantity = parseInt($('#spnQuantity').text());
     let dishIdentifier = parseInt($('#hdfDishIdentifier').val());
@@ -40,12 +42,32 @@ $('#btnAddToCart').click(function(e) {
         data: JSON.stringify({ "dishIdentifier": dishIdentifier, "complementsList": complementsArray, "quantity": quantity }),
         dataType: "json",
         success: function (response) {
+            let data = response.d;
+            if (data.Success) {
+
+            }
+            else {
+                swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
+            }
         },
         failure: function (xhr, textStatus, errorThrown) {
-
+            
         }
     });
 });
+
+function fillComplementsArray()
+{
+    complementsArray.length = 0;
+
+    $('.chkOption:checkbox:checked').each(function () {
+        complementsArray.push($(this).data('complement'));
+    });
+
+    $('.rbtOption:radio:checked').each(function () {
+        complementsArray.push($(this).data('complement'));
+    });
+}
 
 function removeFromComplementsArray(value)
 {
@@ -142,36 +164,10 @@ function loadControlsByDishId(dishIdentifier)
                             }
                         }
                     }
-
+                    
                     //Agrego el armado del cuerpo al div principal
                     $('#divContent').append(bodyContent);
-
-                    $('.chkOption').off('change').on('change', function ()
-                    {
-                        let checkbox = $(this);
-                        let aditionalCost = checkbox.val();
-                        let dishPrice = $('#spnPrice').text().replace('$','');
-                        let newDishPrice = 0;
-                        let complementIdentifier = checkbox.data('complement');
-                        let quantity = parseFloat($('#spnQuantity').text());
-
-                        if (checkbox.is(':checked'))
-                        {
-                            newDishPrice = (parseFloat(dishPrice) + parseFloat(aditionalCost));
-                            $('#hdfNewDishPrice').val(newDishPrice);
-                            $('#spnPrice').text(castToCurrency(newDishPrice));
-                            complementsArray.push(complementIdentifier);
-                        }
-                        else
-                        {
-                            newDishPrice = (parseFloat(dishPrice) - parseFloat(aditionalCost));
-                            $('#hdfNewDishPrice').val(newDishPrice);
-                            $('#spnPrice').text(castToCurrency(newDishPrice));
-                            removeFromComplementsArray(complementIdentifier);
-                        }
-                        console.log('complementsArray', complementsArray);
-                    });
-
+                    
                 }
                 else {
                     alert("No fue posible cargar esta página, por favor intente más tarde");

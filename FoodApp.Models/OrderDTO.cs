@@ -7,8 +7,6 @@
     {
         public long OrderIdentifier { get; set; }
 
-        public DishesDTO Dish { get; set; }
-
         public CustomersDTO Customer { get; set; }
 
         public int ItemsCount { get; set; }
@@ -24,9 +22,11 @@
     {
         public long OrderDetailIdentifier { get; set; }
 
-        public long DishIdentifier { get; set; }
+        public DishesDTO Dish { get; set; }
 
         public long DishComplementIdentifier { get; set; }
+
+        public string DishComplementName { get; set; }
 
         public decimal AditionalCost { get; set; }
 
