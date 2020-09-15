@@ -15,7 +15,7 @@ namespace FoodApp.BusinessLayer
 
         public ResponseDTO<OrderDTO> OrderExecute(RequestDTO<OrderDTO> order)
         {
-            var orderResponse = new ResponseDTO<OrderDTO>();
+            var orderResponse = new ResponseDTO<OrderDTO> { Result = new OrderDTO() };
             try
             {
                 switch (order.OperationType)
@@ -24,11 +24,15 @@ namespace FoodApp.BusinessLayer
                         orderResponse.Result.OrderIdentifier = ordersDataLayer.OrderCreate(order.Item);
                         orderResponse.Success = orderResponse.Result.OrderIdentifier > default(long);
                         break;
+                    case OperationType.Update:
+                        orderResponse.Result.OrderIdentifier = ordersDataLayer.OrderUpdate(order.Item);
+                        orderResponse.Success = orderResponse.Result.OrderIdentifier > default(long);
+                        break;
                 }
             }
             catch (Exception exception)
             {
-                throw;
+                orderResponse.Result = null;
             }
             return orderResponse;
         }
@@ -46,6 +50,20 @@ namespace FoodApp.BusinessLayer
                 throw;
             }
             return orderResponse;
+        }
+
+        public ResponseDTO<OrderDTO> CartCheckOutExecute(RequestDTO<CartCheckOutDTO> cartCheckOutItem)
+        {
+            var response = new ResponseDTO<OrderDTO>();
+            try
+            {
+                response.Success = ordersDataLayer.CartCheckOutExecute(cartCheckOutItem.Item.Order.OrderIdentifier, cartCheckOutItem.Item.AditionalCommnents, cartCheckOutItem.Item.DeliveryOption);
+            }
+            catch (Exception exception)
+            {
+                
+            }
+            return response;
         }
     }
 }

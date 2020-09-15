@@ -42,16 +42,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressDTO.cs" />
     <Compile Include="BaseDTO.cs" />
+    <Compile Include="CartCheckOutDTO.cs" />
     <Compile Include="Catalogs\CustomerRole.cs" />
+    <Compile Include="Catalogs\DeliveryOption.cs" />
     <Compile Include="Catalogs\OrderStatus.cs" />
     <Compile Include="CategoriesDTO.cs" />
     <Compile Include="CustomersDTO.cs" />
     <Compile Include="DishComplementsDTO.cs" />
     <Compile Include="DishesDTO.cs" />
     <Compile Include="DishSectionsDTO.cs" />
+    <Compile Include="NotifyDTO.cs" />
     <Compile Include="OrderDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\NotifyType.cs" />
     <Compile Include="Shared\OperationType.cs" />
     <Compile Include="Shared\PagingDTO.cs" />
     <Compile Include="Shared\RequestDTO.cs" />

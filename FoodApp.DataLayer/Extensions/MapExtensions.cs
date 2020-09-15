@@ -96,7 +96,8 @@
                 DishComplementName = reader.Get<string>("DishComplementName"),
                 AditionalCost = reader.Get<decimal>("AditionalCost"),
                 Quantity = reader.Get<int>("Quantity"),
-                TotalAmount = reader.Get<decimal>("TotalAmount")
+                TotalAmount = reader.Get<decimal>("TotalAmount"),
+                UniqueKeyIdentifier = reader.Get<string>("DishUniqueKey")
             };
         }
 

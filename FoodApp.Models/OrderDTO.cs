@@ -33,5 +33,7 @@
         public int Quantity { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public string UniqueKeyIdentifier { get; set; }
     }
 }

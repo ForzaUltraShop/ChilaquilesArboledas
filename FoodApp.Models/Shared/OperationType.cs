@@ -30,6 +30,11 @@
         /// <summary>
         /// Change password
         /// </summary>
-        ChangePassword = 5
+        ChangePassword = 5,
+
+        /// <summary>
+        /// Executes cart checkout
+        /// </summary>
+        CartCheckOut = 6
     }
 }

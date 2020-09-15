@@ -42,10 +42,17 @@
             {
                 int.TryParse(HttpContext.Current.Session["CustomerId"].ToString(), out int customerIdentifier);
 
+                long orderIdentifier = 0;
+                if (HttpContext.Current.Session["OrderId"] != null)
+                {
+                    long.TryParse(HttpContext.Current.Session["OrderId"].ToString(), out orderIdentifier);
+                }
+
                 var orderRequest = new RequestDTO<OrderDTO>
                 {
                     Item = new OrderDTO
                     {
+                        OrderIdentifier = orderIdentifier,
                         Customer = new CustomersDTO
                         {
                             CustomerIdentifier = customerIdentifier
@@ -53,7 +60,7 @@
                         OrderDetailList = new List<OrderDetailDTO>(),
                         ItemsCount = quantity,
                     },
-                    OperationType = OperationType.Create
+                    OperationType = orderIdentifier > default(long) ? OperationType.Update : OperationType.Create
                 };
 
                 foreach(var complementIdentifier in complementsList)

@@ -44,14 +44,15 @@ $('#btnAddToCart').click(function (e) {
         success: function (response) {
             let data = response.d;
             if (data.Success) {
-
+                swal("", "Tu carrito de compras fue actualizado", "success");
+                window.location.replace('../Forms/Menu.aspx');
             }
             else {
-                swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
+                swal("Oops!", "No fue posible actualizar tu orden, por favor intenta más tarde", "error");
             }
         },
         failure: function (xhr, textStatus, errorThrown) {
-            
+            console.log("Ha ocurrido un error al actualizar el carrito de compras");
         }
     });
 });
