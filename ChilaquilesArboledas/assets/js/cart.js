@@ -106,12 +106,12 @@ function loadCart()
                 console.log('groupedDetailList: ', groupedDetailList);
 
                 $('#tblOrderDetail tbody').empty();
+                $('#tblOrderDetail tfoot').empty();
 
                 var tableContent = '';
                 $.each(groupedDetailList, function (i, item)
                 {
                     let dishPrice = parseFloat(groupedDetailList[i][0].Dish.DishPrice) * parseInt(groupedDetailList[i][0].Quantity)
-
                     let complementAditionalCost = 0;
                     for (var j = 0; j < groupedDetailList[i].length; j++) {
                         complementAditionalCost += parseInt(groupedDetailList[i][0].Quantity) * parseFloat(groupedDetailList[i][j].AditionalCost)
@@ -122,7 +122,7 @@ function loadCart()
                     tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "X</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
                     tableContent += "    </td>";
                     tableContent += "    <td style='width:20 %; text-align: right'>";
-                    tableContent += "        <span style='color:#28a745;'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
+                    tableContent += "        <span style='color:#28a745; font-weight:bold'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
                     tableContent += "    </td>";
                     tableContent += "</tr>";
 
@@ -138,6 +138,12 @@ function loadCart()
 
                 $('#tblOrderDetail tbody').append(tableContent);
 
+                let tableFooterContent = "";
+                tableFooterContent += "<tr style='border-top:1px solid black'>";
+                tableFooterContent += " <td style='width:80%; text-align:right;'><span style='font-weight:bold'>Total:</span></td>";
+                tableFooterContent += " <td style='width:20%; text-align:right;'><span style='font-weight:bold'>" + castToCurrency(data.Result.ItemsTotalAmount) + "</span></td>";
+                tableFooterContent += "</tr>";
+                $('#tblOrderDetail tfoot').append(tableFooterContent);
             }
             else
             {
