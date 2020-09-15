@@ -171,7 +171,7 @@
                             <a class="nav-link" href='<%:ResolveUrl("~Forms/Menu.aspx")%>'>Menú</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href='<%:ResolveUrl("~/Forms/CardOrderCheckOut.aspx") %>'>
+                            <a class="nav-link" href='<%:ResolveUrl("~/Forms/CartCheckOut.aspx") %>'>
                                 <i class="fa fa-shopping-cart"></i>
                                 Carrito de compras
                             </a>

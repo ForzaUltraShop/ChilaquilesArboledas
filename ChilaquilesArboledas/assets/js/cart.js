@@ -108,18 +108,26 @@ function loadCart()
                 $('#tblOrderDetail tbody').empty();
 
                 var tableContent = '';
-                $.each(groupedDetailList, function (i, item) {
+                $.each(groupedDetailList, function (i, item)
+                {
+                    let dishPrice = parseFloat(groupedDetailList[i][0].Dish.DishPrice) * parseInt(groupedDetailList[i][0].Quantity)
+
+                    let complementAditionalCost = 0;
+                    for (var j = 0; j < groupedDetailList[i].length; j++) {
+                        complementAditionalCost += parseInt(groupedDetailList[i][0].Quantity) * parseFloat(groupedDetailList[i][j].AditionalCost)
+                    }
 
                     tableContent += "<tr>";
                     tableContent += "    <td style='width:80%'>";
-                    tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "x</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
+                    tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "X</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
                     tableContent += "    </td>";
                     tableContent += "    <td style='width:20 %; text-align: right'>";
-                    tableContent += "        <span style='color:#28a745;'>" + castToCurrency(groupedDetailList[i][0].TotalAmount) + "</span>";
+                    tableContent += "        <span style='color:#28a745;'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
                     tableContent += "    </td>";
                     tableContent += "</tr>";
 
-                    for (var j = 0; j < groupedDetailList[i].length; j++) {
+                    for (var j = 0; j < groupedDetailList[i].length; j++)
+                    {
                         tableContent += "<tr>";
                         tableContent += "    <td colspan='2'>"
                         tableContent += "        <span style='color:grey'>" + groupedDetailList[i][j].DishComplementName + "</span>";
