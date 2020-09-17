@@ -45,7 +45,7 @@
     </div>
     <div class='row' style="padding-top: 5px; padding-bottom: 5px; background-color:white">
         <div class='col-12 text-center'>
-            <textarea id="txtAditionalComments" rows='3' style='width: 100%; resize: none; text-transform: capitalize;' class='form-control'></textarea>
+            <textarea id="txtAditionalComments" rows='3' style='width: 100%; resize: none; text-transform: lowercase;' class='form-control' placeholder="Comentarios adicionales a tu orden (máx. 50 caracteres)" maxlength="50"></textarea>
             <br />
         </div>
     </div>

@@ -32,10 +32,11 @@ namespace FoodApp.BusinessLayer
             (
                 chatId: ConfigurationManager.AppSettings["TelegramChatId"].ToString(),
                 text: message,
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html,
                 replyMarkup: null
             );
 
-            if(location != null)
+            if(!string.IsNullOrEmpty(location.Latitude) && !string.IsNullOrEmpty(location.Longitude))
             {
                 Bot.SendLocationAsync
                 (

@@ -45,7 +45,9 @@ $('#btnAddToCart').click(function (e) {
             let data = response.d;
             if (data.Success) {
                 swal("", "Tu carrito de compras fue actualizado", "success");
-                window.location.replace('../Forms/Menu.aspx');
+                setTimeout(function () {
+                    window.location.replace('../Forms/Menu.aspx');
+                }, 2000);
             }
             else {
                 swal("Oops!", "No fue posible actualizar tu orden, por favor intenta más tarde", "error");

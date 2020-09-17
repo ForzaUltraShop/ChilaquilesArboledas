@@ -56,7 +56,7 @@
             return orderList;
         }
 
-        public bool CartCheckOutExecute(long orderIdentifier, string aditionalComments, DeliveryOption deliveryOption)
+        public bool CartCheckOutExecute(long orderIdentifier, string aditionalComments, DeliveryOption deliveryOption, string latitude, string longitude)
         {
             bool isCartCheckOutExecuted = default(bool);
             using(SqlCommand command = new SqlCommand("Usp_OrderCheckOut_INS"))
@@ -64,6 +64,8 @@
                 command.Parameters.Add("@OrderId", System.Data.SqlDbType.BigInt).Value = orderIdentifier;
                 command.Parameters.Add("@AditionalComments", System.Data.SqlDbType.VarChar).Value = aditionalComments;
                 command.Parameters.Add("@DeliveryOption", System.Data.SqlDbType.SmallInt).Value = (int)deliveryOption;
+                command.Parameters.Add("@Latitude", System.Data.SqlDbType.VarChar).Value = latitude;
+                command.Parameters.Add("@Longitude", System.Data.SqlDbType.VarChar).Value = longitude;
                 isCartCheckOutExecuted = command.ExecuteQuery();
             }
             return isCartCheckOutExecuted;

@@ -1,6 +1,8 @@
 ﻿using FoodApp.DataLayer;
+using FoodApp.DataModels;
 using FoodApp.DataModels.Shared;
 using FoodApp.Models;
+using FoodApp.Models.Catalogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,13 +59,80 @@ namespace FoodApp.BusinessLayer
             var response = new ResponseDTO<OrderDTO>();
             try
             {
-                response.Success = ordersDataLayer.CartCheckOutExecute(cartCheckOutItem.Item.Order.OrderIdentifier, cartCheckOutItem.Item.AditionalCommnents, cartCheckOutItem.Item.DeliveryOption);
+                response.Success = ordersDataLayer.CartCheckOutExecute
+                ( 
+                    cartCheckOutItem.Item.Order.OrderIdentifier, 
+                    cartCheckOutItem.Item.AditionalCommnents, 
+                    cartCheckOutItem.Item.DeliveryOption,
+                    cartCheckOutItem.Item.Notify.Location.Latitude,
+                    cartCheckOutItem.Item.Notify.Location.Longitude
+                );
+
+                if (response.Success)
+                {
+                    //Task.Run(() => 
+                    sendNotify(cartCheckOutItem.Item.Order.OrderIdentifier, 
+                               cartCheckOutItem.Item.AditionalCommnents, 
+                               cartCheckOutItem.Item.DeliveryOption, 
+                               cartCheckOutItem.Item.Notify);
+                        //));           
+                }
             }
             catch (Exception exception)
             {
                 
             }
             return response;
+        }
+
+
+        private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify)
+        {
+            var notifyLogic = new NotifyLogic();
+            try
+            {
+                var orderItem = this.OrderGetItem(orderIdentifier);
+                StringBuilder sb = new StringBuilder("==============================\n");
+                sb.AppendFormat("Se ha generado la orden <strong>#{0}</strong> a nombre de <strong>{1}</strong> \n\n", orderIdentifier, orderItem.Result.Customer.CustomerName);
+                var groupedList = orderItem.Result.OrderDetailList.GroupBy(g => g.UniqueKeyIdentifier).ToList();
+                for (int i = 0; i < groupedList.Count(); i++)
+                {
+                    sb.AppendFormat("<strong>{0}X {1}</strong>\n", groupedList[i].FirstOrDefault().Quantity, groupedList[i].FirstOrDefault().Dish.DishName);
+                    foreach(var complement in groupedList[i])
+                    {
+                        sb.Append(complement.DishComplementName + "\n");
+                    }
+                    sb.Append("\n");
+                }
+
+                if (!string.IsNullOrEmpty(additionalComments.Trim()))
+                {
+                    sb.Append("-Comentarios adicionales:\n");
+                    sb.Append(additionalComments + "\n\n" );
+                }
+
+                switch (deliveryOption)
+                {
+                    case DeliveryOption.AtHome:
+                        sb.Append("-Opción de Entrega: A domicilio\n");
+                        break;
+                    case DeliveryOption.EatOnWay:
+                        sb.Append("-Opción de Entrega: Para ir comiendo\n");
+                        break;
+                    case DeliveryOption.ToTake:
+                        sb.Append("-Opción de Entrega: Para llevar\n");
+                        break;
+                }
+
+                sb.Append("==============================\n");
+
+                notify.Message = sb.ToString();
+                notifyLogic.NotifyExecute(notify);
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
         }
     }
 }

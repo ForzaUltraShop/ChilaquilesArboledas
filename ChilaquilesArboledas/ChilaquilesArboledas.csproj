@@ -121,6 +121,7 @@
     <Content Include="Forms\Admin\CategoryEdit.aspx" />
     <Content Include="Forms\Admin\Dishes.aspx" />
     <Content Include="Forms\Admin\DishesEdit.aspx" />
+    <Content Include="Forms\Admin\Orders.aspx" />
     <Content Include="Forms\CartCheckOut.aspx" />
     <Content Include="Forms\Controls\Login.ascx" />
     <Content Include="Forms\DishConfig.aspx" />
@@ -166,6 +167,13 @@
     </Compile>
     <Compile Include="Forms\Admin\DishesEdit.aspx.designer.cs">
       <DependentUpon>DishesEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin\Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forms\CartCheckOut.aspx.cs">
       <DependentUpon>CartCheckOut.aspx</DependentUpon>

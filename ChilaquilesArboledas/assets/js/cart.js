@@ -49,14 +49,16 @@ $(document).ready(function () {
     $('#btnSendOrder').click(function ()
     {
         let cartCheckOut = {
-            OrderDTO: {
+            Order: {
                 OrderIdentifier: parseInt($('#hdfOrderIdentifier').val())
             },
             AditionalCommnents: $('#txtAditionalComments').val(),
             DeliveryOption: parseInt($('.rbtDeliveryOption:checked').val()),
-            NotifyDTO: {
-                Latitude: $('#hdfLatitude').val(),
-                Longitude: $('#hdfLongitude').val()
+            Notify: {
+                Location: {
+                    Latitude: $('#hdfLatitude').val(),
+                    Longitude: $('#hdfLongitude').val()
+                }
             }
         };
 
@@ -74,6 +76,9 @@ $(document).ready(function () {
                 if (data.Success)
                 {
                     swal("Pedido completado", "Hemos recibido tu orden y enseguida empezaremos a preparalo", "success");
+                    setTimeout(function () {
+                        window.location.replace('../Forms/Menu.aspx');
+                    }, 2000);
                 }
                 else
                 {
