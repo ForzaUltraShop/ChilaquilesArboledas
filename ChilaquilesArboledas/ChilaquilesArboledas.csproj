@@ -92,6 +92,9 @@
     <Content Include="assets\images\cafeOlla.jpg" />
     <Content Include="assets\images\chilaquilesEspeciales.jpg" />
     <Content Include="assets\images\ChilaquilesFondo.jpg" />
+    <Content Include="assets\images\chilaquilesJalisco.jpg" />
+    <Content Include="assets\images\chilaquilesMole.jpg" />
+    <Content Include="assets\images\chilaquilesSuizos.jpg" />
     <Content Include="assets\images\chilaquilesTradicionales.jpg" />
     <Content Include="assets\images\chilaquilesTradicionales.svg" />
     <Content Include="assets\images\collage.jpg" />

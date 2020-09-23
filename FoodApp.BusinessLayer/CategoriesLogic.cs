@@ -114,6 +114,7 @@
                     var dishSectionsList = new DishesLogic().DishSectionsByDishGetList(dishIdentifier);
                     if (dishSectionsList.Success)
                     {
+                        dishSectionsList.Result = dishSectionsList.Result.Where(dish => dish.IsActive).ToList();
                         for (int i = 0; i < dishSectionsList.Result.Count; i++)
                         {
                             var dishSectionComplements = new DishesLogic().DishComplementsGetFilteredList(new RequestDTO<DishesDTO>
