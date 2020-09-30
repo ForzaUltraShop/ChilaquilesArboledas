@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,6 +14,12 @@ namespace ChilaquilesArboledas
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void logout_Click(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session.Clear();
+            HttpContext.Current.Response.Redirect("~/Forms/Login.aspx");
         }
     }
 }

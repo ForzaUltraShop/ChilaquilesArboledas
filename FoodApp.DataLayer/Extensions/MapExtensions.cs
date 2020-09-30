@@ -82,7 +82,11 @@
                 ItemsCount = reader.Get<int>("ItemsCount"),
                 ItemsTotalAmount = reader.Get<decimal>("ItemsTotalAmount"),
                 Customer = reader.ToCustomer(),
-                OrderDetailList = reader.Select(r => r.ToOrderDetail()).ToList()
+                OrderDetailList = new List<OrderDetailDTO>
+                {
+                    reader.ToOrderDetail()
+                }
+                // reader.Select(r => r.ToOrderDetail()).ToList()
             };
         }
 

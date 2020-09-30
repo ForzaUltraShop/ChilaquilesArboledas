@@ -26,10 +26,14 @@
                         hdfOrderIdentifier.Value = orderIdentifier.ToString();
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "loadCartItems", "loadCart();", true);
                     }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(Page, Page.GetType(), "loadCartItems", "carHide();", true);
+                    }
                 }
                 else
                 {
-
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "loadCartItems", "carHide();", true);
                 }
             }
         }
@@ -56,6 +60,21 @@
             }
 
             return cartCheckOutResponse;
+        }
+
+        [WebMethod()]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static ResponseDTO<CustomersDTO> GetCustomerAddress()
+        {
+            var response = new ResponseDTO<CustomersDTO>
+            {
+                Success = true,
+                Result = new CustomersDTO
+                {
+                    CustomerAddress = HttpContext.Current.Session["CustomerAddress"].ToString() ?? string.Empty
+                }
+            };
+            return response;
         }
     }
 }

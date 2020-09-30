@@ -52,6 +52,7 @@
                 {
                     Session["CustomerId"] = customerResponse.Result.CustomerIdentifier;
                     Session["CustomerName"] = customerResponse.Result.CustomerName;
+                    Session["CustomerAddress"] = customerResponse.Result.CustomerAddress;
                     
                     if (customerResponse.Result.CustomerRole == (int)CustomerRole.Customer)
                     {

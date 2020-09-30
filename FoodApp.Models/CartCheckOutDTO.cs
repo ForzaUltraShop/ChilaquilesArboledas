@@ -12,5 +12,7 @@
         public DeliveryOption DeliveryOption { get; set; }
 
         public NotifyDTO Notify { get; set; }
+
+        public string CustomerAddress { get; set; }
     }
 }

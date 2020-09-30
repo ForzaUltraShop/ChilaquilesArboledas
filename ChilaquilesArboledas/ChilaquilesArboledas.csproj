@@ -90,6 +90,7 @@
     <Content Include="assets\images\blackWood.jpg" />
     <Content Include="assets\images\cafeFONDO.png" />
     <Content Include="assets\images\cafeOlla.jpg" />
+    <Content Include="assets\images\car_empty.png" />
     <Content Include="assets\images\chilaquilesEspeciales.jpg" />
     <Content Include="assets\images\ChilaquilesFondo.jpg" />
     <Content Include="assets\images\chilaquilesJalisco.jpg" />

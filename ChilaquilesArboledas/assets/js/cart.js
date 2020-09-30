@@ -3,15 +3,13 @@ $(document).ready(function () {
 
     $('#lnkShareMyLocation').hide();
     $('#OkShareLocation').hide();
+    $('#txtCustomerAddress').hide();
 
-    $('#lnkShareMyLocation').click(function ()
-    {
-        if (navigator.geolocation)
-        {
+    $('#lnkShareMyLocation').click(function () {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(savePosition);
         }
-        else
-        {
+        else {
             swal("Error", "No fue posible obtener tu ubicación actual", "error");
         }
     });
@@ -25,29 +23,34 @@ $(document).ready(function () {
 
     $('.rbtDeliveryOption').change(function () {
         let radio = $(this);
-        if (radio.is(':checked')){
+        if (radio.is(':checked')) {
             switch (parseInt(radio.val())) {
                 case 0:
                     $('#lnkShareMyLocation').hide();
                     $('#OkShareLocation').hide();
+                    $('#txtCustomerAddress').hide();
                     console.log('Para llevar');
                     break;
                 case 1:
                     $('#lnkShareMyLocation').hide();
                     $('#OkShareLocation').hide();
+                    $('#txtCustomerAddress').hide();
                     console.log('Para ir comiendo');
                     break;
                 case 2:
-                    $('#lnkShareMyLocation').show();
+                    getCustomerAddress();
+                    if (navigator.geolocation) {
+                        $('#lnkShareMyLocation').show();
+                    }
                     $('#OkShareLocation').hide();
+                    $('#txtCustomerAddress').show();
                     console.log('Entrega a domicilio');
                     break;
             }
         }
     });
 
-    $('#btnSendOrder').click(function ()
-    {
+    $('#btnSendOrder').click(function () {
         let cartCheckOut = {
             Order: {
                 OrderIdentifier: parseInt($('#hdfOrderIdentifier').val())
@@ -59,7 +62,8 @@ $(document).ready(function () {
                     Latitude: $('#hdfLatitude').val(),
                     Longitude: $('#hdfLongitude').val()
                 }
-            }
+            },
+            CustomerAddress: $('#txtCustomerAddress').val()
         };
 
         console.log('cartCheckOut:', cartCheckOut);
@@ -70,18 +74,15 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({ "cartCheckOut": cartCheckOut }),
             dataType: "json",
-            success: function (response)
-            {
+            success: function (response) {
                 let data = response.d;
-                if (data.Success)
-                {
+                if (data.Success) {
                     swal("Pedido completado", "Hemos recibido tu orden y enseguida empezaremos a preparalo", "success");
                     setTimeout(function () {
                         window.location.replace('../Forms/Menu.aspx');
                     }, 2000);
                 }
-                else
-                {
+                else {
                     swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
                 }
             },
@@ -92,19 +93,24 @@ $(document).ready(function () {
     });
 });
 
-function loadCart()
-{    
+function carHide() {
+    $('#car_content').hide();
+    $('#car_empty').show();
+}
+
+function loadCart() {
+    $('#car_empty').hide();
+    $('#car_content').show();
     $.ajax({
         type: "POST",
         url: "../Forms/CartCheckOut.aspx/OrderGetItem",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ "orderIdentifier": parseInt($('#hdfOrderIdentifier').val()) }),
         dataType: "json",
-        success: function (response)
-        {
+        success: function (response) {
             let data = response.d;
-            if (data.Success)
-            {
+            if (data.Success) {
+
                 console.log('Order', data.Result);
 
                 const groupedDetailList = _.groupBy(data.Result.OrderDetailList, detail => detail.UniqueKeyIdentifier);
@@ -114,8 +120,7 @@ function loadCart()
                 $('#tblOrderDetail tfoot').empty();
 
                 var tableContent = '';
-                $.each(groupedDetailList, function (i, item)
-                {
+                $.each(groupedDetailList, function (i, item) {
                     let dishPrice = parseFloat(groupedDetailList[i][0].Dish.DishPrice) * parseInt(groupedDetailList[i][0].Quantity)
                     let complementAditionalCost = 0;
                     for (var j = 0; j < groupedDetailList[i].length; j++) {
@@ -131,8 +136,7 @@ function loadCart()
                     tableContent += "    </td>";
                     tableContent += "</tr>";
 
-                    for (var j = 0; j < groupedDetailList[i].length; j++)
-                    {
+                    for (var j = 0; j < groupedDetailList[i].length; j++) {
                         tableContent += "<tr>";
                         tableContent += "    <td colspan='2'>"
                         tableContent += "        <span style='color:grey'>" + groupedDetailList[i][j].DishComplementName + "</span>";
@@ -150,8 +154,7 @@ function loadCart()
                 tableFooterContent += "</tr>";
                 $('#tblOrderDetail tfoot').append(tableFooterContent);
             }
-            else
-            {
+            else {
                 swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
             }
         },
@@ -160,3 +163,22 @@ function loadCart()
         }
     });
 };
+
+function getCustomerAddress() {
+    $.ajax({
+        type: "POST",
+        url: "../Forms/CartCheckOut.aspx/GetCustomerAddress",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({}),
+        dataType: "json",
+        success: function (response) {
+            let data = response.d;
+            if (data.Success) {
+                $('#txtCustomerAddress').val(data.Result.CustomerAddress);
+            }
+        },
+        failure: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+}

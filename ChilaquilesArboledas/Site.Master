@@ -15,20 +15,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"></script>
-        
+
 
 
 
     <style>
-
         @font-face {
             font-family: 'Parisienne';
             src: url('../assets/fonts/Parisienne-Regular.ttf');
         }
 
-        body { 
+        body {
             font-family: Arial, Helvetica, sans-serif;
-            background-color:#362d26;
+            background-color: #362d26;
             /*background-image: url("../assets/images/cafefondo.png")*/
         }
 
@@ -38,17 +37,17 @@
             overflow: auto;
         }
 
-        .navbar a {
-            float: left;
-            padding: 12px;
-            color: white;
-            text-decoration: none;
-            font-size: 17px;
-        }
+            .navbar a {
+                float: left;
+                padding: 12px;
+                color: white;
+                text-decoration: none;
+                font-size: 17px;
+            }
 
-        .navbar a:hover {
-            background-color: #000;
-        }
+                .navbar a:hover {
+                    background-color: #000;
+                }
 
         .active {
             background-color: #4CAF50;
@@ -67,33 +66,33 @@
             border-radius: .28571429rem;
             box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
             margin-top: 20px;
-            cursor:pointer;
+            cursor: pointer;
             background-color: #0B0105;
         }
 
-        .card-title{
+        .card-title {
             color: #F4DFDB;
-            font-family:Parisienne;
-            font-size:35px;
+            font-family: Parisienne;
+            font-size: 35px;
         }
 
-        .card-text{
-            color:#DCA522;
+        .card-text {
+            color: #DCA522;
         }
 
-        .card-price{
-            color:#DCA522;
-            font-weight:bold;
+        .card-price {
+            color: #DCA522;
+            font-weight: bold;
         }
 
-        .card-footer{
+        .card-footer {
             background-color: #6CBB3C;
         }
 
-        .card-footer .text-muted{
-            color: white !important;
-            font-weight: bolder;
-        }
+            .card-footer .text-muted {
+                color: white !important;
+                font-weight: bolder;
+            }
 
         @media screen and (max-width: 500px) {
             .navbar a {
@@ -118,37 +117,42 @@
             z-index: 1000;
         }
 
-        #topButton::after {
-            content: "\f077";
-            font-family: FontAwesome;
-            font-weight: normal;
-            font-style: normal;
-            font-size: 2em;
-            line-height: 50px;
-            color: #fff;
-        }
+            #topButton::after {
+                content: "\f077";
+                font-family: FontAwesome;
+                font-weight: normal;
+                font-style: normal;
+                font-size: 2em;
+                line-height: 50px;
+                color: #fff;
+            }
 
-        #topButton:hover {
-            cursor: pointer;
-            background-color: #333;
-        }
+            #topButton:hover {
+                cursor: pointer;
+                background-color: #333;
+            }
 
-        #topButton:active {
-            background-color: #555;
-        }
+            #topButton:active {
+                background-color: #555;
+            }
 
-        .imgChilaquiles{
+        .imgChilaquiles {
             cursor: pointer;
         }
 
         .navbar-dark .navbar-nav .nav-link {
-            color:#ffffff;
+            color: #ffffff;
         }
 
         /* #topButton.show {
             opacity: 1;
             visibility: visible;
         } */
+
+        .container-fluid-arboleadas {
+            margin-left: -15px !important;
+            margin-right: 10px !important;
+        }
     </style>
 
 
@@ -161,20 +165,26 @@
         <br />
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-dark">
-                <a class="navbar-brand" href="#">Chilaquiles Arboledas</a>
+                <a class="navbar-brand" href='<%:ResolveUrl("~/Forms/Menu.aspx")%>'>Chilaquiles Arboledas</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href='<%:ResolveUrl("~Forms/Menu.aspx")%>'>Menú</a>
+                            <a class="nav-link" href='<%:ResolveUrl("~/Forms/Menu.aspx")%>'>Menú</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href='<%:ResolveUrl("~/Forms/CartCheckOut.aspx") %>'>
                                 <i class="fa fa-shopping-cart"></i>
                                 Carrito de compras
                             </a>
+                        </li>
+                        <li class="nav-item">
+                            <asp:LinkButton runat="server" class="nav-link" ID="logout" OnClick="logout_Click">
+                                <i class="fa fa-sign-out"></i>
+                                Salir
+                            </asp:LinkButton>
                         </li>
                     </ul>
                 </div>
@@ -187,3 +197,10 @@
     </form>
 </body>
 </html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#logout').bind('click', function () {
+
+        });
+    });
+</script>
