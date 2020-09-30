@@ -15,6 +15,33 @@ namespace ChilaquilesArboledas.Forms.Admin
     {
 
         /// <summary>
+        /// smManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager smManager;
+
+        /// <summary>
+        /// ajaxAccordion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.Accordion ajaxAccordion;
+
+        /// <summary>
+        /// DishesPanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.AccordionPane DishesPanel1;
+
+        /// <summary>
         /// lblCategoryName control.
         /// </summary>
         /// <remarks>
@@ -51,24 +78,6 @@ namespace ChilaquilesArboledas.Forms.Admin
         protected global::System.Web.UI.WebControls.TextBox txtDescription;
 
         /// <summary>
-        /// divImageFileUpload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divImageFileUpload;
-
-        /// <summary>
-        /// fuCategoryImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuCategoryImage;
-
-        /// <summary>
         /// lblFileUpload control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace ChilaquilesArboledas.Forms.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgCategory;
+
+        /// <summary>
+        /// fuCategoryImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuCategoryImage;
 
         /// <summary>
         /// chkIsActive control.

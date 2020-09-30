@@ -50,10 +50,12 @@
             {
                 int rowIndex = int.Parse(e.CommandArgument.ToString());
                 string dishIdentifier = grwDishes.DataKeys[rowIndex]["DishIdentifier"].ToString();
+                int.TryParse(Request.QueryString["CategoryIdentifier"], out int categoryIdentifier);
+
                 switch (e.CommandName)
                 {
                     case "DishEdit":
-                        showDetailPage(dishIdentifier);
+                        showDetailPage(dishIdentifier, categoryIdentifier.ToString());
                         break;
                     case "DishDelete":
                         showDeleteModal(dishIdentifier);
@@ -74,9 +76,9 @@
             mpeConfirmDelete.Show();
         }
 
-        private void showDetailPage(string dishIdentifier)
+        private void showDetailPage(string dishIdentifier, string categoryIdentifier)
         {
-            Response.Redirect(ResolveUrl(string.Format("~/Forms/Admin/DishesEdit?DishIdentifier={0}", dishIdentifier)));
+            Response.Redirect(ResolveUrl(string.Format("~/Forms/Admin/DishesEdit?DishIdentifier={0}&CategoryIdentifier={1}", dishIdentifier, categoryIdentifier)));
         }
 
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
@@ -102,6 +104,12 @@
                     //TODO:Alert message
                 }
             }
+        }
+
+        protected void btnAddNewDish_Click(object sender, EventArgs e)
+        {
+            int.TryParse(Request.QueryString["CategoryIdentifier"], out int categoryIdentifier);
+            Response.Redirect(ResolveUrl(string.Format("~/Forms/Admin/DishesEdit?CategoryIdentifier={0}", categoryIdentifier)));
         }
     }
 }

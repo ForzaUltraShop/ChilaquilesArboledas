@@ -5,6 +5,7 @@
     using FoodApp.Models;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.UI;
@@ -47,6 +48,8 @@
                 {
                     txtDishName.Text = string.Empty;
                     txtDishDescription.Text = string.Empty;
+                    loadSectionGrid();
+                    loadDishComplementsGrid();
                     ActionType = "create";
                 }
             }
@@ -90,6 +93,8 @@
                 txtDishName.Text = dishItem.DishName;
                 txtDishDescription.Text = dishItem.DishDescription;
                 txtDishPrice.Text = dishItem.DishPrice.ToString("C");
+                imgDish.ImageUrl = Path.Combine(imgDish.ImageUrl, dishItem.DishImagePath);
+                imgDish.Visible = true;
                 chkDishStatus.Checked = dishItem.IsActive;
             }
             else
@@ -102,7 +107,7 @@
         {
             long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
             var dishSectionList = dishesLogic.DishSectionsByDishGetList(dishIdentifier);
-            if (dishSectionList.Result != null && dishSectionList.Result.Any())
+            if (dishSectionList.Result != null)
             {
                 grwSections.DataSource = dishSectionList.Result;
                 grwSections.DataBind();
@@ -117,12 +122,45 @@
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            int categoryIdentifier = default(int);
+            if (Request.QueryString["CategoryIdentifier"] != null)
+            {
+                int.TryParse(Request.QueryString["CategoryIdentifier"], out categoryIdentifier);
+                dishesLogic.CategoryIdentifier = categoryIdentifier;
+            }
+            
+            var saveResponse = dishesLogic.DishesExecute(new RequestDTO<DishesDTO>
+            {   
+                Item = new DishesDTO
+                {
+                    DishName = string.IsNullOrEmpty(txtDishName.Text.Trim()) ? null : txtDishName.Text.Trim(),
+                    DishDescription = txtDishDescription.Text,
+                    DishPrice = string.IsNullOrEmpty(txtDishPrice.Text.Trim()) ? decimal.Zero : Convert.ToDecimal(txtDishPrice.Text.Trim().Replace("$", string.Empty)),
+                    DishImagePath = fuDishImage.HasFile ? fuDishImage.PostedFile.FileName: imgDish.ImageUrl,
+                    IsActive = chkDishStatus.Checked
+                },
+                OperationType = ActionType == "create" ? OperationType.Create : OperationType.Update
+            });
 
+            if (saveResponse.Success)
+            {
+                fuDishImage.SaveAs(Server.MapPath(string.Format("~/assets/images/{0}", fuDishImage.PostedFile.FileName)));
+                Response.Redirect(ResolveUrl(string.Format("~/Forms/Admin/DishesEdit?DishIdentifier={0}&CategoryIdentifier={1}", saveResponse.Result.DishIdentifier, categoryIdentifier)));
+            }
+            else
+            {
+
+            }
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-
+            int categoryIdentifier = default(int);
+            if (Request.QueryString["CategoryIdentifier"] != null)
+            {
+                int.TryParse(Request.QueryString["CategoryIdentifier"], out categoryIdentifier);
+            }
+            Response.Redirect(ResolveUrl(string.Format("~/Forms/Admin/Dishes?CategoryIdentifier={0}", categoryIdentifier)));
         }
 
         protected void grwSections_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -216,14 +254,95 @@
 
         protected void btnAddNewSection_Click(object sender, EventArgs e)
         {
-            grwSections.ShowFooter = true;
-            loadSectionGrid();
+            if (grwSections.Rows.Count > default(int))
+            {
+                grwSections.ShowFooter = true;
+                loadSectionGrid();
+            }
+            else
+            {
+                long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+                var txtEmptySectionName = grwSections.Controls[0].Controls[0].FindControl("txtEmptySectionName") as TextBox;
+                var chkEmptyAllowMultipleOption = grwSections.Controls[0].Controls[0].FindControl("chkEmptyAllowMultipleOption") as CheckBox;
+
+                if(dishIdentifier > default(long) && !string.IsNullOrEmpty(txtEmptySectionName.Text.Trim()))
+                {
+                    bool isCreated = dishesLogic.DishSectionExecute(new RequestDTO<DishesDTO>
+                    {
+                        Item = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier,
+                            DishSectionsList = new List<DishSectionsDTO>
+                            {
+                                new DishSectionsDTO
+                                {
+                                    DishSectionName = txtEmptySectionName.Text.Trim(),
+                                    AllowMultipleOptions = chkEmptyAllowMultipleOption.Checked
+                                }
+                            }
+                        },
+                        OperationType = OperationType.Create
+                    }).Success;
+
+                    if (isCreated)
+                    {
+                        loadSectionGrid();
+                    }
+                }
+            }
         }
 
         protected void btnAddNewComplement_Click(object sender, EventArgs e)
         {
-            grwComplements.ShowFooter = true;
-            loadDishComplementsGrid();
+            if(grwComplements.Rows.Count > default(int))
+            {
+                grwComplements.ShowFooter = true;
+                loadDishComplementsGrid();
+            }
+            else
+            {
+                var txtEmptyComplementName = grwComplements.Controls[0].Controls[0].FindControl("txtEmptyComplementName") as TextBox;
+                var chkEmptyComplementIncludedInOrder = grwComplements.Controls[0].Controls[0].FindControl("chkEmptyComplementIncludedInOrder") as CheckBox;
+                var txtEmptyComplementAditionalCost = grwComplements.Controls[0].Controls[0].FindControl("txtEmptyComplementAditionalCost") as TextBox;
+
+                if(txtEmptyComplementName != null && !string.IsNullOrEmpty(txtEmptyComplementName.Text.Trim()) &&
+                   txtEmptyComplementAditionalCost != null && !string.IsNullOrEmpty(txtEmptyComplementAditionalCost.Text.Trim()))
+                {
+                    long.TryParse(Request.QueryString["DishIdentifier"], out long dishIdentifier);
+                    int.TryParse(ddlDishSection.SelectedValue, out int dishSectionIdentifier);
+                    decimal.TryParse(txtEmptyComplementAditionalCost.Text.Trim(), out decimal complementPrice);
+
+                    var insertResponse = dishesLogic.DishComplementsExecute(new RequestDTO<DishesDTO>
+                    {
+                        Item = new DishesDTO
+                        {
+                            DishIdentifier = dishIdentifier,
+                            DishSectionsList = new List<DishSectionsDTO>
+                            {
+                                new DishSectionsDTO
+                                {
+                                    DishSectionId = dishSectionIdentifier,
+                                    DishComplementsList = new List<DishComplementsDTO>
+                                    {
+                                        new DishComplementsDTO
+                                        {
+                                            DishComplementName = txtEmptyComplementName.Text.Trim(),
+                                            IsIncludedInOrder = chkEmptyComplementIncludedInOrder.Checked,
+                                            AditionalCost = complementPrice
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        OperationType = OperationType.Create
+                    });
+
+                    if (insertResponse.Success)
+                    {
+                        loadDishComplementsGrid();
+                    }
+                }
+            }
         }
 
         protected void grwComplements_RowCommand(object sender, GridViewCommandEventArgs e)

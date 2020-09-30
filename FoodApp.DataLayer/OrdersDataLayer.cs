@@ -56,6 +56,17 @@
             return orderList;
         }
 
+        public List<OrderDetailDTO> OrderDetailGetList(long orderIdentifier)
+        {
+            var orderList = new List<OrderDetailDTO>();
+            using (SqlCommand command = new SqlCommand("Usp_Orders_GETI"))
+            {
+                command.Parameters.Add("@OrderId", System.Data.SqlDbType.BigInt).Value = orderIdentifier;
+                orderList = command.Select(reader => reader.ToOrderDetail());
+            }
+            return orderList;
+        }
+
         public bool CartCheckOutExecute(long orderIdentifier, string aditionalComments, DeliveryOption deliveryOption, string latitude, string longitude)
         {
             bool isCartCheckOutExecuted = default(bool);

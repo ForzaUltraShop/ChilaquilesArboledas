@@ -45,6 +45,7 @@ namespace FoodApp.BusinessLayer
             try
             {
                 orderResponse.Result = ordersDataLayer.OrderGetList(orderIdentifier).FirstOrDefault();
+                orderResponse.Result.OrderDetailList = orderDetailGetItem(orderIdentifier);
                 orderResponse.Success = orderResponse.Result != null && orderResponse.Result.OrderIdentifier > default(long);
             }
             catch (Exception exception)
@@ -52,6 +53,20 @@ namespace FoodApp.BusinessLayer
                 throw;
             }
             return orderResponse;
+        }
+
+        private List<OrderDetailDTO> orderDetailGetItem(long orderIdentifier)
+        {
+            var orderDetailList = new List<OrderDetailDTO>();
+            try
+            {
+                orderDetailList = ordersDataLayer.OrderDetailGetList(orderIdentifier);
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+            return orderDetailList;
         }
 
         public ResponseDTO<OrderDTO> CartCheckOutExecute(RequestDTO<CartCheckOutDTO> cartCheckOutItem)
@@ -74,8 +89,7 @@ namespace FoodApp.BusinessLayer
                     sendNotify(cartCheckOutItem.Item.Order.OrderIdentifier, 
                                cartCheckOutItem.Item.AditionalCommnents, 
                                cartCheckOutItem.Item.DeliveryOption, 
-                               cartCheckOutItem.Item.Notify,
-                               cartCheckOutItem.Item.CustomerAddress ?? string.Empty);
+                               cartCheckOutItem.Item.Notify);
                         //));           
                 }
             }
@@ -86,8 +100,7 @@ namespace FoodApp.BusinessLayer
             return response;
         }
 
-
-        private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify,string customerAddress)
+        private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify)
         {
             var notifyLogic = new NotifyLogic();
             try
@@ -123,11 +136,6 @@ namespace FoodApp.BusinessLayer
                     case DeliveryOption.ToTake:
                         sb.Append("-Opción de Entrega: Para llevar\n");
                         break;
-                }
-
-                if (!string.IsNullOrEmpty(customerAddress))
-                {
-                    sb.Append("Dirección: " + customerAddress + "\n");
                 }
 
                 sb.Append("==============================\n");

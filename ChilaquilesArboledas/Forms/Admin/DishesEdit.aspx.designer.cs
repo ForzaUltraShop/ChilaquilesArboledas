@@ -24,24 +24,6 @@ namespace ChilaquilesArboledas.Forms.Admin
         protected global::System.Web.UI.ScriptManager smManager;
 
         /// <summary>
-        /// ajaxAccordion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.Accordion ajaxAccordion;
-
-        /// <summary>
-        /// DishesPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AccordionPane DishesPanel1;
-
-        /// <summary>
         /// lblDishName control.
         /// </summary>
         /// <remarks>
@@ -96,6 +78,42 @@ namespace ChilaquilesArboledas.Forms.Admin
         protected global::System.Web.UI.WebControls.TextBox txtDishPrice;
 
         /// <summary>
+        /// lblFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFileUpload;
+
+        /// <summary>
+        /// divDishImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDishImage;
+
+        /// <summary>
+        /// imgDish control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgDish;
+
+        /// <summary>
+        /// fuDishImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuDishImage;
+
+        /// <summary>
         /// chkDishStatus control.
         /// </summary>
         /// <remarks>
@@ -105,13 +123,22 @@ namespace ChilaquilesArboledas.Forms.Admin
         protected global::System.Web.UI.WebControls.CheckBox chkDishStatus;
 
         /// <summary>
-        /// DishesPanel2 control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.AccordionPane DishesPanel2;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
+
+        /// <summary>
+        /// btnSave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
         /// grwSections control.
@@ -130,15 +157,6 @@ namespace ChilaquilesArboledas.Forms.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddNewSection;
-
-        /// <summary>
-        /// DishesPanel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.AccordionPane DishesPanel3;
 
         /// <summary>
         /// lblDishSectionDropdownList control.
@@ -175,24 +193,6 @@ namespace ChilaquilesArboledas.Forms.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAddNewComplement;
-
-        /// <summary>
-        /// btnCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
-
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
         /// hdfDeleteIdentifier control.
