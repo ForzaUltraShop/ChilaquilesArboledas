@@ -95,14 +95,17 @@ function loadControlsByDishId(dishIdentifier)
         success: function (response)
         {
             let categoryResponse = response.d;
-            if (categoryResponse != undefined)
+            if (categoryResponse !== undefined)
             {
                 if (categoryResponse.Success)
                 {
                     $('#divContent').empty();
 
                     let category = categoryResponse.Result;
+                    console.log(category);
                     let headerImageUrl = "../assets/images/" + category.CategoryImagePath;
+                    let headerDisherImageUrl = "../assets/images/" + category.DishesList[0].DishImagePath;
+                    let dishName = category.DishesList[0].DishName;
 
                     //Cargo el hidden con el valor original del platillo
                     $('#hdfNewDishPrice').val(category.DishesList[0].DishPrice);
@@ -110,10 +113,10 @@ function loadControlsByDishId(dishIdentifier)
                     let bodyContent = "<br/>";
                     bodyContent += "<div class='row'>";
                     bodyContent += " <div class='col-4' style='text-align:center;'>";
-                    bodyContent += "     <img src='" + headerImageUrl + "' alt='' width='90px' height='90px' />";
+                    bodyContent += "     <img src='" + headerDisherImageUrl + "' alt='' width='90px' height='90px' />";
                     bodyContent += " </div>"
                     bodyContent += " <div class='col-8'>";
-                    bodyContent += "     <h3 class='align-left'>" + category.CategoryName + "</h3>";
+                    bodyContent += "     <h3 class='align-left'>" + dishName + "</h3>";
                     bodyContent += "     <span id='spnPrice'>" + castToCurrency(category.DishesList[0].DishPrice) + "</span>";
                     bodyContent += " </div>";
                     bodyContent += "</div>";
