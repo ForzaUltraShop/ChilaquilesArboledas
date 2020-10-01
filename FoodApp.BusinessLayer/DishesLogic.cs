@@ -15,6 +15,11 @@
         /// </summary>
         private readonly DishesDataLayer dishesDataLayer = new DishesDataLayer();
 
+        /// <summary>
+        /// Permite establecer el identificador de la categoria a la que pertenece el platillo
+        /// </summary>
+        public int CategoryIdentifier { get; set; }
+
         public ResponseDTO<DishesDTO> DishesExecute(RequestDTO<DishesDTO> filter)
         {
             var response = new ResponseDTO<DishesDTO>();
@@ -23,6 +28,8 @@
                 switch (filter.OperationType)
                 {
                     case OperationType.Create:
+                        response.Result = dishesDataLayer.DishesCreate(CategoryIdentifier, filter.Item);
+                        response.Success = response.Result?.DishIdentifier > default(long);
                         break;
                     case OperationType.Delete:
                         response.Success = dishesDataLayer.DishesDelete(filter.Item.DishIdentifier);

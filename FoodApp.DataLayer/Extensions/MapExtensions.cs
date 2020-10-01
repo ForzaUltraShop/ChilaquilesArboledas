@@ -82,11 +82,7 @@
                 ItemsCount = reader.Get<int>("ItemsCount"),
                 ItemsTotalAmount = reader.Get<decimal>("ItemsTotalAmount"),
                 Customer = reader.ToCustomer(),
-                OrderDetailList = new List<OrderDetailDTO>
-                {
-                    reader.ToOrderDetail()
-                }
-                // reader.Select(r => r.ToOrderDetail()).ToList()
+                //OrderDetailList = reader.Select(r => r.ToOrderDetail()).ToList()
             };
         }
 
@@ -107,10 +103,12 @@
 
         private static IEnumerable<T> Select<T>(this IDataReader reader, Func<IDataReader, T> projection)
         {
-            while (reader.Read())
-            {
-                yield return projection(reader);
-            }
+            //IDataReader newReader = reader;
+            //while (newReader.Read())
+            //{
+            //    yield return projection(newReader);
+            //}
+            return (IEnumerable<T>)reader.ToDishComplements();
         }
     }
 }

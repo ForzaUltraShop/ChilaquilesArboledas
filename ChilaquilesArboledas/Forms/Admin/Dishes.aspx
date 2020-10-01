@@ -72,7 +72,7 @@
                 </div>--%>
             </div>
             <div class="ml-auto p-2">
-                <%--<asp:Button runat="server" ID="btnAddNewDish" CssClass="btn btn-success" Text="+ Agregar nuevo platillo" />--%>
+                <asp:Button runat="server" ID="btnAddNewDish" CssClass="btn btn-success" Text="+ Agregar nuevo platillo" OnClick="btnAddNewDish_Click" />
             </div>
         </div>
         <br />

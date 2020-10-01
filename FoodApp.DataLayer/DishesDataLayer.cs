@@ -23,6 +23,21 @@
             return dishComplementsList;
         }
 
+        public DishesDTO DishesCreate(int categoryIdentifier, DishesDTO item)
+        {
+            var newDishItem = new DishesDTO();
+            using(SqlCommand command = new SqlCommand("Usp_Dish_INS"))
+            {
+                command.Parameters.Add("@DishName", SqlDbType.VarChar).Value = item.DishName;
+                command.Parameters.Add("@DishDescription", SqlDbType.VarChar).Value = item.DishDescription;
+                command.Parameters.Add("@DishImagePath", SqlDbType.VarChar).Value = item.DishImagePath;
+                command.Parameters.Add("@DishPrice", SqlDbType.Decimal).Value = item.DishPrice;
+                command.Parameters.Add("@CategoryId", SqlDbType.Int).Value = categoryIdentifier;
+                newDishItem = command.Select(reader => reader.ToDishes()).FirstOrDefault();
+            }
+            return newDishItem;
+        }
+
         public List<DishesDTO> DishesByCategoryGetList(int categoryIdentifier)
         {
             var dishesList = new List<DishesDTO>();

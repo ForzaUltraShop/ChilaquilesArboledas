@@ -37,6 +37,7 @@
                 using (SqlConnection connection = new SqlConnection(ConnectionString))
                 {
                     command.CommandType = CommandType.StoredProcedure;
+                    command.CommandTimeout = 0;
                     command.Connection = connection;
                     command.Connection.Open();
 

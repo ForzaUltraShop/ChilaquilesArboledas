@@ -127,13 +127,13 @@
     <Content Include="Forms\Admin\Dishes.aspx" />
     <Content Include="Forms\Admin\DishesEdit.aspx" />
     <Content Include="Forms\Admin\Orders.aspx" />
+    <Content Include="Forms\Admin\ReporteMensual.aspx" />
     <Content Include="Forms\CartCheckOut.aspx" />
     <Content Include="Forms\Controls\Login.ascx" />
     <Content Include="Forms\DishConfig.aspx" />
     <Content Include="Forms\Especiales.aspx" />
     <Content Include="Forms\Login.aspx" />
     <Content Include="Forms\Menu.aspx" />
-    <Content Include="Forms\Test.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -180,6 +180,13 @@
     <Compile Include="Forms\Admin\Orders.aspx.designer.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Admin\ReporteMensual.aspx.cs">
+      <DependentUpon>ReporteMensual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\ReporteMensual.aspx.designer.cs">
+      <DependentUpon>ReporteMensual.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CartCheckOut.aspx.cs">
       <DependentUpon>CartCheckOut.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -221,13 +228,6 @@
     </Compile>
     <Compile Include="Forms\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forms\Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

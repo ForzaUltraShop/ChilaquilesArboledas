@@ -61,17 +61,17 @@
                     var categoryItem = categoriesResponse.Result.FirstOrDefault();
                     txtCategoryName.Text = categoryItem.CategoryName.Trim();
                     txtDescription.Text = categoryItem.CategoryDescription.Trim();
+                    chkIsActive.Checked = categoryItem.IsActive;
 
                     if (!string.IsNullOrEmpty(categoryItem.CategoryImagePath))
                     {
                         divCategoryImage.Visible = true;
-                        divImageFileUpload.Visible = default;
+                        imgCategory.Visible = true;
                         imgCategory.ImageUrl = Path.Combine(imgCategory.ImageUrl, categoryItem.CategoryImagePath);
                     }
                     else
                     {
                         divCategoryImage.Visible = default;
-                        divImageFileUpload.Visible = true;
                     }
                 }
             }
@@ -97,7 +97,7 @@
                     CategoryIdentifier = (ActionType == "create" ? default : categoryIdentifier),
                     CategoryName = txtCategoryName.Text,
                     CategoryDescription = txtDescription.Text,
-                    CategoryImagePath = fuCategoryImage.PostedFile.FileName,
+                    CategoryImagePath = divCategoryImage.Visible ? imgCategory.ImageUrl : fuCategoryImage.PostedFile.FileName,
                     IsActive = (ActionType == "create" ? true : chkIsActive.Checked)
                 },
                 OperationType = (ActionType == "create" ? OperationType.Create :  OperationType.Update)
