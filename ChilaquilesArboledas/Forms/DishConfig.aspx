@@ -26,7 +26,7 @@
             <br />
             <div class="row" style="background-color: white;">
                 <div class="col-lg-12 col-centered">
-                    <div class="input-group">
+                    <div class="input-group d-flex justify-content-center">
                         <span class="input-group-btn">
                             <button type="button" id="btnMinus" class="btn btn-secondary">
                                 <i class="fa fa-minus"></i>

@@ -153,6 +153,29 @@
             margin-left: -15px !important;
             margin-right: 10px !important;
         }
+
+        .center-div {
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -150px;
+            vertical-align: central !important;
+        }
+
+        .spinner {
+            position: fixed;
+            z-index: 9999;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background-color: Black;
+            filter: alpha(opacity=60);
+            opacity: 0.6;
+        }
     </style>
 
 
@@ -161,6 +184,14 @@
 </head>
 <body>
     <script type="text/javascript" src='<%=ResolveUrl(string.Format("~/assets/js/common.js?{0}", DateTime.Now.Ticks)) %>'></script>
+    <div class="spinner" style="display: none">
+        <div class="center-div d-flex justify-content-center">
+            <div class="row  d-inline-block">
+                <img src="/assets/images/Rolling-1s-200px.gif" width="90" style="object-fit: scale-down" />
+                <p class="text-white">Cargando...</p>
+            </div>
+        </div>
+    </div>
     <form id="form1" runat="server">
         <br />
         <div class="container">
@@ -197,7 +228,13 @@
     </form>
 </body>
 </html>
-<script type="text/javascript">
+<script type="text/javascript">   
+    $(document).ajaxStart(function () {
+        showLoading();
+    });
+    $(document).ajaxComplete(function () {
+        hideLoading();
+    });
     $(document).ready(function () {
         $('#logout').bind('click', function () {
 
