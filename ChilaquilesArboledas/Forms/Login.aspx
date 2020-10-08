@@ -140,6 +140,10 @@
                     <div class="panel panel-login">
                         <div class="panel-heading">
                             <div class="row">
+                                <img src="../assets/images/logo.png" width="150px" height="150px" />
+                            </div>
+                            <br />
+                            <div class="row">
                                 <div class="col-xs-6">
                                     <a href="#" class="active" id="login-form-link">Iniciar sesi&oacute;n</a>
                                 </div>

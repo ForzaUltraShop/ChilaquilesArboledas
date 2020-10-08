@@ -22,7 +22,7 @@
                     long.TryParse(Session["OrderId"].ToString(), out long orderIdentifier);
                     if (orderIdentifier > default(long))
                     {
-                        hdfOrderIdentifier.Value = "1"; //orderIdentifier.ToString();
+                        hdfOrderIdentifier.Value = orderIdentifier.ToString();
                         ScriptManager.RegisterStartupScript(Page, Page.GetType(), "loadCartItems", "loadCart();", true);
                     }
                     else

@@ -468,9 +468,10 @@
 
         private void showDeleteModal(string deleteIdentifier, DeleteSender sender)
         {
+            mpeConfirmDelete.Hide();
             hdfDeleteIdentifier.Value = deleteIdentifier;
             hdfDeleteSender.Value = ((int)sender).ToString();
-
+            
             switch (sender)
             {
                 case DeleteSender.Sections:
@@ -570,6 +571,12 @@
             {
                 //TODO: Alert
             }
+        }
+
+        protected void Unnamed_ActiveTabChanged(object sender, EventArgs e)
+        {
+            mpeConfirmDelete.Show();
+            mpeConfirmDelete.Hide();
         }
     }
 }
