@@ -111,7 +111,7 @@ namespace FoodApp.BusinessLayer
                 var groupedList = orderItem.Result.OrderDetailList.GroupBy(g => g.UniqueKeyIdentifier).ToList();
                 for (int i = 0; i < groupedList.Count(); i++)
                 {
-                    sb.AppendFormat("<strong>{0}X {1}</strong>\n", groupedList[i].FirstOrDefault().Quantity, groupedList[i].FirstOrDefault().Dish.DishName);
+                    sb.AppendFormat("<strong>{0} {1}</strong>\n", groupedList[i].FirstOrDefault().Quantity, groupedList[i].FirstOrDefault().Dish.DishName);
                     foreach(var complement in groupedList[i])
                     {
                         sb.Append(complement.DishComplementName + "\n");

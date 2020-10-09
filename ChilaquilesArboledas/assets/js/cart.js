@@ -129,7 +129,7 @@ function loadCart() {
 
                     tableContent += "<tr>";
                     tableContent += "    <td style='width:80%'>";
-                    tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "X</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
+                    tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
                     tableContent += "    </td>";
                     tableContent += "    <td style='width:20 %; text-align: right'>";
                     tableContent += "        <span style='color:#28a745; font-weight:bold'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
