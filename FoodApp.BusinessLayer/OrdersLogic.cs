@@ -130,6 +130,10 @@ namespace FoodApp.BusinessLayer
                 {
                     case DeliveryOption.AtHome:
                         sb.Append("-Opción de Entrega: A domicilio\n");
+                        if (!string.IsNullOrEmpty(customerAddress))
+                        {
+                            sb.Append("Dirección: " + customerAddress + "\n");
+                        }
                         break;
                     case DeliveryOption.EatOnWay:
                         sb.Append("-Opción de Entrega: Para ir comiendo\n");
@@ -137,11 +141,6 @@ namespace FoodApp.BusinessLayer
                     case DeliveryOption.ToTake:
                         sb.Append("-Opción de Entrega: Para llevar\n");
                         break;
-                }
-
-                if (!string.IsNullOrEmpty(customerAddress))
-                {
-                    sb.Append("Dirección: " + customerAddress + "\n");
                 }
 
                 sb.Append("==============================\n");
