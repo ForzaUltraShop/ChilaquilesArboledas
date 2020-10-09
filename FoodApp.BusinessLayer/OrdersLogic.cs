@@ -89,7 +89,8 @@ namespace FoodApp.BusinessLayer
                     sendNotify(cartCheckOutItem.Item.Order.OrderIdentifier, 
                                cartCheckOutItem.Item.AditionalCommnents, 
                                cartCheckOutItem.Item.DeliveryOption, 
-                               cartCheckOutItem.Item.Notify);
+                               cartCheckOutItem.Item.Notify,
+                               cartCheckOutItem.Item.CustomerAddress ?? string.Empty);
                         //));           
                 }
             }
@@ -100,7 +101,7 @@ namespace FoodApp.BusinessLayer
             return response;
         }
 
-        private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify)
+        private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify, string customerAddress)
         {
             var notifyLogic = new NotifyLogic();
             try
@@ -136,6 +137,11 @@ namespace FoodApp.BusinessLayer
                     case DeliveryOption.ToTake:
                         sb.Append("-Opción de Entrega: Para llevar\n");
                         break;
+                }
+
+                if (!string.IsNullOrEmpty(customerAddress))
+                {
+                    sb.Append("Dirección: " + customerAddress + "\n");
                 }
 
                 sb.Append("==============================\n");
