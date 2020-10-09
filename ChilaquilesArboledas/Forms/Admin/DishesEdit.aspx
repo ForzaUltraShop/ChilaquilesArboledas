@@ -11,7 +11,7 @@
         }
 
         .ajax__tab_xp .ajax__tab_header {
-            font-size:13px !important;
+            font-size: 13px !important;
         }
     </style>
 </asp:Content>
@@ -26,11 +26,12 @@
                 Width="100%"
                 ActiveTabIndex="0"
                 OnDemand="true"
-                AutoPostBack="false"
+                AutoPostBack="true"
                 TabStripPlacement="Top"
                 CssClass="ajax__tab_xp"
                 ScrollBars="None"
-                UseVerticalStripPlacement="false">
+                UseVerticalStripPlacement="false" 
+                OnActiveTabChanged="Unnamed_ActiveTabChanged" >
                 <ajaxToolkit:TabPanel runat="server"
                     HeaderText="Informacion general"
                     Enabled="true"
@@ -328,11 +329,4 @@
     <div style="display: none">
         <asp:Button runat="server" ID="btnModalPopup" ClientIDMode="Static" />
     </div>
-
-    <script type="text/javascript">
-        $('#myTab a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        })
-    </script>
 </asp:Content>
