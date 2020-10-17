@@ -81,5 +81,16 @@
             }
             return isCartCheckOutExecuted;
         }
+
+        public bool OrderDetailDelete(long orderIdentifier,string dishUniqueKey)
+        {
+            using(SqlCommand command = new SqlCommand("Usp_OrderDetail_DEL"))
+            {
+                command.Parameters.Add("@OrderId", System.Data.SqlDbType.BigInt).Value = orderIdentifier;
+                command.Parameters.Add("@DishUniqueKey", System.Data.SqlDbType.VarChar).Value = dishUniqueKey;
+
+                return command.ExecuteQuery();
+            }
+        }
     }
 }

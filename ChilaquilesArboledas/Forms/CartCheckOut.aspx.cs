@@ -75,5 +75,13 @@
             };
             return response;
         }
+
+        [WebMethod()]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static ResponseDTO<bool> OrderDetailDelete(long orderIdentifier, string dishUniqueKey)
+        {
+            var response = new OrdersLogic().OrderDetailDelete(orderIdentifier,dishUniqueKey);
+            return response;
+        }
     }
 }

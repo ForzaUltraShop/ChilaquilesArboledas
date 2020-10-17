@@ -44,7 +44,7 @@ namespace FoodApp.BusinessLayer
             var orderResponse = new ResponseDTO<OrderDTO>();
             try
             {
-                orderResponse.Result = ordersDataLayer.OrderGetList(orderIdentifier).FirstOrDefault();
+                orderResponse.Result = ordersDataLayer.OrderGetList(orderIdentifier).FirstOrDefault() ?? new OrderDTO();
                 orderResponse.Result.OrderDetailList = orderDetailGetItem(orderIdentifier);
                 orderResponse.Success = orderResponse.Result != null && orderResponse.Result.OrderIdentifier > default(long);
             }
@@ -75,9 +75,9 @@ namespace FoodApp.BusinessLayer
             try
             {
                 response.Success = ordersDataLayer.CartCheckOutExecute
-                ( 
-                    cartCheckOutItem.Item.Order.OrderIdentifier, 
-                    cartCheckOutItem.Item.AditionalCommnents, 
+                (
+                    cartCheckOutItem.Item.Order.OrderIdentifier,
+                    cartCheckOutItem.Item.AditionalCommnents,
                     cartCheckOutItem.Item.DeliveryOption,
                     cartCheckOutItem.Item.Notify.Location.Latitude,
                     cartCheckOutItem.Item.Notify.Location.Longitude
@@ -86,17 +86,17 @@ namespace FoodApp.BusinessLayer
                 if (response.Success)
                 {
                     //Task.Run(() => 
-                    sendNotify(cartCheckOutItem.Item.Order.OrderIdentifier, 
-                               cartCheckOutItem.Item.AditionalCommnents, 
-                               cartCheckOutItem.Item.DeliveryOption, 
+                    sendNotify(cartCheckOutItem.Item.Order.OrderIdentifier,
+                               cartCheckOutItem.Item.AditionalCommnents,
+                               cartCheckOutItem.Item.DeliveryOption,
                                cartCheckOutItem.Item.Notify,
                                cartCheckOutItem.Item.CustomerAddress ?? string.Empty);
-                        //));           
+                    //));           
                 }
             }
             catch (Exception exception)
             {
-                
+
             }
             return response;
         }
@@ -113,7 +113,7 @@ namespace FoodApp.BusinessLayer
                 for (int i = 0; i < groupedList.Count(); i++)
                 {
                     sb.AppendFormat("<strong>{0} {1}</strong>\n", groupedList[i].FirstOrDefault().Quantity, groupedList[i].FirstOrDefault().Dish.DishName);
-                    foreach(var complement in groupedList[i])
+                    foreach (var complement in groupedList[i])
                     {
                         sb.Append(complement.DishComplementName + "\n");
                     }
@@ -123,7 +123,7 @@ namespace FoodApp.BusinessLayer
                 if (!string.IsNullOrEmpty(additionalComments.Trim()))
                 {
                     sb.Append("-Comentarios adicionales:\n");
-                    sb.Append(additionalComments + "\n\n" );
+                    sb.Append(additionalComments + "\n\n");
                 }
 
                 switch (deliveryOption)
@@ -152,6 +152,20 @@ namespace FoodApp.BusinessLayer
             {
                 throw;
             }
+        }
+
+        public ResponseDTO<bool> OrderDetailDelete(long orderIdentifier,string dishUniqueKey)
+        {
+            var response = new ResponseDTO<bool>();
+            try
+            {
+                response.Success = ordersDataLayer.OrderDetailDelete(orderIdentifier, dishUniqueKey);
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+            }
+            return response;
         }
     }
 }

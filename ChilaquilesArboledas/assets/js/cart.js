@@ -111,6 +111,7 @@ function loadCart() {
             let data = response.d;
             if (data.Success) {
 
+                let OrderIdentifier = data.Result.OrderIdentifier;
                 console.log('Order', data.Result);
 
                 const groupedDetailList = _.groupBy(data.Result.OrderDetailList, detail => detail.UniqueKeyIdentifier);
@@ -121,6 +122,7 @@ function loadCart() {
 
                 var tableContent = '';
                 $.each(groupedDetailList, function (i, item) {
+                    console.log(item);
                     let dishPrice = parseFloat(groupedDetailList[i][0].Dish.DishPrice) * parseInt(groupedDetailList[i][0].Quantity)
                     let complementAditionalCost = 0;
                     for (var j = 0; j < groupedDetailList[i].length; j++) {
@@ -128,17 +130,20 @@ function loadCart() {
                     }
 
                     tableContent += "<tr>";
-                    tableContent += "    <td style='width:80%'>";
+                    tableContent += "    <td style='width:70%'>";
                     tableContent += "        <span style='font-weight: bold'>" + groupedDetailList[i][0].Quantity + "</span>&nbsp;<strong>" + groupedDetailList[i][0].Dish.DishName + "</strong>";
                     tableContent += "    </td>";
                     tableContent += "    <td style='width:20 %; text-align: right'>";
                     tableContent += "        <span style='color:#28a745; font-weight:bold'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
                     tableContent += "    </td>";
+                    tableContent += "    <td style='width:5%'>";
+                    tableContent += "        <a type='button' class='close remove-uniqueKeyIdentifier' aria-label='Close' data-orderIdentifier='" + OrderIdentifier + "' data-UniqueKeyIdentifier='" + groupedDetailList[i][0].UniqueKeyIdentifier + "'><span aria-hidden=true´'>&times;</span></button>";
+                    tableContent += "    </td>";
                     tableContent += "</tr>";
 
                     for (var j = 0; j < groupedDetailList[i].length; j++) {
                         tableContent += "<tr>";
-                        tableContent += "    <td colspan='2'>"
+                        tableContent += "    <td colspan='3'>"
                         tableContent += "        <span style='color:grey'>" + groupedDetailList[i][j].DishComplementName + "</span>";
                         tableContent += "    </td>";
                         tableContent += "</tr>";
@@ -153,9 +158,34 @@ function loadCart() {
                 tableFooterContent += " <td style='width:20%; text-align:right;'><span style='font-weight:bold'>" + castToCurrency(data.Result.ItemsTotalAmount) + "</span></td>";
                 tableFooterContent += "</tr>";
                 $('#tblOrderDetail tfoot').append(tableFooterContent);
+
+
+                $('.remove-uniqueKeyIdentifier').click(function () {
+                    console.log($(this).attr('data-UniqueKeyIdentifier'));
+
+                    $.ajax({
+                        type: "POST",
+                        url: "../Forms/CartCheckOut.aspx/OrderDetailDelete",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ orderIdentifier: $(this).attr('data-orderIdentifier'), dishUniqueKey: $(this).attr('data-UniqueKeyIdentifier') }),
+                        dataType: "json",
+                        success: function (response) {
+                            let data = response.d;
+                            if (data.Success) {
+                                loadCart();
+                            }
+                        },
+                        failure: function (xhr, textStatus, errorThrown) {
+
+                        }
+                    });
+
+                });
             }
             else {
-                swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
+                carHide();
+                //swal("Oops!", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
+
             }
         },
         failure: function (xhr, textStatus, errorThrown) {
