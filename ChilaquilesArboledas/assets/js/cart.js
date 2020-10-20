@@ -137,7 +137,7 @@ function loadCart() {
                     tableContent += "        <span style='color:#28a745; font-weight:bold'>" + castToCurrency(dishPrice + complementAditionalCost) + "</span>";
                     tableContent += "    </td>";
                     tableContent += "    <td style='width:5%'>";
-                    tableContent += "        <a type='button' class='close remove-uniqueKeyIdentifier' aria-label='Close' data-orderIdentifier='" + OrderIdentifier + "' data-UniqueKeyIdentifier='" + groupedDetailList[i][0].UniqueKeyIdentifier + "'><span aria-hidden=true´'>&times;</span></button>";
+                    tableContent += "        <a type='button' class='fa fa-trash remove-uniqueKeyIdentifier' aria-label='Close' data-orderIdentifier='" + OrderIdentifier + "' data-UniqueKeyIdentifier='" + groupedDetailList[i][0].UniqueKeyIdentifier + "'><span aria-hidden=true´'></span></button>";
                     tableContent += "    </td>";
                     tableContent += "</tr>";
 

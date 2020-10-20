@@ -28,35 +28,41 @@ $('#btnMinus').click(function (e)
     }
 });
 
-$('#btnAddToCart').click(function (e) {
-
+$('#btnAddToCart').click(function (e)
+{
     fillComplementsArray();
+    if (complementsArray.length > 0)
+    {
+        let quantity = parseInt($('#spnQuantity').text());
+        let dishIdentifier = parseInt($('#hdfDishIdentifier').val());
 
-    let quantity = parseInt($('#spnQuantity').text());
-    let dishIdentifier = parseInt($('#hdfDishIdentifier').val());
-
-    $.ajax({
-        type: "POST",
-        url: "../Forms/DishConfig.aspx/CreateOrder",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ "dishIdentifier": dishIdentifier, "complementsList": complementsArray, "quantity": quantity }),
-        dataType: "json",
-        success: function (response) {
-            let data = response.d;
-            if (data.Success) {
-                swal("", "Tu carrito de compras fue actualizado", "success");
-                setTimeout(function () {
-                    window.location.replace('../Forms/Menu.aspx');
-                }, 2000);
+        $.ajax({
+            type: "POST",
+            url: "../Forms/DishConfig.aspx/CreateOrder",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ "dishIdentifier": dishIdentifier, "complementsList": complementsArray, "quantity": quantity }),
+            dataType: "json",
+            success: function (response) {
+                let data = response.d;
+                if (data.Success) {
+                    swal("", "Tu carrito de compras fue actualizado", "success");
+                    setTimeout(function () {
+                        window.location.replace('../Forms/Menu.aspx');
+                    }, 2000);
+                }
+                else {
+                    swal("Oops!", "No fue posible actualizar tu orden, por favor intenta más tarde", "error");
+                }
+            },
+            failure: function (xhr, textStatus, errorThrown) {
+                console.log("Ha ocurrido un error al actualizar el carrito de compras");
             }
-            else {
-                swal("Oops!", "No fue posible actualizar tu orden, por favor intenta más tarde", "error");
-            }
-        },
-        failure: function (xhr, textStatus, errorThrown) {
-            console.log("Ha ocurrido un error al actualizar el carrito de compras");
-        }
-    });
+        });
+    }
+    else
+    {
+        swal("", "Por favor selecciona al menos una opción para continuar", "warning");
+    }
 });
 
 function fillComplementsArray()
