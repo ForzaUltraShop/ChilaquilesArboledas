@@ -72,6 +72,7 @@
         <asp:HiddenField runat="server" ID="hdfOrderIdentifier" Value="0" ClientIDMode="Static" />
         <asp:HiddenField runat="server" ID="hdfLatitude" Value="" ClientIDMode="Static" />
         <asp:HiddenField runat="server" ID="hdfLongitude" Value="" ClientIDMode="Static" />
+        <asp:HiddenField runat="server" ID="hdfOrderTotalAmount" ClientIDMode="Static" />
     </div>
     <div id="car_empty">
         <div class="row d-flex justify-content-center" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px">

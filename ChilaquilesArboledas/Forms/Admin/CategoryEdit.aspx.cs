@@ -6,6 +6,7 @@
     using System;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
 
     public partial class CategoryEdit : Page
@@ -68,6 +69,7 @@
                         divCategoryImage.Visible = true;
                         imgCategory.Visible = true;
                         imgCategory.ImageUrl = Path.Combine(imgCategory.ImageUrl, categoryItem.CategoryImagePath);
+                        hdfCategoryImage.Value = categoryItem.CategoryImagePath;
                     }
                     else
                     {
@@ -97,7 +99,7 @@
                     CategoryIdentifier = (ActionType == "create" ? default : categoryIdentifier),
                     CategoryName = txtCategoryName.Text,
                     CategoryDescription = txtDescription.Text,
-                    CategoryImagePath = divCategoryImage.Visible ? imgCategory.ImageUrl : fuCategoryImage.PostedFile.FileName,
+                    CategoryImagePath = (ActionType == "create" ? hdfCategoryImage.Value : fuCategoryImage.PostedFile.FileName),
                     IsActive = (ActionType == "create" ? true : chkIsActive.Checked)
                 },
                 OperationType = (ActionType == "create" ? OperationType.Create :  OperationType.Update)
@@ -105,13 +107,30 @@
 
             if (successResponse)
             {
-                //TODO:Mostrar alerta
-                fuCategoryImage.SaveAs(Server.MapPath(string.Format("~/assets/images/{0}", fuCategoryImage.PostedFile.FileName)));
+                if (ActionType == "create")
+                {
+                    fuCategoryImage.SaveAs(Server.MapPath(string.Format("~/assets/images/{0}", fuCategoryImage.PostedFile.FileName)));
+                }
+
+                showUserMessage("La información se guardo correctamente", "success");
+                loadCategoryControls();
             }
             else
             {
-
+                showUserMessage("No fue posible guardar la información", "error");
             }
         } 
+
+        private void showUserMessage(string message, string alertType)
+        {
+            Page page = HttpContext.Current.CurrentHandler as Page;
+            //string script = string.Format("alert('{0}')", message);
+
+            string script = string.Format("swal('{0}','{1}','{2}')", "Admin", message, alertType);
+            if (page != null && !page.ClientScript.IsClientScriptBlockRegistered("swal"))
+            {
+                page.ClientScript.RegisterClientScriptBlock(page.GetType(), "swal", script, true);
+            }
+        }
     }
 }

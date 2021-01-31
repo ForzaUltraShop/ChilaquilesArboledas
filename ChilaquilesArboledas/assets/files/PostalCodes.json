@@ -1,0 +1,392 @@
+[
+  {
+    "PostalCode": "54000",
+    "Municipality": "Tlalnepantla Centro",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54009",
+    "Municipality": "La Rivera",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54015",
+    "Municipality": "Zona Industrial Barrientos",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54017",
+    "Municipality": "Zona Industrial Niños Héroes",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54020",
+    "Municipality": "Benito Juárez",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54020",
+    "Municipality": "El Dorado",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54020",
+    "Municipality": "La Joya",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54020",
+    "Municipality": "Valle Dorado",
+    "MinimumTotalAmount": "50.00"
+  },
+  {
+    "PostalCode": "54020",
+    "Municipality": "Tequexquináhuac",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54021",
+    "Municipality": "Loma Azul",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54022",
+    "Municipality": "Robles Pantera",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54023",
+    "Municipality": "Lomas de Valle Dorado",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54023",
+    "Municipality": "Pirules",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54025",
+    "Municipality": "Cumbres de Del Valle",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54026",
+    "Municipality": "Arboledas",
+    "MinimumTotalAmount": "50.00"
+  },
+  {
+    "PostalCode": "54030",
+    "Municipality": "IMSSS",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54030",
+    "Municipality": "Zona Industrial Tlalnepantla",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54033",
+    "Municipality": "San Lorenzo",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54040",
+    "Municipality": "San Andrés",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54040",
+    "Municipality": "Leandro Valle",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54049",
+    "Municipality": "Balcones",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54050",
+    "Municipality": "Santa Mónica",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54050",
+    "Municipality": "Jacarandas",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54054",
+    "Municipality": "Satélite",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54054",
+    "Municipality": "Bella Vista",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54055",
+    "Municipality": "San Lucas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54057",
+    "Municipality": "Valle de Santa Mónica",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54059",
+    "Municipality": "Francisco Villa",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54060",
+    "Municipality": "Electra",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54060",
+    "Municipality": "La Loma",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54060",
+    "Municipality": "Viveros",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54063",
+    "Municipality": "Rinconada Paraíso",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54067",
+    "Municipality": "Tlalcalli",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54068",
+    "Municipality": "Benito Juárez",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54069",
+    "Municipality": "Las Rosas",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54070",
+    "Municipality": "Puente de Vigas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54070",
+    "Municipality": "Tlanemex",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "54073",
+    "Municipality": "Los Reyes",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54076",
+    "Municipality": "Los Tejavanes",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54080",
+    "Municipality": "El Mirador",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "54080",
+    "Municipality": "Puente de Vigas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52920",
+    "Municipality": "Cerro Grande",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52920",
+    "Municipality": "Peñitas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52923",
+    "Municipality": "Villa Jardín",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52925",
+    "Municipality": "Lomas de la Hacienda",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52926",
+    "Municipality": "Jardines de Monterrey",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52927",
+    "Municipality": "El Cerrito",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52927",
+    "Municipality": "San Miguel Xochimanga",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52929",
+    "Municipality": "Villas de la Hacienda",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52939",
+    "Municipality": "Las Margaritas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52940",
+    "Municipality": "Alfredo V. Bonfil",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52940",
+    "Municipality": "Cristóbal Higuera",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52040",
+    "Municipality": "L.D. Colosio",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52945",
+    "Municipality": "Real de Atizapán",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52945",
+    "Municipality": "Vergel",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52946",
+    "Municipality": "San Juan Bosco",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52950",
+    "Municipality": "Las Arboledas",
+    "MinimumTotalAmount": "50.00"
+  },
+  {
+    "PostalCode": "52953",
+    "Municipality": "Ahuehuetes",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52956",
+    "Municipality": "Ampliación San Miguel",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52957",
+    "Municipality": "Mayorazgos",
+    "MinimumTotalAmount": "50.00"
+  },
+  {
+    "PostalCode": "52958",
+    "Municipality": "Clubes Metropolitanos",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52959",
+    "Municipality": "Club de Golf Hacienda",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52965",
+    "Municipality": "La Condesa",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52967",
+    "Municipality": "Bosques de Atizapán",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52975",
+    "Municipality": "El Potrero",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52970",
+    "Municipality": "Las Alamedas",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52976",
+    "Municipality": "Atizapán Moderno",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52978",
+    "Municipality": "Jardines de Atizapán",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52979",
+    "Municipality": "Alborada",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52986",
+    "Municipality": "I. López Rayón",
+    "MinimumTotalAmount": "100.00"
+  },
+  {
+    "PostalCode": "52994",
+    "Municipality": "Lomas de Bellavista",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52995",
+    "Municipality": "Club de Golf Bella Vista",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "52996",
+    "Municipality": "Calacoaya",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "53110",
+    "Municipality": "Ciudad Satélite",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "53115",
+    "Municipality": "Lomas de las Fuentes",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "53116",
+    "Municipality": "La Alteza",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "53119",
+    "Municipality": "Colonial Satélite",
+    "MinimumTotalAmount": "150.00"
+  },
+  {
+    "PostalCode": "53127",
+    "Municipality": "Santa Cruz",
+    "MinimumTotalAmount": "150.00"
+  }
+]

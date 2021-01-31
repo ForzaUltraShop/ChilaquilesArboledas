@@ -6,6 +6,7 @@
     using FoodApp.DataModels;
     using FoodApp.Models;
     using FoodApp.BusinessLayer;
+    using System.Web;
 
     public partial class Dishes : Page
     {
@@ -22,7 +23,17 @@
             }
             else
             {
-                //TODO:Alerta
+                showUserMessage("El identificador de la categoria es requerido", "error");
+            }
+        }
+
+        private void showUserMessage(string message, string alertType)
+        {
+            Page page = HttpContext.Current.CurrentHandler as Page;
+            string script = string.Format("swal('{0}','{1}','{2}')", "Admin", message, alertType);
+            if (page != null && !page.ClientScript.IsClientScriptBlockRegistered("swal"))
+            {
+                page.ClientScript.RegisterClientScriptBlock(page.GetType(), "swal", script, true);
             }
         }
 
@@ -40,7 +51,7 @@
             }
             else
             {
-                //TODO: Alerta
+                showUserMessage("No se encontraron registros", "warning");
             }
         }
 
@@ -101,7 +112,7 @@
                 }
                 else
                 {
-                    //TODO:Alert message
+                    showUserMessage("No fue posible eliminar el registro", "error");
                 }
             }
         }

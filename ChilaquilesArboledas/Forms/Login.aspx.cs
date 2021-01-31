@@ -4,7 +4,12 @@
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
     using FoodApp.Models.Catalogs;
+    using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Hosting;
     using System.Web.Services;
     using System.Web.UI;
 
@@ -23,8 +28,36 @@
         [WebMethod()]
         public static ResponseDTO<CustomersDTO> RegisterCustomer(CustomersDTO customer)
         {
-            var newCustomerLogic = new CustomersLogic();
-            var response = newCustomerLogic.CustomerExecute(new RequestDTO<CustomersDTO> { Item = customer });
+            var response = new ResponseDTO<CustomersDTO>();
+            try
+            {
+                var postalCodesList = new List<PostalCodesDTO>();
+                string searchedPostalCode = customer.CustomerPostalCode;
+
+                using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/PostalCodes.json")))
+                {
+                    using (var jsonTextReader = new JsonTextReader(file))
+                    {
+                        var serializer = new JsonSerializer();
+                        postalCodesList = serializer.Deserialize<List<PostalCodesDTO>>(jsonTextReader);
+                    }
+                }
+
+                var foundPostalCode = postalCodesList.FirstOrDefault(postalCode => postalCode.PostalCode == searchedPostalCode);
+                if (foundPostalCode != null)
+                {
+                    var newCustomerLogic = new CustomersLogic();
+                    response = newCustomerLogic.CustomerExecute(new RequestDTO<CustomersDTO> { Item = customer });
+                }
+                else
+                {
+                    response.ErrorMessage = "WrongPostalCode";
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
             return response;
         }
 

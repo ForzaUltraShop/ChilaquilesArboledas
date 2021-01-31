@@ -5,6 +5,7 @@
     using FoodApp.DataModels.Shared;
     using System;
     using System.Linq;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
@@ -12,11 +13,6 @@
     {
         private readonly CategoriesLogic categoriesLogic = new CategoriesLogic();
 
-        /// <summary>
-        /// Carga los datos iniciales de la pantalla
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -102,13 +98,13 @@
 
                 if (isRecordDeleted)
                 {
-                    //TODO:Add alert
+                    showUserMessage("El registro se elimino correctamente", "success");
                     hdfDeleteCategoryIdentifier.Value = string.Empty;
                     categoriesBind();
                 }
                 else
                 {
-
+                    showUserMessage("No fue posible eliminar el registro", "error");
                 }
             }
         }
@@ -116,6 +112,16 @@
         protected void btnAddNewCategory_Click(object sender, EventArgs e)
         {
             Response.Redirect(ResolveUrl("~/Forms/Admin/CategoryEdit"));
+        }
+
+        private void showUserMessage(string message, string alertType)
+        {
+            Page page = HttpContext.Current.CurrentHandler as Page;
+            string script = string.Format("swal('{0}','{1}','{2}')", "Admin", message, alertType);
+            if (page != null && !page.ClientScript.IsClientScriptBlockRegistered("swal"))
+            {
+                page.ClientScript.RegisterClientScriptBlock(page.GetType(), "swal", script, true);
+            }
         }
     }
 }

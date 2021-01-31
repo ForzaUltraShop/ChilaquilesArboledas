@@ -7,19 +7,20 @@
     using System.Web.Script.Services;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
+    using System.Web;
 
-    public partial class Especiales : System.Web.UI.Page
+    public partial class Especiales : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                if(Request.QueryString["CategoryId"] != null)
+                if (Request.QueryString["CategoryId"] != null)
                 {
                     int.TryParse(Request.QueryString["CategoryId"], out int categoryIdentifier);
-                    
+
                     //El codigo 999 es para agendar un pedido
-                    if(categoryIdentifier == 999)
+                    if (categoryIdentifier == 999)
                     {
 
                     }
@@ -30,11 +31,10 @@
                 }
                 else
                 {
-                    
+
                 }
             }
         }
-
 
         [WebMethod()]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
@@ -52,5 +52,16 @@
             }
             return dishesResponse;
         }
+
+        private void showUserMessage(string message, string alertType)
+        {
+            Page page = HttpContext.Current.CurrentHandler as Page;
+            string script = string.Format("swal('{0}','{1}','{2}')", "Admin", message, alertType);
+            if (page != null && !page.ClientScript.IsClientScriptBlockRegistered("swal"))
+            {
+                page.ClientScript.RegisterClientScriptBlock(page.GetType(), "swal", script, true);
+            }
+        }
+
     }
 }

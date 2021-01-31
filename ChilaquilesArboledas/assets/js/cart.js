@@ -50,7 +50,9 @@ $(document).ready(function () {
         }
     });
 
-    $('#btnSendOrder').click(function () {
+
+    function sendOrder()
+    {
         let cartCheckOut = {
             Order: {
                 OrderIdentifier: parseInt($('#hdfOrderIdentifier').val())
@@ -90,8 +92,49 @@ $(document).ready(function () {
 
             }
         });
+    }
+
+
+    $('#btnSendOrder').click(function () {
+        let deliveryOption = parseInt($('.rbtDeliveryOption:checked').val());
+        if (deliveryOption == 2) {
+            let orderMinimumValue = getMinimumFeeByOrder();
+            let orderTotalAmount = parseFloat($('#hdfOrderTotalAmount').val());
+            if (orderTotalAmount < orderMinimumValue) {
+                alert("El pedido minimo para tu area de entrega es de $" + orderMinimumValue.toFixed(2));
+                return;
+            }
+        }
+        sendOrder();
     });
+
 });
+
+let getMinimumFeeByOrder = function () {
+
+    let minimumFee = 0;
+
+    $.ajax({
+        type: "POST",
+        url: "../Forms/CartCheckOut.aspx/GetMinimumFeeByOrder",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ "orderIdentifier": parseInt($('#hdfOrderIdentifier').val()) }),
+        dataType: "json",
+        success: function (response) {
+            let data = response.d;
+            if (data.Success) {
+                minimumFee = data.d.MinimumTotalAmount;
+            }
+            else {
+                swal("Error", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
+            }
+        },
+        failure: function (xhr, textStatus, errorThrown) {
+            console.log('No fue posible obtener el monto minimo de consumo');
+        }
+    });
+    return minimumFee;
+};
 
 function carHide() {
     $('#car_content').hide();
@@ -158,6 +201,9 @@ function loadCart() {
                 tableFooterContent += " <td style='width:20%; text-align:right;'><span style='font-weight:bold'>" + castToCurrency(data.Result.ItemsTotalAmount) + "</span></td>";
                 tableFooterContent += "</tr>";
                 $('#tblOrderDetail tfoot').append(tableFooterContent);
+
+                /*Establecer el valor del monto total en un hidden field*/
+                $('#hdfOrderTotalAmount').val(data.Result.ItemsTotalAmount);
 
 
                 $('.remove-uniqueKeyIdentifier').click(function () {

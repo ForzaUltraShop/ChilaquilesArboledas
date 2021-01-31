@@ -1,12 +1,15 @@
 ﻿namespace ChilaquilesArboledas.Forms
 {
     using FoodApp.BusinessLayer;
-    using FoodApp.DataModels;
     using FoodApp.DataModels.Shared;
     using FoodApp.Models;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using System.Web;
+    using System.Web.Hosting;
     using System.Web.Script.Services;
     using System.Web.Services;
     using System.Web.UI;
@@ -83,5 +86,48 @@
             var response = new OrdersLogic().OrderDetailDelete(orderIdentifier,dishUniqueKey);
             return response;
         }
+
+
+        [WebMethod()]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static ResponseDTO<PostalCodesDTO> GetMinimumFeeByOrder(long orderIdentifier)
+        {
+            var response = new ResponseDTO<PostalCodesDTO> { Result = new PostalCodesDTO() };
+            try
+            {
+                var orderResponse = new OrdersLogic().OrderGetItem(orderIdentifier);
+                if (orderResponse.Success)
+                {
+                    decimal orderTotalAmount = orderResponse.Result.ItemsTotalAmount;
+                    if(orderTotalAmount > default(int))
+                    {
+                        var postalCodesList = new List<PostalCodesDTO>();
+
+                        string customerPostalCode = orderResponse.Result.Customer.CustomerPostalCode;
+                        using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/PostalCodes.json")))
+                        {
+                            using (var jsonTextReader = new JsonTextReader(file))
+                            {
+                                var serializer = new JsonSerializer();
+                                postalCodesList = serializer.Deserialize<List<PostalCodesDTO>>(jsonTextReader);
+                            }
+                        }
+
+                        var foundPostalCode = postalCodesList.FirstOrDefault(postalCode => postalCode.PostalCode == customerPostalCode);
+                        if (foundPostalCode != null)
+                        {
+                            response.Result.MinimumTotalAmount = foundPostalCode.MinimumTotalAmount;
+                            response.Success = response.Result.MinimumTotalAmount > default(int);
+                        }
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                response.Success = false;
+            }
+            return response;
+        }
+
     }
 }

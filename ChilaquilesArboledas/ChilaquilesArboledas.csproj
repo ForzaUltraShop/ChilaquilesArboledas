@@ -91,6 +91,7 @@
     <Content Include="assets\images\cafeFONDO.png" />
     <Content Include="assets\images\cafeOlla.jpg" />
     <Content Include="assets\images\car_empty.png" />
+    <Content Include="assets\images\chilaquilesArrachera.jpg" />
     <Content Include="assets\images\chilaquilesEspeciales.jpg" />
     <Content Include="assets\images\ChilaquilesFondo.jpg" />
     <Content Include="assets\images\chilaquilesJalisco.jpg" />
@@ -102,6 +103,10 @@
     <Content Include="assets\images\descuentos.jpg" />
     <Content Include="assets\images\descuentos.png" />
     <Content Include="assets\images\eventos.jpg" />
+    <Content Include="assets\images\IMG-20201022-WA0016.jpg" />
+    <Content Include="assets\images\IMG-20201022-WA0019.jpg" />
+    <Content Include="assets\images\IMG-20201022-WA0020.jpg" />
+    <Content Include="assets\images\IMG-20201024-WA0002.jpg" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\molletes1.jpg" />
     <Content Include="assets\images\molletes2.jpg" />
@@ -134,6 +139,7 @@
     <Content Include="Forms\Especiales.aspx" />
     <Content Include="Forms\Login.aspx" />
     <Content Include="Forms\Menu.aspx" />
+    <Content Include="Forms\Test.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -229,6 +235,13 @@
     <Compile Include="Forms\Menu.aspx.designer.cs">
       <DependentUpon>Menu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Test.aspx.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forms\Test.aspx.designer.cs">
+      <DependentUpon>Test.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -244,6 +257,7 @@
   <ItemGroup>
     <Content Include="assets\fonts\Parisienne-Regular.ttf" />
     <Content Include="Admin.Master" />
+    <Content Include="assets\files\PostalCodes.json" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">

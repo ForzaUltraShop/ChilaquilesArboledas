@@ -43,6 +43,7 @@
                                     <asp:Image runat="server" ID="imgCategory" Visible="false" Width="150px" Height="90px" ImageUrl="~/assets/images/" />
                                 </div>
                                 <br />
+                                <asp:HiddenField runat="server" ID="hdfCategoryImage" Value="" />
                                 <asp:FileUpload runat="server" ID="fuCategoryImage" Width="100%" ClientIDMode="Static" />                
                             </div>
                         </div>

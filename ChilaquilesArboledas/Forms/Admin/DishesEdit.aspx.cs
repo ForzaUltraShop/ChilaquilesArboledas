@@ -69,7 +69,6 @@
                 }
                 else
                 {
-                    //TODO:Alert
                     grwComplements.DataSource = null;
                     grwComplements.DataBind();
                 }
@@ -99,7 +98,17 @@
             }
             else
             {
-                //TODO: Alert
+                showUserMessage("No fue posible cargar la información", "error");
+            }
+        }
+
+        private void showUserMessage(string message, string alertType)
+        {
+            Page page = HttpContext.Current.CurrentHandler as Page;
+            string script = string.Format("swal('{0}','{1}','{2}')", "Admin", message, alertType);
+            if (page != null && !page.ClientScript.IsClientScriptBlockRegistered("swal"))
+            {
+                page.ClientScript.RegisterClientScriptBlock(page.GetType(), "swal", script, true);
             }
         }
 
@@ -193,7 +202,7 @@
 
                         if (!isCreated)
                         {
-                            //TODO: Error alert
+                            showUserMessage("No fue posible guardar el registro", "error");
                         }
 
                         grwSections.ShowFooter = default(bool);
@@ -239,8 +248,9 @@
 
                 if (!isUpdated)
                 {
-                    //TODO: Error alert
+                    showUserMessage("No fue posible actualizar el registro", "error");
                 }
+
                 grwSections.EditIndex = -1;
                 loadSectionGrid();
             }
@@ -385,7 +395,7 @@
 
                     if (!insertResponse.Success)
                     {
-                        //TODO: Alert
+                        showUserMessage("No fue posible crear el registro", "error");
                     }
 
                     grwComplements.ShowFooter = default(bool);
@@ -447,7 +457,7 @@
 
                 if (!updateResponse.Success)
                 {
-                    //TODO: Alert
+                    showUserMessage("No fue posible actualizar el registro", "error");
                 }
 
                 grwComplements.EditIndex = -1;
@@ -537,7 +547,7 @@
             }
             else
             {
-                //TODO: Alert
+                showUserMessage("No fue posible ejecutar esta acción", "error");
             }
         }
 
@@ -569,7 +579,7 @@
             }
             else
             {
-                //TODO: Alert
+                showUserMessage("No fue posible realizar esta acción", "error");
             }
         }
 

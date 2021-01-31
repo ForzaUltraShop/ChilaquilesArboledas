@@ -251,6 +251,7 @@
                 $('#btnRegister').click(function ()
                 {
                     $('#spnRegisterError').hide();
+
                     let formIsValid = true;
                     if ($('#txtRegisterPassword').val() !== $('#txtRegisterConfirmPassword').val())
                     {
@@ -272,46 +273,57 @@
                         formIsValid = false;
                     }
 
-                    let customer = {
-                        CustomerName: $('#txtRegisterName').val().trim(),
-                        CustomerPhoneNumber: $('#txtRegisterPhone').val().trim(),
-                        CustomerEmail: $('#txtRegisterEmail').val().trim(),
-                        CustomerPassword: $('#txtRegisterPassword').val().trim(),
-                        CustomerPostalCode: $('#txtRegisterPostalCode').val().trim(),
-                        CustomerAddress: $('#txtRegisterAddress').val().trim()
-                    };
+                    if (formIsValid)
+                    {
+                        let customer = {
+                            CustomerName: $('#txtRegisterName').val().trim(),
+                            CustomerPhoneNumber: $('#txtRegisterPhone').val().trim(),
+                            CustomerEmail: $('#txtRegisterEmail').val().trim(),
+                            CustomerPassword: $('#txtRegisterPassword').val().trim(),
+                            CustomerPostalCode: $('#txtRegisterPostalCode').val().trim(),
+                            CustomerAddress: $('#txtRegisterAddress').val().trim()
+                        };
 
-                    $.ajax({
-                        type: "POST",
-                        url: "Login.aspx/RegisterCustomer",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data: JSON.stringify({ 'customer': customer }),
-                        success: function (response) {
-                            let data = response.d;
-                            if (data != undefined) {
-                                console.log('registerData', data);
-                                if (data.Success)
-                                {
-                                    $('#txtRegisterName').val('');
-                                    $('#txtRegisterPhone').val('');
-                                    $('#txtRegisterEmail').val('');
-                                    $('#txtRegisterPassword').val('');
-                                    $('#txtRegisterPostalCode').val('');
-                                    $('#txtRegisterAddress').val('');
-                                    alert("Tu registro esta completo, ya puedes iniciar sesión");
+                        $.ajax({
+                            type: "POST",
+                            url: "Login.aspx/RegisterCustomer",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({ 'customer': customer }),
+                            success: function (response) {
+                                let data = response.d;
+                                if (data != undefined) {
+                                    console.log('registerData', data);
+                                    if (data.Success) {
+                                        $('#txtRegisterName').val('');
+                                        $('#txtRegisterPhone').val('');
+                                        $('#txtRegisterEmail').val('');
+                                        $('#txtRegisterPassword').val('');
+                                        $('#txtRegisterPostalCode').val('');
+                                        $('#txtRegisterAddress').val('');
+                                        alert("Tu registro esta completo, ya puedes iniciar sesión");
+                                    }
+                                    else
+                                    {
+                                        if (data.ErrorMessage === 'WrongPostalCode')
+                                        {
+                                            $('#spnRegisterError').text("Lo sentimos el código postal que ingresaste esta fuera de nuestra zona de cobertura");
+                                            $('#spnRegisterError').show();
+                                        }
+                                        else
+                                        {
+                                            $('#spnRegisterError').text("No fue posible realizar tu registro, por favor intenta más tarde");
+                                            $('#spnRegisterError').show();
+                                        }
+                                    }
                                 }
-                                else {
-                                    $('#spnRegisterError').text("No fue posible realizar tu registro, por favor intenta más tarde");
-                                    $('#spnRegisterError').show();
-                                }
+                            },
+                            failure: function (xhr, textStatus, errorThrown) {
+                                $('#spnRegisterError').text("Ocurrió un error al realizar tu registro, por favor intenta más tarde");
+                                $('#spnRegisterError').show();
                             }
-                        },
-                        failure: function (xhr, textStatus, errorThrown) {
-                            $('#spnRegisterError').text("Ocurrió un error al realizar tu registro, por favor intenta más tarde");
-                            $('#spnRegisterError').show();
-                        }
-                    });
+                        });
+                    }
 
                     //return formIsValid;
                 });
