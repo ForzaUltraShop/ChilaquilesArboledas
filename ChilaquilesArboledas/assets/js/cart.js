@@ -53,6 +53,8 @@ $(document).ready(function () {
 
     function sendOrder()
     {
+        console.log('sendOrder');
+
         let cartCheckOut = {
             Order: {
                 OrderIdentifier: parseInt($('#hdfOrderIdentifier').val())
@@ -97,33 +99,49 @@ $(document).ready(function () {
 
     $('#btnSendOrder').click(function () {
         let deliveryOption = parseInt($('.rbtDeliveryOption:checked').val());
-        if (deliveryOption == 2) {
-            let orderMinimumValue = getMinimumFeeByOrder();
+        console.log('deliveryOption', deliveryOption);
+
+        if (deliveryOption == 2)
+        {
+            getMinimumFeeByOrder();
+            let orderMinimumValue = parseFloat($('#hdfOrderMinimumAmount').val());
             let orderTotalAmount = parseFloat($('#hdfOrderTotalAmount').val());
-            if (orderTotalAmount < orderMinimumValue) {
-                alert("El pedido minimo para tu area de entrega es de $" + orderMinimumValue.toFixed(2));
-                return;
+
+            console.log('orderMinimumValue', orderMinimumValue);
+            console.log('orderTotalAmount', orderTotalAmount);
+
+            if (orderTotalAmount < orderMinimumValue)
+            {
+                swal("", "El pedido minimo para tu area de entrega es de $" + orderMinimumValue.toFixed(2), "warning");
+            }
+            else
+            {
+                sendOrder();
             }
         }
-        sendOrder();
+        else
+        {
+            sendOrder();
+        }
     });
 
 });
 
-let getMinimumFeeByOrder = function () {
-
-    let minimumFee = 0;
-
+function getMinimumFeeByOrder()
+{
     $.ajax({
         type: "POST",
         url: "../Forms/CartCheckOut.aspx/GetMinimumFeeByOrder",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({ "orderIdentifier": parseInt($('#hdfOrderIdentifier').val()) }),
         dataType: "json",
+        async: false,
         success: function (response) {
             let data = response.d;
             if (data.Success) {
-                minimumFee = data.d.MinimumTotalAmount;
+                let minimumFee = data.Result.MinimumTotalAmount;
+                console.log('minimumFee', minimumFee);
+                $('#hdfOrderMinimumAmount').val(minimumFee);
             }
             else {
                 swal("Error", "No fue posible generar tu orden este momento, por favor intenta más tarde", "error");
@@ -133,7 +151,6 @@ let getMinimumFeeByOrder = function () {
             console.log('No fue posible obtener el monto minimo de consumo');
         }
     });
-    return minimumFee;
 };
 
 function carHide() {

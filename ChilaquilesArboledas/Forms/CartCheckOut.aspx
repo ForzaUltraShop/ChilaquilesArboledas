@@ -11,9 +11,9 @@
             <strong>Método de entrega</strong>
         </div>
         <div class="row" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px">
-            <input type="radio" class="rbtDeliveryOption" name="deliveryOption" value="0" checked="checked" />&nbsp;Para llevar
+            <input type="radio" class="rbtDeliveryOption" name="deliveryOption" value="0" checked="checked" />&nbsp;Paso por ellos
         </div>
-        <div class="row" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px">
+        <div class="row" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; display:none;">
             <input type="radio" class="rbtDeliveryOption" name="deliveryOption" value="1" />&nbsp;Para ir comiendo
         </div>
         <div class="row" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px">
@@ -73,6 +73,7 @@
         <asp:HiddenField runat="server" ID="hdfLatitude" Value="" ClientIDMode="Static" />
         <asp:HiddenField runat="server" ID="hdfLongitude" Value="" ClientIDMode="Static" />
         <asp:HiddenField runat="server" ID="hdfOrderTotalAmount" ClientIDMode="Static" />
+        <asp:HiddenField runat="server" ID="hdfOrderMinimumAmount" Value="0" ClientIDMode="Static" />
     </div>
     <div id="car_empty">
         <div class="row d-flex justify-content-center" style="background-color: white; padding-top: 5px; padding-bottom: 5px; padding-left: 5px">

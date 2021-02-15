@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Services;
-using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
+﻿
 namespace ChilaquilesArboledas
 {
+    using System;
+    using System.Web;
+
     public partial class Site : System.Web.UI.MasterPage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+            Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+            Response.AppendHeader("Expires", "0"); // Proxies.
         }
 
         protected void logout_Click(object sender, EventArgs e)
