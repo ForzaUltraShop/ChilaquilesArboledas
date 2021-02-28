@@ -109,6 +109,9 @@ namespace FoodApp.BusinessLayer
                 var orderItem = this.OrderGetItem(orderIdentifier);
                 StringBuilder sb = new StringBuilder("==============================\n");
                 sb.AppendFormat("Se ha generado la orden <strong>#{0}</strong> a nombre de <strong>{1}</strong> \n\n", orderIdentifier, orderItem.Result.Customer.CustomerName);
+
+                decimal orderTotalAmount = orderItem.Result.OrderDetailList.Sum(order => order.Quantity);
+
                 var groupedList = orderItem.Result.OrderDetailList.GroupBy(g => g.UniqueKeyIdentifier).ToList();
                 for (int i = 0; i < groupedList.Count(); i++)
                 {
@@ -143,6 +146,7 @@ namespace FoodApp.BusinessLayer
                         break;
                 }
 
+                sb.Append($"-Total de la cuenta: ${ Math.Round(orderItem.Result.ItemsTotalAmount, 2) }\n");
                 sb.Append("==============================\n");
 
                 notify.Message = sb.ToString();

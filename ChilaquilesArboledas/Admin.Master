@@ -169,12 +169,12 @@
                                 Configuración
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <%--<li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="fa fa-file"></i>
                                 Reporte
                             </a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </div>
             </nav>

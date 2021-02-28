@@ -66,6 +66,7 @@
     <Compile Include="Shared\RequestDTO.cs" />
     <Compile Include="Shared\ResponseDTO.cs" />
     <Compile Include="Shared\ResponseListDTO.cs" />
+    <Compile Include="VipDiscountDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

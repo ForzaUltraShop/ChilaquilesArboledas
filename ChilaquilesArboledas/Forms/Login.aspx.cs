@@ -64,9 +64,64 @@
         protected void bntLogin_Click(object sender, EventArgs e)
         {
             lblErrorLogin.Visible = false;
+            lblErrorLogin.Text = string.Empty;
+
             if (string.IsNullOrWhiteSpace(txtUserPassword.Text.Trim()) || string.IsNullOrWhiteSpace(txtUserPassword.Text.Trim()))
             {
                 lblErrorLogin.Text = "Número teléfonico y contraseña son necesarios para continuar";
+                lblErrorLogin.Visible = true;
+                return;
+            }
+
+            TimeZoneInfo setTimeZoneInfo;
+            DateTime currentDateTime;
+
+            //Set the time zone information to US Mountain Standard Time 
+            setTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time (Mexico)");
+
+            //Get date and time in US Mountain Standard Time
+            currentDateTime = TimeZoneInfo.ConvertTime(DateTime.Now, setTimeZoneInfo);
+
+
+            bool isAvailableTime = default(bool);
+            TimeSpan start;
+            TimeSpan end;
+            TimeSpan now = currentDateTime.TimeOfDay;
+
+            switch (currentDateTime.DayOfWeek)
+            {
+                case DayOfWeek.Monday:
+                case DayOfWeek.Tuesday:
+                case DayOfWeek.Wednesday:
+                    isAvailableTime = false;
+                    break;
+                case DayOfWeek.Thursday:
+                    start = TimeSpan.Parse("08:00");
+                    end = TimeSpan.Parse("15:00");
+                    isAvailableTime = (now >= start && now <= end);
+                    break;
+                case DayOfWeek.Friday:
+                    start = TimeSpan.Parse("08:00");
+                    end = TimeSpan.Parse("17:00");
+                    isAvailableTime = (now >= start && now <= end);
+                    break;
+                case DayOfWeek.Saturday:
+                    start = TimeSpan.Parse("09:00");
+                    end = TimeSpan.Parse("17:00");
+                    isAvailableTime = (now >= start && now <= end);
+                    break;
+                case DayOfWeek.Sunday:
+                    start = TimeSpan.Parse("09:00");
+                    end = TimeSpan.Parse("15:00");
+                    isAvailableTime = (now >= start && now <= end);
+                    break;
+                default:
+                    break;
+            }
+
+            if (!isAvailableTime)
+            {
+                lblErrorLogin.Text = "No contamos con servicio en este horario";
                 lblErrorLogin.Visible = true;
                 return;
             }

@@ -258,6 +258,7 @@
     <Content Include="assets\fonts\Parisienne-Regular.ttf" />
     <Content Include="Admin.Master" />
     <Content Include="assets\files\PostalCodes.json" />
+    <Content Include="assets\files\VipDiscountList.json" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
