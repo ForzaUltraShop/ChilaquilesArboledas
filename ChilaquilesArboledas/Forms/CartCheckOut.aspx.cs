@@ -101,23 +101,31 @@
                     decimal orderTotalAmount = orderResponse.Result.ItemsTotalAmount;
                     if(orderTotalAmount > default(int))
                     {
-                        var postalCodesList = new List<PostalCodesDTO>();
-
-                        string customerPostalCode = orderResponse.Result.Customer.CustomerPostalCode;
-                        using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/PostalCodes.json")))
+                        decimal minimumFeeForVipUser = getMinimumFeeForVipUser(orderResponse);
+                        if (minimumFeeForVipUser > default(decimal))
                         {
-                            using (var jsonTextReader = new JsonTextReader(file))
-                            {
-                                var serializer = new JsonSerializer();
-                                postalCodesList = serializer.Deserialize<List<PostalCodesDTO>>(jsonTextReader);
-                            }
+                            response.Result.MinimumTotalAmount = minimumFeeForVipUser;
+                            response.Success = true;
                         }
-
-                        var foundPostalCode = postalCodesList.FirstOrDefault(postalCode => postalCode.PostalCode == customerPostalCode);
-                        if (foundPostalCode != null)
+                        else
                         {
-                            response.Result.MinimumTotalAmount = foundPostalCode.MinimumTotalAmount;
-                            response.Success = response.Result.MinimumTotalAmount > default(int);
+                            var postalCodesList = new List<PostalCodesDTO>();
+                            string customerPostalCode = orderResponse.Result.Customer.CustomerPostalCode;
+                            using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/PostalCodes.json")))
+                            {
+                                using (var jsonTextReader = new JsonTextReader(file))
+                                {
+                                    var serializer = new JsonSerializer();
+                                    postalCodesList = serializer.Deserialize<List<PostalCodesDTO>>(jsonTextReader);
+                                }
+                            }
+
+                            var foundPostalCode = postalCodesList.FirstOrDefault(postalCode => postalCode.PostalCode == customerPostalCode);
+                            if (foundPostalCode != null)
+                            {
+                                response.Result.MinimumTotalAmount = foundPostalCode.MinimumTotalAmount;
+                                response.Success = response.Result.MinimumTotalAmount > default(int);
+                            }
                         }
                     }
                 }
@@ -129,5 +137,39 @@
             return response;
         }
 
+        private static decimal getMinimumFeeForVipUser(ResponseDTO<OrderDTO> orderResponse)
+        {
+            decimal minimumFee = default(decimal);
+            if (orderResponse.Success && orderResponse.Result != null)
+            {
+                if(orderResponse.Result.Customer != null && !string.IsNullOrEmpty(orderResponse.Result.Customer.CustomerPhoneNumber))
+                {
+                    try
+                    {
+                        var vipList = new List<VipDiscountDTO>();
+                        string customerPhoneNumber = orderResponse.Result.Customer.CustomerPhoneNumber;
+                        using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/VipDiscountList.json")))
+                        {
+                            using (var jsonTextReader = new JsonTextReader(file))
+                            {
+                                var serializer = new JsonSerializer();
+                                vipList = serializer.Deserialize<List<VipDiscountDTO>>(jsonTextReader);
+                            }
+                        }
+
+                        var foundVipUser = vipList.FirstOrDefault(vipItem => vipItem.PhoneNumber == customerPhoneNumber);
+                        if (foundVipUser != null)
+                        {
+                            minimumFee = foundVipUser.MinimumTotalAmount;
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        throw;
+                    }
+                }
+            }
+            return minimumFee;
+        }
     }
 }
