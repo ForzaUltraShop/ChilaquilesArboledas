@@ -10,6 +10,7 @@
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
+    using System.Web.Script.Services;
     using System.Web.Services;
     using System.Web.UI;
 
@@ -59,6 +60,30 @@
                 throw;
             }
             return response;
+        }
+
+        [WebMethod()]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public static ResponseListDTO<PostalCodesDTO> PostalCodeGetList()
+        {
+            var responsePostalCodes = new ResponseListDTO<PostalCodesDTO> { Result = new List<PostalCodesDTO>() };
+            try
+            {
+                using (StreamReader file = File.OpenText(HostingEnvironment.MapPath("~/assets/files/PostalCodes.json")))
+                {
+                    using (var jsonTextReader = new JsonTextReader(file))
+                    {
+                        var serializer = new JsonSerializer();
+                        responsePostalCodes.Result = serializer.Deserialize<List<PostalCodesDTO>>(jsonTextReader);
+                        responsePostalCodes.Success = responsePostalCodes.Result.Any();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+            return responsePostalCodes;
         }
 
         protected void bntLogin_Click(object sender, EventArgs e)
@@ -119,12 +144,12 @@
                     break;
             }
 
-            if (!isAvailableTime)
-            {
-                lblErrorLogin.Text = "No contamos con servicio en este horario";
-                lblErrorLogin.Visible = true;
-                return;
-            }
+            //if (!isAvailableTime)
+            //{
+            //    lblErrorLogin.Text = "No contamos con servicio en este horario";
+            //    lblErrorLogin.Visible = true;
+            //    return;
+            //}
 
             var customerResponse = customerLogic.CustomerGetItem(new RequestDTO<CustomersDTO>
             {

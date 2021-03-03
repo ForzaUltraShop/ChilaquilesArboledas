@@ -105,13 +105,13 @@ namespace ChilaquilesArboledas.Forms
         protected global::System.Web.UI.WebControls.TextBox txtRegisterConfirmPassword;
 
         /// <summary>
-        /// txtRegisterPostalCode control.
+        /// ddlPostalCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRegisterPostalCode;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPostalCode;
 
         /// <summary>
         /// txtRegisterAddress control.

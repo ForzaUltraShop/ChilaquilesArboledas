@@ -61,9 +61,15 @@
     <Compile Include="CategoriesLogic.cs" />
     <Compile Include="CustomersLogic.cs" />
     <Compile Include="DishesLogic.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
     <Compile Include="NotifyLogic.cs" />
     <Compile Include="OrdersLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\EmailResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmailResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,6 +83,12 @@
       <Project>{f1e6031d-a341-43f5-9e73-861f7de6489b}</Project>
       <Name>FoodApp.DataModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EmailResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmailResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

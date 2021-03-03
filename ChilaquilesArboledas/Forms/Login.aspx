@@ -9,6 +9,8 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" />
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
     <style>
         body {
             padding-top: 90px;
@@ -130,6 +132,72 @@
             border-color: #1CA347;
         }
 
+        .select2-hidden-accessible {
+            border: 0 !important;
+            clip: rect(0 0 0 0) !important;
+            height: 1px !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            position: absolute !important;
+            width: 1px !important
+        }
+
+        .select2-container--default .select2-selection--single,
+        .select2-selection .select2-selection--single {
+            border: 1px solid #d2d6de;
+            border-radius: 0;
+            padding: 6px 12px;
+            height: 34px
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff;
+            border: 1px solid #aaa;
+            border-radius: 4px
+        }
+
+        .select2-container .select2-selection--single {
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            height: 28px;
+            user-select: none;
+            -webkit-user-select: none
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-right: 10px
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            padding-left: 0;
+            padding-right: 0;
+            height: auto;
+            margin-top: -3px
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #444;
+            line-height: 28px
+        }
+
+        .select2-container--default .select2-selection--single,
+        .select2-selection .select2-selection--single {
+            border: 1px solid #d2d6de;
+            border-radius: 0 !important;
+            padding: 6px 12px;
+            height: 40px !important
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 26px;
+            position: absolute;
+            top: 6px !important;
+            right: 1px;
+            width: 20px
+        }
+
     </style>
 </head>
 <body>
@@ -206,7 +274,8 @@
                                             <asp:TextBox runat="server" ID="txtRegisterConfirmPassword" ClientIDMode="Static" type="password" CssClass="form-control" placeholder="Confirmar Password" MaxLength="8" />
                                         </div>
                                         <div class="form-group">
-                                            <asp:TextBox runat="server" ID="txtRegisterPostalCode" ClientIDMode="Static" CssClass="form-control" placeholder="Código postal" MaxLength="8" />
+                                            <span style="border:none;color:#999;opacity:1;font-size:16px;">Selecciona tu colonia</span>
+                                            <asp:DropDownList runat="server" ID="ddlPostalCode" ClientIDMode="Static" CssClass="form-control select2 select2-hidden-accessible" placeholder="Colonia"></asp:DropDownList>
                                         </div>
                                         <div class="form-group">
                                             <asp:TextBox runat="server" ID="txtRegisterAddress" ClientIDMode="Static" CssClass="form-control" placeholder="Dirección" MaxLength="200" />
@@ -230,8 +299,33 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(function ()
-            {
+
+            jQuery.fn.ForceNumericOnly = function () {
+                return this.each(function () {
+                    $(this).keydown(function (e) {
+                        var key = e.charCode || e.keyCode || 0;
+                        // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+                        // home, end, period, and numpad decimal
+                        return (
+                            key == 8 ||
+                            key == 9 ||
+                            key == 13 ||
+                            key == 46 ||
+                            key == 110 ||
+                            key == 190 ||
+                            (key >= 35 && key <= 40) ||
+                            (key >= 48 && key <= 57) ||
+                            (key >= 96 && key <= 105));
+                    });
+                });
+            };
+
+            $(function () {
+
+                $('#txtRegisterPhone').ForceNumericOnly();
+
+                fillPostalCodeDropDownList();
+
                 $('#login-form-link').click(function (e) {
                     $("#login-form").delay(100).fadeIn(100);
                     $("#register-form").fadeOut(100);
@@ -248,13 +342,11 @@
                     e.preventDefault();
                 });
 
-                $('#btnRegister').click(function ()
-                {
+                $('#btnRegister').click(function () {
                     $('#spnRegisterError').hide();
 
                     let formIsValid = true;
-                    if ($('#txtRegisterPassword').val() !== $('#txtRegisterConfirmPassword').val())
-                    {
+                    if ($('#txtRegisterPassword').val() !== $('#txtRegisterConfirmPassword').val()) {
                         $('#spnRegisterError').text('Los campos de contraseña deben tener el mismo valor');
                         $('#spnRegisterError').show();
                         formIsValid = false;
@@ -265,22 +357,20 @@
                         $('#txtRegisterEmail').val().trim() === '' ||
                         $('#txtRegisterPassword').val().trim() === '' ||
                         $('#txtRegisterConfirmPassword').val().trim() === '' ||
-                        $('#txtRegisterPostalCode').val().trim() === '' ||
-                        $('#txtRegisterAddress').val().trim() === '')
-                    {
+                        $('#ddlPostalCode').val() === '0' ||
+                        $('#txtRegisterAddress').val().trim() === '') {
                         $('#spnRegisterError').text('Todos los campos son requeridos');
                         $('#spnRegisterError').show();
                         formIsValid = false;
                     }
 
-                    if (formIsValid)
-                    {
+                    if (formIsValid) {
                         let customer = {
                             CustomerName: $('#txtRegisterName').val().trim(),
                             CustomerPhoneNumber: $('#txtRegisterPhone').val().trim(),
                             CustomerEmail: $('#txtRegisterEmail').val().trim(),
                             CustomerPassword: $('#txtRegisterPassword').val().trim(),
-                            CustomerPostalCode: $('#txtRegisterPostalCode').val().trim(),
+                            CustomerPostalCode: $('#ddlPostalCode').val(),
                             CustomerAddress: $('#txtRegisterAddress').val().trim()
                         };
 
@@ -299,19 +389,17 @@
                                         $('#txtRegisterPhone').val('');
                                         $('#txtRegisterEmail').val('');
                                         $('#txtRegisterPassword').val('');
-                                        $('#txtRegisterPostalCode').val('');
+                                        $('#txtRegisterConfirmPassword').val();
+                                        $('#ddlPostalCode').val('0');
                                         $('#txtRegisterAddress').val('');
                                         alert("Tu registro esta completo, ya puedes iniciar sesión");
                                     }
-                                    else
-                                    {
-                                        if (data.ErrorMessage === 'WrongPostalCode')
-                                        {
+                                    else {
+                                        if (data.ErrorMessage === 'WrongPostalCode') {
                                             $('#spnRegisterError').text("Lo sentimos el código postal que ingresaste esta fuera de nuestra zona de cobertura");
                                             $('#spnRegisterError').show();
                                         }
-                                        else
-                                        {
+                                        else {
                                             $('#spnRegisterError').text("No fue posible realizar tu registro, por favor intenta más tarde");
                                             $('#spnRegisterError').show();
                                         }
@@ -324,10 +412,54 @@
                             }
                         });
                     }
-
-                    //return formIsValid;
                 });
+
+                function fillPostalCodeDropDownList()
+                {
+                    $.ajax({
+                        type: "POST",
+                        url: "Login.aspx/PostalCodeGetList",
+                        contentType: "application/json; charset=utf-8",
+                        async: false,
+                        dataType: "json",
+                        success: function (response) {
+                            let data = response.d;
+                            if (data != undefined) {
+                                if (data.Success) {
+                                    var html = "";
+                                    var postalCodeList = data.Result;
+                                    $.each(postalCodeList, function (i, item) {
+                                        html += "<option value='" + postalCodeList[i].PostalCode + "'>" + postalCodeList[i].Municipality.toUpperCase() + "</option>";
+                                    });
+                                    
+                                    $('#ddlPostalCode').empty();
+                                    $('#ddlPostalCode').append("<option value='0'>-Seleccione-</option>");
+                                    $('#ddlPostalCode').append(html);
+                                    $('#ddlPostalCode').select2(
+                                    {
+                                        width: '100%',
+                                        "language": {
+                                            "noResults": function () {
+                                                return "Disculpa, no tenemos servicio a esta colonia";
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    $('#spnRegisterError').text("Intenta de nuevo más tarde");
+                                    $('#spnRegisterError').show();
+                                }
+                            }
+                        },
+                        failure: function (xhr, textStatus, errorThrown) {
+                            $('#spnRegisterError').text("Ocurrió un error al realizar tu registro, por favor intenta más tarde");
+                            $('#spnRegisterError').show();
+                        }
+                    });
+                };
+              
             });
+
         </script>
     </form>
 </body>

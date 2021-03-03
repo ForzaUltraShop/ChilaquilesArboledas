@@ -56,6 +56,7 @@
     <Compile Include="DishComplementsDTO.cs" />
     <Compile Include="DishesDTO.cs" />
     <Compile Include="DishSectionsDTO.cs" />
+    <Compile Include="MailDTO.cs" />
     <Compile Include="NotifyDTO.cs" />
     <Compile Include="OrderDTO.cs" />
     <Compile Include="PostalCodesDTO.cs" />

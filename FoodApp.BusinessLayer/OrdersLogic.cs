@@ -1,4 +1,5 @@
-﻿using FoodApp.DataLayer;
+﻿using FoodApp.BusinessLayer.Helpers;
+using FoodApp.DataLayer;
 using FoodApp.DataModels;
 using FoodApp.DataModels.Shared;
 using FoodApp.Models;
@@ -91,6 +92,9 @@ namespace FoodApp.BusinessLayer
                                cartCheckOutItem.Item.DeliveryOption,
                                cartCheckOutItem.Item.Notify,
                                cartCheckOutItem.Item.CustomerAddress ?? string.Empty);
+
+                    sendCustomerEmail(cartCheckOutItem.Item.Order.OrderIdentifier);
+
                     //));           
                 }
             }
@@ -99,6 +103,34 @@ namespace FoodApp.BusinessLayer
 
             }
             return response;
+        }
+
+        private void sendCustomerEmail(long orderIdentifier)
+        {
+            try
+            {
+                var orderItem = this.OrderGetItem(orderIdentifier);
+                if (orderItem.Success)
+                {
+                    StringBuilder emailBody = new StringBuilder();
+                    emailBody.AppendFormat(Resources.EmailResources.CustomerEmailBody,
+                                           orderItem.Result.Customer.CustomerName,
+                                           orderItem.Result.OrderIdentifier,
+                                           Math.Round(orderItem.Result.ItemsTotalAmount, 2));
+
+                    //Envio de correo electronico
+                    new EmailHelper().SendEmail(new MailDTO
+                    {
+                        EmailBody = emailBody.ToString(),
+                        EmailSubject = "Recibo de Chilaquiles Arboledas",
+                        EmailTo = orderItem.Result.Customer.CustomerEmail
+                    });
+                }
+            }
+            catch (Exception exception)
+            {
+
+            }
         }
 
         private void sendNotify(long orderIdentifier, string additionalComments, DeliveryOption deliveryOption, NotifyDTO notify, string customerAddress)
