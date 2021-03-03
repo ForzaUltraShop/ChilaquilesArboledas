@@ -144,12 +144,7 @@
                     break;
             }
 
-            //if (!isAvailableTime)
-            //{
-            //    lblErrorLogin.Text = "No contamos con servicio en este horario";
-            //    lblErrorLogin.Visible = true;
-            //    return;
-            //}
+            
 
             var customerResponse = customerLogic.CustomerGetItem(new RequestDTO<CustomersDTO>
             {
@@ -169,7 +164,16 @@
                     
                     if (customerResponse.Result.CustomerRole == (int)CustomerRole.Customer)
                     {
-                        Response.Redirect("~/Forms/Menu.aspx");
+                        if (!isAvailableTime)
+                        {
+                            lblErrorLogin.Text = "No contamos con servicio en este horario";
+                            lblErrorLogin.Visible = true;
+                            return;
+                        }
+                        else
+                        {
+                            Response.Redirect("~/Forms/Menu.aspx");
+                        }
                     }
                     else
                     {
